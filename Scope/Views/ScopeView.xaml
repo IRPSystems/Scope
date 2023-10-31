@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="Scope.Views.ScopeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:local="clr-namespace:Scope.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+
+        <Style TargetType="ListViewItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+
+                        <local:ChartView DataContext="{Binding}" Margin="0,1"
+                                         Width="{Binding DataContext.MaxChartWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"                                         
+                                         Height="{Binding DataContext.MaxChartHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"/>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+    </UserControl.Resources>
+
+    <Grid x:Name="grd">
+
+        <ListView ItemsSource="{Binding ChartsList}"
+                  BorderThickness="0" 
+                  VerticalContentAlignment="Stretch" >
+
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Columns="{Binding ChartCols}" />
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+
+
+            <i:Interaction.Triggers>
+
+                <i:EventTrigger EventName="SizeChanged">
+                    <i:InvokeCommandAction Command="{Binding Path=DataContext.ChartsList_SizeChangedCommand, 
+                                                             Mode=OneWay, 
+                                                             RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" 
+                                           PassEventArgsToCommand="True"/>
+                </i:EventTrigger>
+
+            </i:Interaction.Triggers>
+
+        </ListView>
+
+        <!--<ScrollViewer >-->
+
+            <!--<ItemsControl ItemsSource="{Binding Path=ChartsList}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="{Binding ChartCols}" Rows="{Binding ChartRows}"
+                                     />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:ChartView DataContext="{Binding}" Margin="0,1"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>-->
+            
+        <!--</ScrollViewer>-->
+    </Grid>
+</UserControl>

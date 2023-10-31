@@ -1,0 +1,126 @@
+﻿<UserControl x:Class="MCUScope.Views.ChartSeriesSelectionView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:device_handler_view="clr-namespace:DeviceHandler.Views;assembly=DeviceHandler"
+             xmlns:local="clr-namespace:MCUScope.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Controls;component/Resources/ButtonWithIcon.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Source Parameters List" FontWeight="DemiBold" VerticalAlignment="Center"/>
+            <Line Grid.Row="1" X1="1" Stretch="Fill" Stroke="{DynamicResource MahApps.Brushes.Accent2}" />
+            
+            <device_handler_view:ParametersView Grid.Row="2" DataContext="{Binding FullParametersList}"/>
+
+        </Grid>
+
+        <Line Grid.Column="1" Y1="1" Stretch="Fill" Stroke="{DynamicResource MahApps.Brushes.Accent2}" />
+
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="30" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Chart Parameters List" FontWeight="DemiBold" VerticalAlignment="Center"/>
+
+
+
+            <Line Grid.Row="1" X1="1" Stretch="Fill" Stroke="{DynamicResource MahApps.Brushes.Accent2}" />
+
+
+            <Button Grid.Row="2"
+                    Style="{StaticResource ButtonWithIconStyle}"
+                    HorizontalAlignment="Left"
+                    Width="25"
+                    ToolTip="Delet parameter"
+                    Margin="0,1,5,1"
+                    Command="{Binding DeletParameterLogListCommand}"
+                    CommandParameter="{Binding Path=SelectedItems, ElementName=lsLog}">
+                <iconPacks:PackIconMaterial Kind="TrashCan" Width="15" Height="15"/>
+            </Button>
+            
+            <ListView Name="lsLog" Grid.Row="4" ItemsSource="{Binding ParametersList}"
+                      AllowDrop="True">
+
+                <ListView.Resources>
+                    <Style TargetType="ListViewItem" BasedOn="{StaticResource MahApps.Styles.ListViewItem}">
+                        <Setter Property="IsSelected" Value="{Binding Data.IsSelected, Mode=TwoWay}" />
+                    </Style>
+                </ListView.Resources>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Grid.Column="2" Text="{Binding Name}" />                        
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+                <i:Interaction.Triggers>
+
+                    <i:EventTrigger EventName="Drop">
+                        <i:InvokeCommandAction Command="{Binding Path=DataContext.LoggindList_DropCommand, 
+                                                             Mode=OneWay, 
+                                                             RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" 
+                                           PassEventArgsToCommand="True"/>
+                    </i:EventTrigger>
+
+                    <i:EventTrigger EventName="DragEnter">
+                        <i:InvokeCommandAction Command="{Binding Path=DataContext.LoggindList_DragEnterCommand, 
+                                                             Mode=OneWay, 
+                                                             RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" 
+                                           PassEventArgsToCommand="True"/>
+                    </i:EventTrigger>
+
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding Path=DataContext.LoggindList_SelectionChangedCommand, 
+                                                             Mode=OneWay, 
+                                                             RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" 
+                                           PassEventArgsToCommand="True"/>
+                    </i:EventTrigger>
+
+
+                    <i:EventTrigger EventName="KeyDown">
+                        <i:InvokeCommandAction Command="{Binding Path=DataContext.LoggindList_KeyDownCommand, 
+                                                             Mode=OneWay, 
+                                                             RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" 
+                                           PassEventArgsToCommand="True"/>
+                    </i:EventTrigger>
+
+
+                </i:Interaction.Triggers>
+
+            </ListView>
+
+        </Grid>
+
+    </Grid>
+</UserControl>

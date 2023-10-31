@@ -1,0 +1,133 @@
+﻿<UserControl x:Class="Scope.Views.ChartView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converters="clr-namespace:Scope.Converters"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:local="clr-namespace:Scope.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             BorderBrush="Black" BorderThickness="1">
+    
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Controls;component/Resources/ButtonWithIcon.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Controls;component/Resources/ToggleButtonWithIcon.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            
+
+            <converters:MarkerXToTimeStringConverter x:Key="MarkerXToTimeStringConverter" />
+            <converters:MarkerXDiffConverter x:Key="MarkerXDiffConverter" />
+            <converters:MarkerYDiffConverter x:Key="MarkerYDiffConverter" />
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Margin="2">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="1"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+
+                <Button Style="{StaticResource ButtonWithIconStyle}"
+                    Width="25"
+                    Height="25"
+                    Margin="0,0,5,0"
+                    ToolTip="Show / Hide point rider"
+                    Command="{Binding ShowHideRiderCommand}"
+                    VerticalAlignment="Center">
+                    <iconPacks:PackIconMaterial Kind="RadioboxMarked" />
+                </Button>
+
+                <Button Style="{StaticResource ButtonWithIconStyle}"
+                    Width="25"
+                    Height="25"
+                    Margin="0,0,5,0"
+                    ToolTip="Show / Hide markers"
+                    Command="{Binding ShowHideMarkersCommand}"
+                    VerticalAlignment="Center">
+                    <iconPacks:PackIconMaterial Kind="Marker" />
+                </Button>
+
+                <ToggleButton Style="{StaticResource ToggleButtonWithIconStyle}"
+                    Width="25"
+                    Height="25"
+                    Margin="0,0,50,0"
+                    ToolTip="Select zoom"
+                    Command="{Binding SelectZoomCommand}"
+                    VerticalAlignment="Center">
+                    <iconPacks:PackIconMaterial Kind="Magnify" />
+                </ToggleButton>
+
+
+                <Button Style="{StaticResource ButtonWithIconStyle}"
+                    Width="25"
+                    Height="25"
+                    Margin="0,0,50,0"
+                    ToolTip="Get image"
+                    Command="{Binding GetImageCommand}"
+                    VerticalAlignment="Center">
+                    <iconPacks:PackIconOcticons Kind="DeviceCamera" />
+                </Button>
+
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,100,0" 
+                        Visibility="{Binding VerticalMarker1.Visibility}">
+                    <TextBlock Text="Markers Diff" FontWeight="SemiBold" Margin="0,0,10,0" VerticalAlignment="Center"/>
+
+                    <TextBlock Text="X" FontWeight="SemiBold" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                    <TextBlock FontWeight="Normal" 
+                               Margin="0,0,10,0" 
+                               VerticalAlignment="Center">
+
+                        <TextBlock.Text>
+                            <MultiBinding Converter="{StaticResource MarkerXDiffConverter}">
+                                <Binding Path="VerticalMarker1.X1" />
+                                <Binding Path="VerticalMarker2.X1"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+
+                    <TextBlock Text="Y" FontWeight="SemiBold" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                    <TextBlock FontWeight="Normal" 
+                               Margin="0,0,0,0" 
+                               VerticalAlignment="Center">
+
+                        <TextBlock.Text>
+                            <MultiBinding Converter="{StaticResource MarkerYDiffConverter}">
+                                <Binding Path="HorizontalMarker1.Y1" />
+                                <Binding Path="HorizontalMarker2.Y1"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </StackPanel>
+
+            </StackPanel>
+
+            <TextBlock Grid.Column="2" Text="{Binding Name}" FontSize="16" Margin="0,0,50,0"/>
+
+        </Grid>
+
+        
+
+        <ContentControl Content="{Binding Chart}"
+                        Grid.Row="2"/>
+
+
+    </Grid>
+</UserControl>

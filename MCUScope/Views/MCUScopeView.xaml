@@ -1,0 +1,84 @@
+﻿<UserControl x:Class="MCUScope.Views.MCUScopeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:local="clr-namespace:MCUScope.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Controls;component/Resources/ButtonWithIcon.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" >
+
+            <Button Style="{StaticResource ButtonWithIconStyle}"
+                    Margin="0,0,5,0"
+                    ToolTip="Save setup"
+                    Command="{Binding SaveSetupCommand}"
+                    Width="35">
+                <iconPacks:Material Kind="ContentSave" Height="25" Width="25"/>
+            </Button>
+
+            <Button Style="{StaticResource ButtonWithIconStyle}"
+                    Margin="0,0,100,0"
+                    ToolTip="Load setup"
+                    Command="{Binding LoadSetuptCommand}"
+                    Width="35">
+                <iconPacks:PackIconMaterial Kind="FolderOpen" Height="25" Width="25"/>
+            </Button>
+
+
+
+            <Button Content="Execute" 
+                    Command="{Binding ExecuteCommand}"
+                    ToolTip="Send a request for recording to the MCU"
+                    Width="100"
+                    Margin="0,0,5,0"/>
+
+            <Button Content="Force Trig." 
+                    Command="{Binding ForceTrigCommand}"
+                    ToolTip="Ask the MCU to start recording even if a trigger did not occure"
+                    Width="100"
+                    Margin="0,0,10,0"/>
+
+
+
+            <Ellipse Stroke="{DynamicResource MahApps.Brushes.Gray1}" 
+                     StrokeThickness="2"
+                     Fill="{Binding RecodStateColor}" 
+                     Height="27" Width="27"
+                     HorizontalAlignment="Left"
+                     ToolTip="{Binding RecodStateDescription}"
+                     Margin="0,0,10,0"/>
+
+
+            <Grid >
+                <ProgressBar Width="200" Margin="0,1" Minimum="0" Maximum="100" Value="{Binding DataPercentage}"/>
+
+                <TextBlock Text="{Binding DataPercentage, StringFormat={}{0:#.##}%}" 
+                           VerticalAlignment="Center" HorizontalAlignment="Center"
+                           Foreground="{DynamicResource MahApps.Brushes.Gray10}"/>
+                
+            </Grid>
+
+        </StackPanel>
+
+        <ContentControl Grid.Row="2" Content="{Binding}" />
+    </Grid>
+</UserControl>

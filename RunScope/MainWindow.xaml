@@ -1,0 +1,107 @@
+﻿<Window x:Class="RunScope.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  
+        xmlns:MCUScope_views="clr-namespace:MCUScope.Views;assembly=MCUScope"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:device_handler_views="clr-namespace:DeviceHandler.Views;assembly=DeviceHandler"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:local="clr-namespace:RunScope"
+        mc:Ignorable="d"
+        WindowState="Maximized"
+        Title="MainWindow" Height="800" Width="1400">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Controls;component/Resources/ButtonWithIcon.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <i:Interaction.Triggers>
+
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding Path=DataContext.ClosingCommand, 
+                                                             Mode=OneWay, 
+                                                             RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}" 
+                                   PassEventArgsToCommand="True"/>
+        </i:EventTrigger>
+
+    </i:Interaction.Triggers>
+
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+
+            <device_handler_views:CanConnectView Grid.Row="0" 
+                                                 DataContext="{Binding CanConnect}"
+                                                 HorizontalAlignment="Left"
+                                                 Margin="0,0,100,0"/>
+
+            <Button Style="{StaticResource ButtonWithIconStyle}"
+                        Width="35"
+                        Height="35"
+                        Margin="0,0,50,0"
+                        ToolTip="Device simulator"
+                        Command="{Binding MCUSimulatorCommand}"
+                        VerticalAlignment="Top"
+                    Visibility="{Binding IsShowSimulatorButton, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <iconPacks:PackIconMaterial Kind="LanConnect" />
+            </Button>
+
+            <Border Name="bd"
+                    BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" 
+                    BorderThickness="1"
+                    Background="{Binding CommunicationStateColor}"
+                    Width="75" Height="35"
+                    VerticalAlignment="Top">
+
+                <TextBlock Name="tb"
+                           Text="MCU" 
+                           Foreground="{Binding CommunicationStateTextColor}"
+                           HorizontalAlignment="Center" VerticalAlignment="Center" 
+                           FontWeight="DemiBold"/>
+
+            </Border>
+
+        </StackPanel>
+
+        <Line Grid.Row="1" X1="1" Stretch="Fill" Stroke="{DynamicResource MahApps.Brushes.Accent2}" />
+
+        <MCUScope_views:MCUScopeView Grid.Row="2" 
+                                     DataContext="{Binding MCUScope}"
+                                     IsEnabled="{Binding DataContext.IsScopeEnabled, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"/>
+
+
+        <Border Grid.Row="3" Background="{DynamicResource MahApps.Brushes.Accent}">
+            <StackPanel Orientation="Horizontal">
+
+                <TextBlock Text="Version: " 
+                           FontSize="16"
+                           FontWeight="DemiBold" 
+                           Foreground="White" 
+                           VerticalAlignment="Center"
+                           Margin="5,0,5,0"/>
+
+                <TextBlock Text="{Binding Version}" 
+                           FontSize="16"
+                           FontWeight="DemiBold" 
+                           Foreground="White" 
+                           VerticalAlignment="Center"
+                           Margin="5,0,0,0"/>
+
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>
