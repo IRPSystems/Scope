@@ -28,8 +28,4 @@
     <Folder Include="Services\" />
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy &quot;$(SolutionDir)Evva\Data\Device Communications\param_defaults.json&quot; &quot;$(OutDir)param_defaults.json&quot;" />
-  </Target>
-
 </Project>
