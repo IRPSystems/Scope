@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Controls\Controls.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Controls\Controls.csproj" />
   </ItemGroup>
 
 </Project>

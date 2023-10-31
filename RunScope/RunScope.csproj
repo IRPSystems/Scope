@@ -19,10 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Controls\Controls.csproj" />
-    <ProjectReference Include="..\DeviceSimulators\DeviceSimulators.csproj" />
+    <ProjectReference Include="..\..\DevicesInfrastructures\DeviceHandler\DeviceHandler.csproj" />
+    <ProjectReference Include="..\..\DevicesInfrastructures\DeviceSimulators\DeviceSimulators.csproj" />
     <ProjectReference Include="..\MCUScope\MCUScope.csproj" />
-    <ProjectReference Include="..\DeviceHandler\DeviceHandler.csproj" />
   </ItemGroup>
 
   <ItemGroup>
