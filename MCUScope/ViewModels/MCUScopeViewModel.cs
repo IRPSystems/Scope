@@ -22,6 +22,7 @@ using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using TrueDriveCommunication;
 
 namespace MCUScope.ViewModels
 {
@@ -41,6 +42,20 @@ namespace MCUScope.ViewModels
 			{
 				_canService = value;
 				_canService.CanMessageReceivedEvent += MessageReceivedEventHandler;
+
+				_communicationService.CanService = _canService;
+			}
+		}
+
+		private CanbusControl _canbusControl;
+		public CanbusControl CanbusControl
+		{
+			get => _canbusControl;
+			set
+			{
+				_canbusControl = value;
+
+				_communicationService.CanbusControl = _canbusControl;
 			}
 		}
 
@@ -113,6 +128,9 @@ namespace MCUScope.ViewModels
 		private CancellationTokenSource _cancellationTokenSource;
 		private CancellationToken _cancellationToken;
 
+
+		private CommunicationService _communicationService;
+
 		#endregion Fields
 
 		#region Constroctur
@@ -172,6 +190,8 @@ namespace MCUScope.ViewModels
 
 			_timerRecordTime = new System.Timers.Timer();
 			_timerRecordTime.Elapsed += RecordTimeElapsedEventHandler;
+
+			_communicationService = new CommunicationService();
 
 		}
 
@@ -314,7 +334,7 @@ namespace MCUScope.ViewModels
 		private void ForceTrig()
 		{
 			byte[] data = _buildRequestMessages.BuildForceTriggerMessage();
-			CanService.Send(data);
+			_communicationService.Send(data);
 		}
 
 		private List<List<List<double>>> _dataList;
@@ -332,7 +352,7 @@ namespace MCUScope.ViewModels
 				TriggerSelection.TriggerData.RecordGap,
 				TriggerSelection.IsContinuous,
 				TriggerSelection.TriggerData.TriggerPosition);
-			CanService.Send(data);
+			_communicationService.Send(data);
 			System.Threading.Thread.Sleep(100);
 
 			List<DeviceParameterData> paramsList = ChartsSelection.GetParamsList();
@@ -342,7 +362,7 @@ namespace MCUScope.ViewModels
 				if (data == null)
 					return;
 
-				CanService.Send(data);
+				_communicationService.Send(data);
 				System.Threading.Thread.Sleep(100);
 			}
 
@@ -351,14 +371,14 @@ namespace MCUScope.ViewModels
 				TriggerSelection.TriggerData.TriggerType);
 			if (data == null)
 				return;
-			CanService.Send(data);
+			_communicationService.Send(data);
 			System.Threading.Thread.Sleep(100);
 
 			data = _buildRequestMessages.BuildMessage4(
 				TriggerSelection.TriggerData.TriggerValue);
 			if (data == null)
 				return;
-			CanService.Send(data);
+			_communicationService.Send(data);
 			System.Threading.Thread.Sleep(100);
 
 			_dataList = new List<List<List<double>>>();

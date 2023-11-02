@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "..\Infrastructu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DeviceSimulators", "..\DevicesInfrastructures\DeviceSimulators\DeviceSimulators.csproj", "{9F7AAAC8-1125-4791-B16C-06D6E495387D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrueDriveCommunication", "..\TrueDriveManager_Core6\TrueDriveCommunication\TrueDriveCommunication.csproj", "{A0686A07-02AE-43F6-AE62-FE111677DF63}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{9F7AAAC8-1125-4791-B16C-06D6E495387D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9F7AAAC8-1125-4791-B16C-06D6E495387D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9F7AAAC8-1125-4791-B16C-06D6E495387D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0686A07-02AE-43F6-AE62-FE111677DF63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0686A07-02AE-43F6-AE62-FE111677DF63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0686A07-02AE-43F6-AE62-FE111677DF63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0686A07-02AE-43F6-AE62-FE111677DF63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
