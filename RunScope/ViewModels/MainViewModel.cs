@@ -2,12 +2,15 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DeviceHandler.Enums;
+using DeviceHandler.Models;
 using DeviceHandler.ViewModels;
 using DeviceSimulators.ViewModels;
+using DeviceSimulators.Views;
 using MCUScope.ViewModels;
 using RunScope.Services;
-using RunScope.Views;
 using Services.Services;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Reflection;
 using System.Windows.Media;
@@ -32,7 +35,6 @@ namespace RunScope.ViewModels
 		public Brush CommunicationStateTextColor { get; set; }
 
 
-		private MCUSimulatorView _mcuSimulator;
 
 		private CheckCommunicationService _checkCommunication;
 
@@ -56,10 +58,6 @@ namespace RunScope.ViewModels
 
 			MCUScope = new MCUScopeViewModel();
 
-			_mcuSimulator = new MCUSimulatorView()
-			{
-				DataContext = new MCUSimulatorMainWindowViewModel(MCUScope.MCUDevice),
-			};
 
 			IsScopeEnabled = false;
 
@@ -79,11 +77,6 @@ namespace RunScope.ViewModels
 		{
 			if(MCUScope.CanService != null) 
 				MCUScope.Dispose();
-
-			if(_mcuSimulator.DataContext is MCUSimulatorMainWindowViewModel simulator)
-				simulator.Dispose();
-
-			_mcuSimulator.Close();
 
 			_checkCommunication.Dispose();
 
@@ -140,7 +133,20 @@ namespace RunScope.ViewModels
 
 		private void MCUSimulator()
 		{
-			_mcuSimulator.Show();
+			DevicesContainer devicesContainter = new DevicesContainer();
+			DeviceFullData deviceFullData = new DeviceFullData(MCUScope.MCUDevice);
+
+			devicesContainter.DevicesFullDataList = new ObservableCollection<DeviceFullData>();
+			devicesContainter.DevicesList = new ObservableCollection<Entities.Models.DeviceData>();
+			devicesContainter.TypeToDevicesFullData = new Dictionary<Entities.Enums.DeviceTypesEnum, DeviceFullData>();
+
+			devicesContainter.DevicesFullDataList.Add(deviceFullData);
+			devicesContainter.DevicesList.Add(deviceFullData.Device);
+			devicesContainter.TypeToDevicesFullData.Add(deviceFullData.Device.DeviceType, deviceFullData);
+
+			DeviceSimulatorsViewModel dsvm = new DeviceSimulatorsViewModel(devicesContainter);
+			DeviceSimulatorsView dsv = new DeviceSimulatorsView() { DataContext = dsvm };
+			dsv.Show();
 		}
 
 #endregion Methods
