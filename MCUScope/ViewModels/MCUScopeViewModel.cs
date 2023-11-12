@@ -41,9 +41,10 @@ namespace MCUScope.ViewModels
 			set
 			{
 				_canService = value;
-				_canService.CanMessageReceivedEvent += MessageReceivedEventHandler;
+				//_canService.CanMessageReceivedEvent += MessageReceivedEventHandler;
 
 				_communicationService.CanService = _canService;
+			//	_communicationService.
 			}
 		}
 
@@ -56,6 +57,7 @@ namespace MCUScope.ViewModels
 				_canbusControl = value;
 
 				_communicationService.CanbusControl = _canbusControl;
+				_communicationService.CanbusControl.SetAsyncEvent(MessageReceivedEventHandler);
 			}
 		}
 
@@ -433,11 +435,9 @@ namespace MCUScope.ViewModels
 
 
 
-		private void MessageReceivedEventHandler(uint canID, byte[] buffer)
+		private void MessageReceivedEventHandler(byte[] buffer)
 		{
-			if (canID != 0xAA)
-				return;
-
+			
 			if (!_isTriggerReceived)
 			{
 				//_chartPointsCounter += 2;

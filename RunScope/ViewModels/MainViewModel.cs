@@ -88,7 +88,7 @@ namespace RunScope.ViewModels
 		{
 			if (CanConnect.SelectedAdapter == "PCAN")
 			{
-				MCUScope.CanService = new CanPCanService(CanConnect.SelectedBaudrate, CanConnect.NodeID, CanPCanService.GetHWId(CanConnect.SelectedHwId));
+				MCUScope.CanService = new CanPCanService(CanConnect.SelectedBaudrate, CanConnect.NodeID, CanPCanService.GetHWId(CanConnect.SelectedHwId), 0xAA, 0xAB);
 			}
 			else if (CanConnect.SelectedAdapter == "UDP Simulator")
 			{
