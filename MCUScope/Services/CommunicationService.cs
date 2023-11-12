@@ -18,7 +18,8 @@ namespace MCUScope.Services
 			}
 			else if (CanbusControl != null)
 			{
-				CanbusControl.ICanDriver.SendMessage(data, 0xAB, data.Length);
+				// TODO: Smadar
+				CanbusControl.SendMessage(data, 0xAB);
 			}
 		}
 	}
