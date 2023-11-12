@@ -56,7 +56,6 @@ namespace MCUScope.ViewModels
 			{
 				_canbusControl = value;
 
-				_communicationService.CanbusControl = _canbusControl;
 				_communicationService.CanbusControl.SetAsyncEvent(MessageReceivedEventHandler);
 			}
 		}

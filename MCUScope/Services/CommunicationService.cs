@@ -7,7 +7,13 @@ namespace MCUScope.Services
 	public class CommunicationService
 	{
 		public CanService CanService { get; set; }
-		public CanbusControl CanbusControl { get; set; }
+		public CanbusControl CanbusControl 
+		{ 
+			get
+			{
+				return ComPort.CurrentControl as CanbusControl;
+			}
+		}
 
 
 		public void Send(byte[] data) 
@@ -16,9 +22,8 @@ namespace MCUScope.Services
 			{ 
 				CanService.Send(data);
 			}
-			else if (CanbusControl != null)
+			else if (ComPort.CurrentControl != null)
 			{
-				// TODO: Smadar
 				CanbusControl.SendMessage(data, 0xAB);
 			}
 		}
