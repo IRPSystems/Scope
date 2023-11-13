@@ -446,11 +446,19 @@ namespace MCUScope.ViewModels
 			LoggerService.Inforamtion(this, "Setting chart, value no.: " + _chartPointsCounter);
 
 			_chartPointsCounter++;
-			int val = BitConverter.ToInt32(buffer, 0);
+			int val = BitConverter.ToInt16(buffer, 0);
 			SetSingleValue(val);
 
 			_chartPointsCounter++;
-			val = BitConverter.ToInt32(buffer, 4);
+			val = BitConverter.ToInt16(buffer, 2);
+			SetSingleValue(val);
+
+			_chartPointsCounter++;
+			val = BitConverter.ToInt16(buffer, 4);
+			SetSingleValue(val);
+
+			_chartPointsCounter++;
+			val = BitConverter.ToInt16(buffer, 6);
 			SetSingleValue(val);
 
 			if (_chartPointsCounter == TriggerSelectionData.NumOfSampels)
