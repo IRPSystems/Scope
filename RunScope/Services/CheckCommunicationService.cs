@@ -1,7 +1,10 @@
 ﻿
 using Communication.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
+using DeviceCommunicators.Enums;
+using DeviceCommunicators.MCU;
 using DeviceHandler.Enums;
+using Entities.Models;
 using Services.Services;
 using System;
 using System.Security.Cryptography;
@@ -20,7 +23,7 @@ namespace RunScope.Services
 
 		public string Name;
 
-		private CanService _canService;
+		private MCU_Communicator _mcu_Communicator;
 		private byte[] _buffer;
 
 		#endregion Fields
@@ -46,9 +49,9 @@ namespace RunScope.Services
 		#region Methods
 
 		public void Init(
-			CanService canService)
+			MCU_Communicator mcu_Communicator)
 		{
-			_canService = canService;
+			_mcu_Communicator = mcu_Communicator;
 
 			_buffer = new byte[8];
 			using (var md5 = MD5.Create())
@@ -58,11 +61,6 @@ namespace RunScope.Services
 						
 
 			NotifyStatus(CommunicationStateEnum.None, null);
-
-
-
-
-			_canService.CanMessageReceivedEvent += CanMessageReceivedEventHandler;
 
 			_timerSendMessage.Start();
 
@@ -84,21 +82,23 @@ namespace RunScope.Services
 				NotifyStatus(CommunicationStateEnum.Disconnected, null);
 				_noResponseCounter = 0;
 			}
-			
-			_canService.Send(_buffer, 0xAB, false);
+
+			_mcu_Communicator.GetParamValue(
+				new MCU_ParamData() { Cmd = "" },
+				Callback);
 			
 			_noResponseCounter++;
+		}
+
+		private void Callback(DeviceParameterData param, CommunicatorResultEnum result, string errorDescription)
+		{
+			_noResponseCounter = 0;
+			NotifyStatus(CommunicationStateEnum.Connected, null);
 		}
 
 		private void NotifyStatus(CommunicationStateEnum status, string errDescription)
 		{
 			CommunicationStateReprotEvent?.Invoke(status, errDescription);
-		}
-
-		private void CanMessageReceivedEventHandler(uint id, byte[] buffer)
-		{
-			_noResponseCounter = 0;
-			NotifyStatus(CommunicationStateEnum.Connected, null);
 		}
 
 		#endregion Methods

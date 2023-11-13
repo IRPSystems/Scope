@@ -1,11 +1,14 @@
 ﻿using Communication.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DeviceCommunicators.MCU;
+using DeviceCommunicators.Services;
 using DeviceHandler.Enums;
 using DeviceHandler.Models;
 using DeviceHandler.ViewModels;
 using DeviceSimulators.ViewModels;
 using DeviceSimulators.Views;
+using Entities.Models;
 using MCUScope.ViewModels;
 using RunScope.Services;
 using Services.Services;
@@ -35,7 +38,7 @@ namespace RunScope.ViewModels
 		public Brush CommunicationStateTextColor { get; set; }
 
 
-
+		private MCU_Communicator _mcu_Communicator;
 		private CheckCommunicationService _checkCommunication;
 
 		#endregion Properties and Fields
@@ -56,12 +59,15 @@ namespace RunScope.ViewModels
 			CanConnect.ConnectEvent += Connect;
 			CanConnect.DisconnectEvent += Disconnect;
 
-			MCUScope = new MCUScopeViewModel();
+			_mcu_Communicator = new MCU_Communicator();
+
+			MCUScope = new MCUScopeViewModel(_mcu_Communicator);
 
 
 			IsScopeEnabled = false;
 
 			_checkCommunication = new CheckCommunicationService("MCU");
+			_checkCommunication.CommunicationStateReprotEvent += CommunicationStateReprotEventHandler;
 
 			IsShowSimulatorButton = false;
 #if DEBUG
@@ -75,48 +81,51 @@ namespace RunScope.ViewModels
 
 		private void Closing(CancelEventArgs e)
 		{
-			if(MCUScope.CanService != null) 
-				MCUScope.Dispose();
+			_mcu_Communicator.Dispose();
 
 			_checkCommunication.Dispose();
 
 			MCUScope.Close();
+			MCUScope.Dispose();
+
 		}
 
 
 		private void Connect()
 		{
-			if (CanConnect.SelectedAdapter == "PCAN")
-			{
-				MCUScope.CanService = new CanPCanService(CanConnect.SelectedBaudrate, CanConnect.NodeID, CanPCanService.GetHWId(CanConnect.SelectedHwId), 0xAA, 0xAB);
-			}
-			else if (CanConnect.SelectedAdapter == "UDP Simulator")
-			{
-				MCUScope.CanService = new CanUdpSimulationService(CanConnect.SelectedBaudrate, CanConnect.NodeID, CanConnect.RxPort, CanConnect.TxPort, CanConnect.Address);
-			}
+			_mcu_Communicator.Init(
+				CanConnect.SelectedAdapter,
+				CanConnect.SelectedBaudrate,
+				CanConnect.NodeID,
+				CanPCanService.GetHWId(CanConnect.SelectedHwId),
+				0xAB,
+				0xAA,
+				CanConnect.RxPort,
+				CanConnect.TxPort,
+				CanConnect.Address);
 
-			MCUScope.CanService.Init(true);
+			ObservableCollection<DeviceBase> deviceList = new ObservableCollection<DeviceBase>();
+			ReadDevicesFileService readDevicesFileService = new ReadDevicesFileService();
+			readDevicesFileService.ReadFromMCUJson(
+				"param_defaults.json",
+				deviceList,
+				"MCU",
+				Entities.Enums.DeviceTypesEnum.MCU);
+			_mcu_Communicator.InitMessageDict(deviceList[0] as DeviceData);
 
-			_checkCommunication.Init(MCUScope.CanService);
-			_checkCommunication.CommunicationStateReprotEvent += CommunicationStateReprotEventHandler;
-
-			CanConnect.IsConnectButtonEnabled = !MCUScope.CanService.IsInitialized;
-			CanConnect.IsDisconnectButtonEnabled = MCUScope.CanService.IsInitialized;
+			CanConnect.IsConnectButtonEnabled = !_mcu_Communicator.IsInitialized;
+			CanConnect.IsDisconnectButtonEnabled = _mcu_Communicator.IsInitialized;
 
 			IsScopeEnabled = CanConnect.IsDisconnectButtonEnabled;
 		}
 
 		private void Disconnect()
 		{
-			if (MCUScope.CanService != null)
-			{
-				MCUScope.CanService.Dispose();
-			}
+			_mcu_Communicator.Dispose();
 
 
-
-			CanConnect.IsConnectButtonEnabled = !MCUScope.CanService.IsInitialized;
-			CanConnect.IsDisconnectButtonEnabled = MCUScope.CanService.IsInitialized;
+			CanConnect.IsConnectButtonEnabled = !_mcu_Communicator.IsInitialized;
+			CanConnect.IsDisconnectButtonEnabled = _mcu_Communicator.IsInitialized;
 
 			IsScopeEnabled = CanConnect.IsDisconnectButtonEnabled;
 		}

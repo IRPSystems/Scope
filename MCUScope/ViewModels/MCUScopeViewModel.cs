@@ -1,5 +1,4 @@
-﻿using Communication.Services;
-using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.Input;
 using Controls.ViewModels;
 using DeviceCommunicators.MCU;
 using Entities.Enums;
@@ -22,7 +21,6 @@ using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using TrueDriveCommunication;
 
 namespace MCUScope.ViewModels
 {
@@ -34,31 +32,31 @@ namespace MCUScope.ViewModels
 		public ChartsSelectionViewModel ChartsSelection { get; set; }
 		public ScopeViewModel Scope { get; set; }
 
-		private CanService _canService;
-		public CanService CanService
-		{
-			get => _canService;
-			set
-			{
-				_canService = value;
-				//_canService.CanMessageReceivedEvent += MessageReceivedEventHandler;
+		//private CanService _canService;
+		//public CanService CanService
+		//{
+		//	get => _canService;
+		//	set
+		//	{
+		//		_canService = value;
+		//		//_canService.CanMessageReceivedEvent += MessageReceivedEventHandler;
 
-				_communicationService.CanService = _canService;
-			//	_communicationService.
-			}
-		}
+		//		_communicationService.CanService = _canService;
+		//	//	_communicationService.
+		//	}
+		//}
 
-		private CanbusControl _canbusControl;
-		public CanbusControl CanbusControl
-		{
-			get => _canbusControl;
-			set
-			{
-				_canbusControl = value;
+		//private CanbusControl _canbusControl;
+		//public CanbusControl CanbusControl
+		//{
+		//	get => _canbusControl;
+		//	set
+		//	{
+		//		_canbusControl = value;
 
-				_communicationService.CanbusControl.SetAsyncEvent(MessageReceivedEventHandler);
-			}
-		}
+		//		_communicationService.CanbusControl.SetAsyncEvent(AsyncMessageReceivedEventHandler);
+		//	}
+		//}
 
 
 		#region RecodStateColor
@@ -130,18 +128,21 @@ namespace MCUScope.ViewModels
 		private CancellationToken _cancellationToken;
 
 
-		private CommunicationService _communicationService;
+		private MCU_Communicator _mcu_Communicator;
 
 		#endregion Fields
 
 		#region Constroctur
 
-		public MCUScopeViewModel() :
+		public MCUScopeViewModel(MCU_Communicator mcu_Communicator) :
 			base("MCUScopeLayout", "MCUScope")
 		{
 
 			Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(
 				"MjQ2MzU2NkAzMjMwMmUzMzJlMzBOaGhMVVJBelp0Y1c1eXdoNHRTcHI4bGVOdmdxQWNXZkZxeklweENobmdjPQ==");
+
+			_mcu_Communicator = mcu_Communicator;
+			_mcu_Communicator.AsyncIdMessageReceived += AsyncMessageReceivedEventHandler;
 
 			_chartIndex = 0;
 			_seriesIndex = 0;
@@ -192,8 +193,7 @@ namespace MCUScope.ViewModels
 			_timerRecordTime = new System.Timers.Timer();
 			_timerRecordTime.Elapsed += RecordTimeElapsedEventHandler;
 
-			_communicationService = new CommunicationService();
-
+			
 		}
 
 		#endregion Constroctur
@@ -206,7 +206,6 @@ namespace MCUScope.ViewModels
 
 			_timerRecordTime.Stop();
 			_cancellationTokenSource.Cancel();
-			CanService.Dispose(); 
 		}
 
 		private DeviceData ReadFromMCUJson(string path)
@@ -335,7 +334,7 @@ namespace MCUScope.ViewModels
 		private void ForceTrig()
 		{
 			byte[] data = _buildRequestMessages.BuildForceTriggerMessage();
-			_communicationService.Send(data);
+			_mcu_Communicator.SendMessage(false, 0xAB, data, null);
 		}
 
 		private List<List<List<double>>> _dataList;
@@ -353,7 +352,7 @@ namespace MCUScope.ViewModels
 				TriggerSelection.TriggerData.RecordGap,
 				TriggerSelection.IsContinuous,
 				TriggerSelection.TriggerData.TriggerPosition);
-			_communicationService.Send(data);
+			_mcu_Communicator.SendMessage(false, 0xAB, data, null);
 			System.Threading.Thread.Sleep(100);
 
 			List<DeviceParameterData> paramsList = ChartsSelection.GetParamsList();
@@ -363,7 +362,7 @@ namespace MCUScope.ViewModels
 				if (data == null)
 					return;
 
-				_communicationService.Send(data);
+				_mcu_Communicator.SendMessage(false, 0xAB, data, null);
 				System.Threading.Thread.Sleep(100);
 			}
 
@@ -372,14 +371,14 @@ namespace MCUScope.ViewModels
 				TriggerSelection.TriggerData.TriggerType);
 			if (data == null)
 				return;
-			_communicationService.Send(data);
+			_mcu_Communicator.SendMessage(false, 0xAB, data, null);
 			System.Threading.Thread.Sleep(100);
 
 			data = _buildRequestMessages.BuildMessage4(
 				TriggerSelection.TriggerData.TriggerValue);
 			if (data == null)
 				return;
-			_communicationService.Send(data);
+			_mcu_Communicator.SendMessage(false, 0xAB, data, null);
 			System.Threading.Thread.Sleep(100);
 
 			_dataList = new List<List<List<double>>>();
@@ -434,7 +433,7 @@ namespace MCUScope.ViewModels
 
 
 
-		private void MessageReceivedEventHandler(byte[] buffer)
+		private void AsyncMessageReceivedEventHandler(byte[] buffer)
 		{
 			
 			if (!_isTriggerReceived)
