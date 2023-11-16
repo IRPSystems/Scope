@@ -97,7 +97,7 @@ namespace RunScope.ViewModels
 				CanConnect.SelectedAdapter,
 				CanConnect.SelectedBaudrate,
 				CanConnect.NodeID,
-				CanPCanService.GetHWId(CanConnect.SelectedHwId),
+				CanConnect.SelectedHwId,
 				0xAB,
 				0xAA,
 				CanConnect.RxPort,
