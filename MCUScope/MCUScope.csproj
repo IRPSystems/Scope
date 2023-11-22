@@ -21,7 +21,7 @@
     <ProjectReference Include="..\..\Infrastructure\Controls\Controls.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Entities\Entities.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Services\Services.csproj" />
-    <ProjectReference Include="..\..\TrueDriveManager\TrueDriveCommunication\TrueDriveCommunication.csproj" />
+    <ProjectReference Include="..\..\TrueDriveCommunication\TrueDriveCommunication.csproj" />
     <ProjectReference Include="..\Scope\Scope.csproj" />
   </ItemGroup>
 
