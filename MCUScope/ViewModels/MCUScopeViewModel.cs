@@ -128,7 +128,8 @@ namespace MCUScope.ViewModels
 		private CancellationToken _cancellationToken;
 
 
-		private MCU_Communicator _mcu_Communicator;
+		//private MCU_Communicator _mcu_Communicator;
+		private CommunicationService _communicationService;
 
 		#endregion Fields
 
@@ -141,8 +142,10 @@ namespace MCUScope.ViewModels
 			Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(
 				"MjQ2MzU2NkAzMjMwMmUzMzJlMzBOaGhMVVJBelp0Y1c1eXdoNHRTcHI4bGVOdmdxQWNXZkZxeklweENobmdjPQ==");
 
-			_mcu_Communicator = mcu_Communicator;
-			_mcu_Communicator.AsyncIdMessageReceived += AsyncMessageReceivedEventHandler;
+			_communicationService = new CommunicationService();
+			if (mcu_Communicator != null)
+				_communicationService.CanService = mcu_Communicator.CanService;
+			
 
 			_chartIndex = 0;
 			_seriesIndex = 0;
@@ -334,7 +337,8 @@ namespace MCUScope.ViewModels
 		private void ForceTrig()
 		{
 			byte[] data = _buildRequestMessages.BuildForceTriggerMessage();
-			_mcu_Communicator.SendMessage(false, 0xAB, data, null);
+			//_mcu_Communicator.SendMessage(false, 0xAB, data, null);
+			_communicationService.Send(data);
 		}
 
 		private List<List<List<double>>> _dataList;
@@ -352,7 +356,8 @@ namespace MCUScope.ViewModels
 				TriggerSelection.TriggerData.RecordGap,
 				TriggerSelection.IsContinuous,
 				TriggerSelection.TriggerData.TriggerPosition);
-			_mcu_Communicator.SendMessage(false, 0xAB, data, null);
+			//_mcu_Communicator.SendMessage(false, 0xAB, data, null);
+			_communicationService.Send(data);
 			System.Threading.Thread.Sleep(100);
 
 			List<DeviceParameterData> paramsList = ChartsSelection.GetParamsList();
@@ -362,7 +367,8 @@ namespace MCUScope.ViewModels
 				if (data == null)
 					return;
 
-				_mcu_Communicator.SendMessage(false, 0xAB, data, null);
+				//_mcu_Communicator.SendMessage(false, 0xAB, data, null);
+				_communicationService.Send(data);
 				System.Threading.Thread.Sleep(100);
 			}
 
@@ -371,14 +377,16 @@ namespace MCUScope.ViewModels
 				TriggerSelection.TriggerData.TriggerType);
 			if (data == null)
 				return;
-			_mcu_Communicator.SendMessage(false, 0xAB, data, null);
+			//_mcu_Communicator.SendMessage(false, 0xAB, data, null);
+			_communicationService.Send(data);
 			System.Threading.Thread.Sleep(100);
 
 			data = _buildRequestMessages.BuildMessage4(
 				TriggerSelection.TriggerData.TriggerValue);
 			if (data == null)
 				return;
-			_mcu_Communicator.SendMessage(false, 0xAB, data, null);
+			//_mcu_Communicator.SendMessage(false, 0xAB, data, null);
+			_communicationService.Send(data);
 			System.Threading.Thread.Sleep(100);
 
 			_dataList = new List<List<List<double>>>();
