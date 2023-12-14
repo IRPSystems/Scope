@@ -31,4 +31,8 @@
     <Folder Include="Views\" />
   </ItemGroup>
 
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy &quot;$(ProjectDir)param_defaults.json&quot; &quot;$(OutDir)param_defaults.json&quot;" />
+  </Target>
+
 </Project>

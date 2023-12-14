@@ -55,13 +55,13 @@ namespace RunScope.ViewModels
 
 			Version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
-			CanConnect = new CanConnectViewModel(500000, 171, 12223, 12220);
+			CanConnect = new CanConnectViewModel(500000, 0xAB, 0xAA, 12223, 12220);
 			CanConnect.ConnectEvent += Connect;
 			CanConnect.DisconnectEvent += Disconnect;
 
 			_mcu_Communicator = new MCU_Communicator();
 
-			MCUScope = new MCUScopeViewModel(_mcu_Communicator);
+			
 
 
 			IsScopeEnabled = false;
@@ -93,16 +93,18 @@ namespace RunScope.ViewModels
 
 		private void Connect()
 		{
+			ushort hwId = CanPCanService.GetHWId(CanConnect.SelectedHwId);
 			_mcu_Communicator.Init(
 				CanConnect.SelectedAdapter,
 				CanConnect.SelectedBaudrate,
-				CanConnect.NodeID,
-				CanConnect.SelectedHwId,
 				0xAB,
 				0xAA,
+				hwId,				
 				CanConnect.RxPort,
 				CanConnect.TxPort,
 				CanConnect.Address);
+
+			MCUScope = new MCUScopeViewModel(_mcu_Communicator.CanService);
 
 			ObservableCollection<DeviceBase> deviceList = new ObservableCollection<DeviceBase>();
 			ReadDevicesFileService readDevicesFileService = new ReadDevicesFileService();
@@ -111,7 +113,6 @@ namespace RunScope.ViewModels
 				deviceList,
 				"MCU",
 				Entities.Enums.DeviceTypesEnum.MCU);
-			_mcu_Communicator.InitMessageDict(deviceList[0] as DeviceData);
 
 			CanConnect.IsConnectButtonEnabled = !_mcu_Communicator.IsInitialized;
 			CanConnect.IsDisconnectButtonEnabled = _mcu_Communicator.IsInitialized;

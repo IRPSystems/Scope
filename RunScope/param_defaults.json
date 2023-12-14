@@ -1,0 +1,5485 @@
+[
+  {
+    "ParamList": [
+      {
+        "Name": "Motor Active Profile",
+        "Value": "0",
+        "Description": "Motor Active Driving Profile",
+        "Default": "Sport",
+        "Cmd": "mtractp",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": [
+          {
+            "Name": "Sport",
+            "Value": "0"
+          },
+          {
+            "Name": "City",
+            "Value": "1"
+          },
+          {
+            "Name": "Eco",
+            "Value": "2"
+          },
+          {
+            "Name": "PTP",
+            "Value": "3"
+          }
+        ]
+      },
+      {
+        "Name": "Motor Control Source",
+        "Value": "2",
+        "Description": "Motor Control Source",
+        "Default": "VCU",
+        "Cmd": "mtrctrlsrc",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "External Devices",
+            "Value": "0"
+          },
+          {
+            "Name": "VCU",
+            "Value": "1"
+          },
+          {
+            "Name": "Manual",
+            "Value": "2"
+          }
+        ]
+      },
+      {
+        "Name": "Motor Control Type",
+        "Value": "0",
+        "Description": "Motor Control Type",
+        "Default": "Power",
+        "Cmd": "mtrctrltype",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Current",
+            "Value": "0"
+          },
+          {
+            "Name": "Speed",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Motor Control Command",
+        "Value": "1",
+        "Description": "Motor Control Command",
+        "Default": "Input",
+        "Cmd": "mtrctrlcmd",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Input",
+            "Value": "0"
+          },
+          {
+            "Name": "Set Point",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Motor State",
+        "Value": "1",
+        "Description": "Motor State",
+        "Default": "Neutral",
+        "Cmd": "mstate",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": [
+          {
+            "Name": "Neutral",
+            "Value": "0"
+          },
+          {
+            "Name": "Run",
+            "Value": "1"
+          },
+          {
+            "Name": "Lock",
+            "Value": "2"
+          },
+          {
+            "Name": "Fault",
+            "Value": "3"
+          },
+          {
+            "Name": "ATE",
+            "Value": "4"
+          }
+        ]
+      },
+      {
+        "Name": "Manual Speed Set Point",
+        "Value": "0",
+        "Description": "Manual Speed Set Point",
+        "Default": "0",
+        "Cmd": "manspdsp",
+        "Range": [
+          -32768.0,
+          32767.0
+        ],
+        "Units": "RPM / Km/h",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Manual Current Set Point",
+        "Value": "0",
+        "Description": "Manual Current Set Point",
+        "Default": "0",
+        "Cmd": "mancurrsp",
+        "Range": [
+          -32768.0,
+          32767.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Manual Throttle",
+        "Value": "0",
+        "Description": "Manual Throttle",
+        "Default": "0",
+        "Cmd": "manthrottle",
+        "Range": [
+          0.0,
+          100.0
+        ],
+        "Units": "%",
+        "Scale": 10.24,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Manual Brake",
+        "Value": "0",
+        "Description": "Manual Brake",
+        "Default": "0",
+        "Cmd": "manbrake",
+        "Range": [
+          0.0,
+          100.0
+        ],
+        "Units": "%",
+        "Scale": 10.24,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Manual FOC Control",
+        "Value": "0",
+        "Description": "Manual FOC Control",
+        "Default": "OFF",
+        "Cmd": "mmanfoc",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": [
+          {
+            "Name": "OFF",
+            "Value": "0"
+          },
+          {
+            "Name": "ON",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Manual IQ Command",
+        "Value": "0",
+        "Description": "Motor Manual IQ Command",
+        "Default": "0",
+        "Cmd": "miqcmdman",
+        "Range": [
+          -600.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Manual ID Command",
+        "Value": "0",
+        "Description": "Motor Manual ID Command",
+        "Default": "0",
+        "Cmd": "midcmdman",
+        "Range": [
+          -600.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "RS-232 Log Prints",
+        "Value": "0",
+        "Description": "Choose whether to print log parameters via RS-232 every 100ms or not",
+        "Default": "OFF",
+        "Cmd": "rs232log",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": [
+          {
+            "Name": "OFF",
+            "Value": "0"
+          },
+          {
+            "Name": "ON",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Pre Charge Enabled",
+        "Value": "1",
+        "Description": "Choose whether to use pre-charge mechanism (On),\nor open latch without waiting for pre-charge",
+        "Default": "ON",
+        "Cmd": "pce",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": [
+          {
+            "Name": "OFF",
+            "Value": "0"
+          },
+          {
+            "Name": "ON",
+            "Value": "1"
+          }
+        ]
+      }
+    ],
+    "GroupName": "Operation",
+    "GroupDescription": "MCU Operation Parameters",
+    "GroupType": 1
+  },
+  {
+    "ParamList": [
+      {
+        "Name": "Motor Speed Reference Type",
+        "Value": "2",
+        "Description": "Motor Speed Reference Type",
+        "Default": "RPM",
+        "Cmd": "mtrspdreftyp",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "KMH",
+            "Value": "1"
+          },
+          {
+            "Name": "RPM",
+            "Value": "2"
+          }
+        ]
+      },
+      {
+        "Name": "Reverse Gain Factor",
+        "Value": "100",
+        "Description": "Reverse Gain  Factor",
+        "Default": "20",
+        "Cmd": "mtrrevfctr",
+        "Range": [
+          0.0,
+          100.0
+        ],
+        "Units": "%",
+        "Scale": 10.24,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Wheel Radius",
+        "Value": "300",
+        "Description": "Wheel Radius",
+        "Default": "250",
+        "Cmd": "mtrwhlrds",
+        "Range": [
+          0.0,
+          1000.0
+        ],
+        "Units": "mm",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Gear Ratio",
+        "Value": "1",
+        "Description": "Gear Ratio",
+        "Default": "1",
+        "Cmd": "mtrgrratio",
+        "Range": null,
+        "Units": null,
+        "Scale": 1000.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Spin Direction",
+        "Value": "1",
+        "Description": "Spin Direction",
+        "Default": "Negative",
+        "Cmd": "mtrspindir",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Positive",
+            "Value": "1"
+          },
+          {
+            "Name": "Negative",
+            "Value": "-1"
+          }
+        ]
+      },
+      {
+        "Name": "Throttle Curve X",
+        "Value": "50",
+        "Description": "Throttle Curve X",
+        "Default": "50",
+        "Cmd": "mtrthrcrvx",
+        "Range": [
+          0.0,
+          100.0
+        ],
+        "Units": "%",
+        "Scale": 10.24,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Throttle Curve Y",
+        "Value": "37.5",
+        "Description": "Throttle Curve Y",
+        "Default": "50",
+        "Cmd": "mtrthrcrvy",
+        "Range": [
+          0.0,
+          100.0
+        ],
+        "Units": "%",
+        "Scale": 10.24,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Brake Curve X",
+        "Value": "50",
+        "Description": "Brake Curve X",
+        "Default": "50",
+        "Cmd": "mtrbrkcrvx",
+        "Range": [
+          0.0,
+          100.0
+        ],
+        "Units": "%",
+        "Scale": 10.24,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Brake Curve Y",
+        "Value": "50",
+        "Description": "Brake Curve Y",
+        "Default": "50",
+        "Cmd": "mtrbrkcrvy",
+        "Range": [
+          0.0,
+          100.0
+        ],
+        "Units": "%",
+        "Scale": 10.24,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "FS1 VCU Throttle Threshold",
+        "Value": "0",
+        "Description": "The VCU Throttle value which above it FS1 must be '1'",
+        "Default": "0",
+        "Cmd": "prjprm4",
+        "Range": [
+          0.0,
+          12800.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Motorbike Model",
+        "Value": "0",
+        "Description": "Motorbike Model",
+        "Default": "0",
+        "Cmd": "prjprm5",
+        "Range": [
+          0.0,
+          2147483647.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      }
+    ],
+    "GroupName": "Vehicle",
+    "GroupDescription": "Vehicle Settings ",
+    "GroupType": 1
+  },
+  {
+    "ParamList": [
+      {
+        "Name": "Motor Kv",
+        "Value": "14.9",
+        "Description": "Motor Kv",
+        "Default": "11",
+        "Cmd": "mtrkv",
+        "Range": null,
+        "Units": "RPM/V",
+        "Scale": 1000.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Pole Pairs",
+        "Value": "28",
+        "Description": "Motor Pole Pairs",
+        "Default": "26",
+        "Cmd": "mtrpolepairs",
+        "Range": [
+          1.0,
+          100.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Motor Max Current Command",
+        "Value": "600",
+        "Description": "Motor Max Current Command",
+        "Default": "600",
+        "Cmd": "mtrmaxcurrcmd",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Thermistor Type",
+        "Value": "2",
+        "Description": "Motor Thermistor Type",
+        "Default": "PT1000",
+        "Cmd": "thermtype",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "None",
+            "Value": "0"
+          },
+          {
+            "Name": "PT1000",
+            "Value": "1"
+          },
+          {
+            "Name": "KTY83",
+            "Value": "2"
+          },
+          {
+            "Name": "KTY84",
+            "Value": "3"
+          }
+        ]
+      }
+    ],
+    "GroupName": "Motor",
+    "GroupDescription": "Motor Settings ",
+    "GroupType": 1
+  },
+  {
+    "ParamList": [
+      {
+        "Name": "Valid Changes",
+        "Value": "3",
+        "Description": "Valid Changes",
+        "Default": "2",
+        "Cmd": "hallvalchn",
+        "Range": [
+          0.0,
+          255.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Glitch Filter Length",
+        "Value": "1",
+        "Description": "Glitch Filter Length",
+        "Default": "5",
+        "Cmd": "hglfiltlen",
+        "Range": [
+          0.0,
+          5.0
+        ],
+        "Units": "Microseconds",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Fault Noise Count",
+        "Value": "10",
+        "Description": "Fault Noise Count",
+        "Default": "10",
+        "Cmd": "hfltnoise",
+        "Range": [
+          0.0,
+          65535.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Read Toggle Mask",
+        "Value": "0",
+        "Description": "Read Toggle Mask",
+        "Default": "0",
+        "Cmd": "htogmask",
+        "Range": [
+          0.0,
+          7.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Read Sequence",
+        "Value": "1",
+        "Description": "Read Sequence",
+        "Default": "0",
+        "Cmd": "hseq",
+        "Range": [
+          0.0,
+          5.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Angle Offset",
+        "Value": "65",
+        "Description": "Angle Offset",
+        "Default": "120",
+        "Cmd": "hangoff",
+        "Range": [
+          0.0,
+          359.0
+        ],
+        "Units": "�",
+        "Scale": 182.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Six step filter  step",
+        "Value": "5",
+        "Description": "",
+        "Default": "0",
+        "Cmd": "hfiltstep",
+        "Range": [
+          0.0,
+          100.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Six step filter  shift",
+        "Value": "5",
+        "Description": "",
+        "Default": "0",
+        "Cmd": "hfiltshift",
+        "Range": [
+          0.0,
+          10.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      }
+    ],
+    "GroupName": "Hall",
+    "GroupDescription": "Hall Sensor Settings ",
+    "GroupType": 1
+  },
+  {
+    "ParamList": [
+      {
+        "Name": "Motor Temp - Max Start",
+        "Value": "100",
+        "Description": "Motor Temperature - Max Start Derating",
+        "Default": "100",
+        "Cmd": "mdrtmpmmxs",
+        "Range": [
+          0.0,
+          200.0
+        ],
+        "Units": "�C",
+        "Scale": 100.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Motor Temp - Max Cut",
+        "Value": "110",
+        "Description": "Motor Temperature - Max Cut Derating",
+        "Default": "110",
+        "Cmd": "mdrtmpmmxc",
+        "Range": [
+          0.0,
+          200.0
+        ],
+        "Units": "�C",
+        "Scale": 100.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Motor Temp - Min Start",
+        "Value": "-15",
+        "Description": "Motor Temperature - Min Start Derating",
+        "Default": "-15",
+        "Cmd": "mdrtmpmmns",
+        "Range": [
+          -30.0,
+          0.0
+        ],
+        "Units": "�C",
+        "Scale": 100.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Motor Temp - Min Cut",
+        "Value": "-20",
+        "Description": "Motor Temperature - Min Cut Derating",
+        "Default": "-20",
+        "Cmd": "mdrtmpmmnc",
+        "Range": [
+          -30.0,
+          0.0
+        ],
+        "Units": "�C",
+        "Scale": 100.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Controller Temp - Max Start",
+        "Value": "80",
+        "Description": "Controller Temperature - Min Start Derating",
+        "Default": "80",
+        "Cmd": "mdrtmpcmxs",
+        "Range": [
+          50.0,
+          85.0
+        ],
+        "Units": "�C",
+        "Scale": 100.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Controller Temp - Max Cut",
+        "Value": "85",
+        "Description": "Controller Temperature - Max Start Derating",
+        "Default": "85",
+        "Cmd": "mdrtmpcmxc",
+        "Range": [
+          50.0,
+          85.0
+        ],
+        "Units": "�C",
+        "Scale": 100.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Controller Temp - Min Start",
+        "Value": "-15",
+        "Description": "Controller Temperature - Min Start Derating",
+        "Default": "-15",
+        "Cmd": "mdrtmpcmns",
+        "Range": [
+          -30.0,
+          0.0
+        ],
+        "Units": "�C",
+        "Scale": 100.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Controller Temp - Min Cut",
+        "Value": "-20",
+        "Description": "Controller Temperature - Min Cut Derating",
+        "Default": "-20",
+        "Cmd": "mdrtmpcmnc",
+        "Range": [
+          -30.0,
+          0.0
+        ],
+        "Units": "�C",
+        "Scale": 100.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Bus Voltage - Max Start",
+        "Value": "70",
+        "Description": "Bus Voltage - Max Start Derating",
+        "Default": "70",
+        "Cmd": "mdrbvmxs",
+        "Range": [
+          40.0,
+          90.0
+        ],
+        "Units": "V",
+        "Scale": 1000.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Bus Voltage - Max Cut",
+        "Value": "72",
+        "Description": "Bus Voltage - Max Cut Derating",
+        "Default": "72",
+        "Cmd": "mdrbvmxc",
+        "Range": [
+          40.0,
+          90.0
+        ],
+        "Units": "V",
+        "Scale": 1000.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Bus Voltage - Min Start",
+        "Value": "46",
+        "Description": "Bus Voltage - Min Start Derating",
+        "Default": "46",
+        "Cmd": "mdrbvmns",
+        "Range": [
+          30.0,
+          70.0
+        ],
+        "Units": "V",
+        "Scale": 1000.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Bus Voltage - Min Cut",
+        "Value": "42",
+        "Description": "Bus Voltage - Min Cut Derating",
+        "Default": "42",
+        "Cmd": "mdrbvmnc",
+        "Range": [
+          30.0,
+          70.0
+        ],
+        "Units": "V",
+        "Scale": 1000.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      }
+    ],
+    "GroupName": "Deratings",
+    "GroupDescription": "Derating Parameters",
+    "GroupType": 1
+  },
+  {
+    "ParamList": [
+      {
+        "Name": "Max Bus Current Limit Activation",
+        "Value": "1",
+        "Description": "Max Bus Current Limit Activation",
+        "Default": "ON",
+        "Cmd": "mfplamxbc",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "OFF",
+            "Value": "0"
+          },
+          {
+            "Name": "ON",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Max Bus Current Limit",
+        "Value": "119",
+        "Description": "Max Bus Current Limit",
+        "Default": "270",
+        "Cmd": "mplrsmxbc",
+        "Range": [
+          0.0,
+          350.0
+        ],
+        "Units": "A",
+        "Scale": 1000.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Min Bus Current Limit Activation",
+        "Value": "1",
+        "Description": "Min Bus Current Limit Activation",
+        "Default": "ON",
+        "Cmd": "mfplamnbc",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "OFF",
+            "Value": "0"
+          },
+          {
+            "Name": "ON",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Min Bus Current Limit",
+        "Value": "-100",
+        "Description": "Min Bus Current Limit",
+        "Default": "-100",
+        "Cmd": "mplrsmnbc",
+        "Range": [
+          -350.0,
+          0.0
+        ],
+        "Units": "A",
+        "Scale": 1000.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Max Bus Voltage Limit Activation",
+        "Value": "0",
+        "Description": "Max Bus Voltage Limit Activation",
+        "Default": "OFF",
+        "Cmd": "mfplamxbv",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "OFF",
+            "Value": "0"
+          },
+          {
+            "Name": "ON",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Max Bus Voltage Limit",
+        "Value": "70",
+        "Description": "Max Bus Voltage Limit",
+        "Default": "70",
+        "Cmd": "mplrsmxbv",
+        "Range": [
+          0.0,
+          90.0
+        ],
+        "Units": "V",
+        "Scale": 1000.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Min Bus Voltage Limit Activation",
+        "Value": "0",
+        "Description": "Min Bus Voltage Limit Activation",
+        "Default": "OFF",
+        "Cmd": "mfplamnbv",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "OFF",
+            "Value": "0"
+          },
+          {
+            "Name": "ON",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Min Bus Voltage Limit",
+        "Value": "40",
+        "Description": "Min Bus Voltage Limit",
+        "Default": "40",
+        "Cmd": "mplrsmnbv",
+        "Range": [
+          0.0,
+          70.0
+        ],
+        "Units": "V",
+        "Scale": 1000.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      }
+    ],
+    "GroupName": "Limiters",
+    "GroupDescription": "Limiters Parameters",
+    "GroupType": 1
+  },
+  {
+    "ParamList": [
+      {
+        "Name": "Pre-Charge Over Temperature",
+        "Value": "100",
+        "Description": "Pre-Charge Over Temperature Threshold for fault",
+        "Default": "100",
+        "Cmd": "prechmaxtmp",
+        "Range": [
+          0.0,
+          250.0
+        ],
+        "Units": "�C",
+        "Scale": 100.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Battery Maximum Current",
+        "Value": "400",
+        "Description": "Battery Maximum Current fault threshold",
+        "Default": "350",
+        "Cmd": "batmaxcur",
+        "Range": [
+          0.0,
+          350.0
+        ],
+        "Units": "A",
+        "Scale": 1000.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Phases Max Peak Current",
+        "Value": "700",
+        "Description": "Phases Maximum Peak Current fault threshold",
+        "Default": "700",
+        "Cmd": "phmxpcur",
+        "Range": [
+          0.0,
+          700.0
+        ],
+        "Units": "A",
+        "Scale": 1000.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Phases Max RMS Current",
+        "Value": "500",
+        "Description": "Phases Maximum RMS Current fault threshold",
+        "Default": "500",
+        "Cmd": "phmxrcur",
+        "Range": [
+          0.0,
+          500.0
+        ],
+        "Units": "A",
+        "Scale": 1000.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      }
+    ],
+    "GroupName": "Faults Thresholds",
+    "GroupDescription": "MCU Faults Thresholds",
+    "GroupType": 1
+  },
+  {
+    "ParamList": [
+      {
+        "Name": "Motor Over Temperature              - 0x8101",
+        "Value": "0",
+        "Description": "Choose whether this fault is ignored or not",
+        "Default": "Enabled",
+        "Cmd": "fltoti",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Enabled",
+            "Value": "0"
+          },
+          {
+            "Name": "Disabled",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Motor Under Temperature            - 0x8109",
+        "Value": "0",
+        "Description": "Choose whether this fault is ignored or not",
+        "Default": "Enabled",
+        "Cmd": "fltuti",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Enabled",
+            "Value": "0"
+          },
+          {
+            "Name": "Disabled",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Motor Temperature Sensor           - 0x8102",
+        "Value": "0",
+        "Description": "Choose whether this fault is ignored or not",
+        "Default": "Enabled",
+        "Cmd": "flttsi",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Enabled",
+            "Value": "0"
+          },
+          {
+            "Name": "Disabled",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "MCU Over Temperature                - 0x8103",
+        "Value": "0",
+        "Description": "Choose whether this fault is ignored or not",
+        "Default": "Enabled",
+        "Cmd": "fltcoti",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Enabled",
+            "Value": "0"
+          },
+          {
+            "Name": "Disabled",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "MCU Under Temperature              - 0x810A",
+        "Value": "0",
+        "Description": "Choose whether this fault is ignored or not",
+        "Default": "Enabled",
+        "Cmd": "fltcuti",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Enabled",
+            "Value": "0"
+          },
+          {
+            "Name": "Disabled",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "MCU Temperature Sensor             - 0x8104",
+        "Value": "0",
+        "Description": "Choose whether this fault is ignored or not",
+        "Default": "Enabled",
+        "Cmd": "fltcsi",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Enabled",
+            "Value": "0"
+          },
+          {
+            "Name": "Disabled",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Phase U RMS Over Current           - 0x8110",
+        "Value": "0",
+        "Description": "Choose whether this fault is ignored or not",
+        "Default": "Enabled",
+        "Cmd": "fltocuri",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Enabled",
+            "Value": "0"
+          },
+          {
+            "Name": "Disabled",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Phase U Peak Over Current           - 0x8111",
+        "Value": "0",
+        "Description": "Choose whether this fault is ignored or not",
+        "Default": "Enabled",
+        "Cmd": "fltocupi",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Enabled",
+            "Value": "0"
+          },
+          {
+            "Name": "Disabled",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Phase V RMS Over Current           - 0x8113",
+        "Value": "0",
+        "Description": "Choose whether this fault is ignored or not",
+        "Default": "Enabled",
+        "Cmd": "fltocvri",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Enabled",
+            "Value": "0"
+          },
+          {
+            "Name": "Disabled",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Phase V Peak Over Current           - 0x8114",
+        "Value": "0",
+        "Description": "Choose whether this fault is ignored or not",
+        "Default": "Enabled",
+        "Cmd": "fltocvpi",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Enabled",
+            "Value": "0"
+          },
+          {
+            "Name": "Disabled",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Phase W RMS Over Current          - 0x8116",
+        "Value": "0",
+        "Description": "Choose whether this fault is ignored or not",
+        "Default": "Enabled",
+        "Cmd": "fltocwri",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Enabled",
+            "Value": "0"
+          },
+          {
+            "Name": "Disabled",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Phase W Peak Over Current          - 0x8117",
+        "Value": "0",
+        "Description": "Choose whether this fault is ignored or not",
+        "Default": "Enabled",
+        "Cmd": "fltocwpi",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Enabled",
+            "Value": "0"
+          },
+          {
+            "Name": "Disabled",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Battery Over Current                     - 0x8230",
+        "Value": "0",
+        "Description": "Choose whether this fault is ignored or not",
+        "Default": "Enabled",
+        "Cmd": "fltboci",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Enabled",
+            "Value": "0"
+          },
+          {
+            "Name": "Disabled",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Battery Low Voltage                      - 0x8233",
+        "Value": "0",
+        "Description": "Choose whether this fault is ignored or not",
+        "Default": "Enabled",
+        "Cmd": "fltblvi",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Enabled",
+            "Value": "0"
+          },
+          {
+            "Name": "Disabled",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Battery Over Voltage                     - 0x813B",
+        "Value": "0",
+        "Description": "Choose whether this fault is ignored or not",
+        "Default": "Enabled",
+        "Cmd": "fltbovi",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Enabled",
+            "Value": "0"
+          },
+          {
+            "Name": "Disabled",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Gate Driver Voltage                       - 0x8240",
+        "Value": "0",
+        "Description": "Choose whether this fault is ignored or not",
+        "Default": "Enabled",
+        "Cmd": "fltgdi",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Enabled",
+            "Value": "0"
+          },
+          {
+            "Name": "Disabled",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "VSW Low Voltage                          - 0x8041",
+        "Value": "0",
+        "Description": "Choose whether this fault is ignored or not",
+        "Default": "Enabled",
+        "Cmd": "fltvsuvi",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Enabled",
+            "Value": "0"
+          },
+          {
+            "Name": "Disabled",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Hall Sensor Fault                           - 0x8250",
+        "Value": "0",
+        "Description": "Choose whether this fault is ignored or not",
+        "Default": "Enabled",
+        "Cmd": "flthsi",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Enabled",
+            "Value": "0"
+          },
+          {
+            "Name": "Disabled",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "MCU Data Fault                             - 0x8170",
+        "Value": "0",
+        "Description": "Choose whether this fault is ignored or not",
+        "Default": "Enabled",
+        "Cmd": "fltmri",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Enabled",
+            "Value": "0"
+          },
+          {
+            "Name": "Disabled",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "CAN BUS No Communication       - 0x8180",
+        "Value": "1",
+        "Description": "Choose whether this fault is ignored or not",
+        "Default": "Enabled",
+        "Cmd": "fltcnci",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Enabled",
+            "Value": "0"
+          },
+          {
+            "Name": "Disabled",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "CAN BUS Timeout                         - 0x8181",
+        "Value": "0",
+        "Description": "Choose whether this fault is ignored or not",
+        "Default": "Enabled",
+        "Cmd": "fltctoi",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Enabled",
+            "Value": "0"
+          },
+          {
+            "Name": "Disabled",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "CAN ID 0x40X Message Timeout  - 0x8082",
+        "Value": "1",
+        "Description": "Choose whether this fault is ignored or not",
+        "Default": "Enabled",
+        "Cmd": "fltcmb0toi",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Enabled",
+            "Value": "0"
+          },
+          {
+            "Name": "Disabled",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "CAN ID 0x42X Message Timeout  - 0x8083",
+        "Value": "1",
+        "Description": "Choose whether this fault is ignored or not",
+        "Default": "Enabled",
+        "Cmd": "fltcmb1toi",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Enabled",
+            "Value": "0"
+          },
+          {
+            "Name": "Disabled",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "CAN ID 0x1AX Message Timeout  - 0x8084",
+        "Value": "1",
+        "Description": "Choose whether this fault is ignored or not",
+        "Default": "Enabled",
+        "Cmd": "fltcmb2toi",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Enabled",
+            "Value": "0"
+          },
+          {
+            "Name": "Disabled",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "CAN Invalid Command                  - 0x8085",
+        "Value": "1",
+        "Description": "Choose whether this fault is ignored or not",
+        "Default": "Enabled",
+        "Cmd": "fltcici",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Enabled",
+            "Value": "0"
+          },
+          {
+            "Name": "Disabled",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "CAN Digital Input                          - 0x8086",
+        "Value": "1",
+        "Description": "Choose whether this fault is ignored or not",
+        "Default": "Enabled",
+        "Cmd": "fltcdii",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Enabled",
+            "Value": "0"
+          },
+          {
+            "Name": "Disabled",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Invalid Throttle Command            - 0x8087",
+        "Value": "0",
+        "Description": "Choose whether this fault is ignored or not",
+        "Default": "Enabled",
+        "Cmd": "flttrii",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Enabled",
+            "Value": "0"
+          },
+          {
+            "Name": "Disabled",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Throttle Fault                                 - 0x8088",
+        "Value": "1",
+        "Description": "Choose whether this fault is ignored or not",
+        "Default": "Enabled",
+        "Cmd": "flttri",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "Enabled",
+            "Value": "0"
+          },
+          {
+            "Name": "Disabled",
+            "Value": "1"
+          }
+        ]
+      }
+    ],
+    "GroupName": "Faults Disable",
+    "GroupDescription": "Faults disable/enable, ignore and clear faults which are disabled",
+    "GroupType": 1
+  },
+  {
+    "ParamList": [
+      {
+        "Name": "PWM Phases Dead Time",
+        "Value": "300",
+        "Description": "PWM Phases Dead Time",
+        "Default": "300",
+        "Cmd": "pwmdtns",
+        "Range": [
+          50.0,
+          2000.0
+        ],
+        "Units": "nS",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "PWM Frequency",
+        "Value": "20000",
+        "Description": "PWM Frequency",
+        "Default": "20000",
+        "Cmd": "pwmfreq",
+        "Range": [
+          10000.0,
+          30000.0
+        ],
+        "Units": "Hz",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "FOC PID Kp",
+        "Value": "10000",
+        "Description": "FOC PID Kp",
+        "Default": "500",
+        "Cmd": "focpidkp",
+        "Range": [
+          0.0,
+          2147483647.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "FOC PID Ki",
+        "Value": "100",
+        "Description": "FOC PID Ki",
+        "Default": "160",
+        "Cmd": "foxpidki",
+        "Range": [
+          0.0,
+          2147483647.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "PID Max Speed Limit Kp",
+        "Value": "1000",
+        "Description": "PID Max Speed Limit Kp",
+        "Default": "1000",
+        "Cmd": "mplkpmxs",
+        "Range": [
+          0.0,
+          100000.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "PID Max Speed Limit Ki",
+        "Value": "100",
+        "Description": "PID Max Speed Limit Ki",
+        "Default": "50",
+        "Cmd": "mplkimxs",
+        "Range": [
+          0.0,
+          100000.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "PID Max Bus Current Limit Kp",
+        "Value": "5000",
+        "Description": "PID Max Bus Current Limit Kp",
+        "Default": "50",
+        "Cmd": "mplkpmxbc",
+        "Range": [
+          0.0,
+          100000.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "PID Max Bus Current Limit Ki",
+        "Value": "500",
+        "Description": "PID Max Bus Current Limit Ki",
+        "Default": "32",
+        "Cmd": "mplkimxbc",
+        "Range": [
+          0.0,
+          100000.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "PID Min Bus Current Limit Kp",
+        "Value": "5000",
+        "Description": "PID Mix Bus Current Limit Kp",
+        "Default": "50",
+        "Cmd": "mplkpmnbc",
+        "Range": [
+          0.0,
+          100000.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "PID Min Bus Current Limit Ki",
+        "Value": "500",
+        "Description": "PID Max Bus Current Limit Ki",
+        "Default": "32",
+        "Cmd": "mplkimnbc",
+        "Range": [
+          0.0,
+          100000.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "PID Max Bus Voltage Limit Kp",
+        "Value": "1000",
+        "Description": "PID Max Bus Voltage Limit Kp",
+        "Default": "50",
+        "Cmd": "mplkpmxbv",
+        "Range": [
+          0.0,
+          100000.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "PID Max Bus Voltage Limit Ki",
+        "Value": "100",
+        "Description": "PID Max Bus Voltage Limit Ki",
+        "Default": "32",
+        "Cmd": "mplkimxbv",
+        "Range": [
+          0.0,
+          100000.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "PID Min Bus Voltage Limit Kp",
+        "Value": "1000",
+        "Description": "PID Min Bus Voltage Limit Kp",
+        "Default": "50",
+        "Cmd": "mplkpmnbv",
+        "Range": [
+          0.0,
+          100000.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "PID Min Bus Voltage Limit Ki",
+        "Value": "100",
+        "Description": "PID Mix Bus Voltage Limit Ki",
+        "Default": "32",
+        "Cmd": "mplkimnbv",
+        "Range": [
+          0.0,
+          100000.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Motor Flux Auto Saturation",
+        "Value": "10",
+        "Description": "Motor Flux Auto Saturation",
+        "Default": "10",
+        "Cmd": "flsatthr",
+        "Range": [
+          0.0,
+          20.0
+        ],
+        "Units": "%",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Motor Flux Auto PID Kp",
+        "Value": "2000",
+        "Description": "Motor Flux Auto PID Kp",
+        "Default": "1000",
+        "Cmd": "flpidkp",
+        "Range": [
+          0.0,
+          100000.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Motor Flux Auto PID Ki",
+        "Value": "200",
+        "Description": "Motor Flux Auto PID Ki",
+        "Default": "50",
+        "Cmd": "flpidki",
+        "Range": [
+          0.0,
+          100000.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Motor PID Speed Control Kp",
+        "Value": "500",
+        "Description": "Motor PID Speed Control Kp",
+        "Default": "500",
+        "Cmd": "mtrpidspdctrlkp",
+        "Range": [
+          0.0,
+          100000.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Motor PID Speed Control Ki",
+        "Value": "160",
+        "Description": "Motor PID Speed Control Ki",
+        "Default": "160",
+        "Cmd": "mtrpidspdctrlki",
+        "Range": [
+          0.0,
+          100000.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "ADC Current Factor, Phase U",
+        "Value": "406",
+        "Description": "ADC Count to mA Phase U Current Sensor Factor",
+        "Default": "406",
+        "Cmd": "adccurfacu",
+        "Range": [
+          0.0,
+          5000.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "ADC Current Factor, Phase V",
+        "Value": "406",
+        "Description": "ADC Count to mA Phase V Current Sensor Factor",
+        "Default": "406",
+        "Cmd": "adccurfacv",
+        "Range": [
+          0.0,
+          5000.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "ADC Current Factor, Bus",
+        "Value": "406",
+        "Description": "ADC Count to mA Bus Current Sensor Factor",
+        "Default": "406",
+        "Cmd": "adccurfacb",
+        "Range": [
+          0.0,
+          5000.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Speed Lpf",
+        "Value": "6",
+        "Description": "Speed Low Pass Filter",
+        "Default": "5",
+        "Cmd": "mspdlpf",
+        "Range": [
+          0.0,
+          10.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Speed Limit Acc Max Scale",
+        "Value": "10",
+        "Description": "",
+        "Default": "",
+        "Cmd": "pidspdaccmxscl",
+        "Range": [
+          0.0,
+          1000.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Speed Limit Acc Max Value",
+        "Value": "500",
+        "Description": "",
+        "Default": "",
+        "Cmd": "pidspdaccmxval",
+        "Range": [
+          0.0,
+          1000.0
+        ],
+        "Units": "RPM/sec",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Speed Limit Acc Min Value",
+        "Value": "20",
+        "Description": "",
+        "Default": "",
+        "Cmd": "pidspdaccmnval",
+        "Range": [
+          0.0,
+          1000.0
+        ],
+        "Units": "RPM/sec",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      }
+    ],
+    "GroupName": "Advanced",
+    "GroupDescription": "Advanced Settings",
+    "GroupType": 1
+  },
+  {
+    "ParamList": [
+      {
+        "Name": "Ramp Up",
+        "Value": "0.7",
+        "Description": "Ramp Up Command\n'0' means no ramp",
+        "Default": "100",
+        "Cmd": "mcrup0",
+        "Range": [
+          0.0,
+          100.0
+        ],
+        "Units": "%",
+        "Scale": 500.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Ramp Down",
+        "Value": "0.8",
+        "Description": "Ramp Down Command\n'0' means no ramp",
+        "Default": "100",
+        "Cmd": "mcrdwn0",
+        "Range": [
+          0.0,
+          100.0
+        ],
+        "Units": "%",
+        "Scale": 500.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Motor Speed Control Max",
+        "Value": "0",
+        "Description": "Motor Speed Control Max",
+        "Default": "0",
+        "Cmd": "msmxc0",
+        "Range": [
+          0.0,
+          999999.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Motor Speed Control Min",
+        "Value": "0",
+        "Description": "Motor Speed Control Min",
+        "Default": "0",
+        "Cmd": "msmnc0",
+        "Range": [
+          0.0,
+          999999.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Regeneration On Braking",
+        "Value": "1",
+        "Description": "Regeneration On Braking Flag",
+        "Default": "ON",
+        "Cmd": "mtrfrgnonbrkp0",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "OFF",
+            "Value": "0"
+          },
+          {
+            "Name": "ON",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Regeneration On Throttle Release",
+        "Value": "1",
+        "Description": "Regeneration On Throttle Release Flag",
+        "Default": "ON",
+        "Cmd": "mtrfrgnthrrlsp0",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "OFF",
+            "Value": "0"
+          },
+          {
+            "Name": "ON",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Regeneration On Throttle Release Value",
+        "Value": "50",
+        "Description": "Regeneration On Throttle Release Value",
+        "Default": "50",
+        "Cmd": "mrotr0",
+        "Range": [
+          0.0,
+          100.0
+        ],
+        "Units": "%",
+        "Scale": 10.24,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Current Point 0",
+        "Value": "600",
+        "Description": "Power Map Drive Current Point 0",
+        "Default": "600",
+        "Cmd": "mpma0d0",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Current Point 1",
+        "Value": "600",
+        "Description": "Power Map Drive Current Point 1",
+        "Default": "600",
+        "Cmd": "mpma0d1",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Current Point 2",
+        "Value": "600",
+        "Description": "Power Map Drive Current Point 2",
+        "Default": "400",
+        "Cmd": "mpma0d2",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Current Point 3",
+        "Value": "600",
+        "Description": "Power Map Drive Current Point 3",
+        "Default": "300",
+        "Cmd": "mpma0d3",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Current Point 4",
+        "Value": "600",
+        "Description": "Power Map Drive Current Point 4",
+        "Default": "250",
+        "Cmd": "mpma0d4",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Speed Point 0",
+        "Value": "0",
+        "Description": "Power Map Drive Speed Point 0",
+        "Default": "0",
+        "Cmd": "mpms0d0",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Speed Point 1",
+        "Value": "280",
+        "Description": "Power Map Drive Speed Point 1",
+        "Default": "280",
+        "Cmd": "mpms0d1",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Speed Point 2",
+        "Value": "500",
+        "Description": "Power Map Drive Speed Point 2",
+        "Default": "500",
+        "Cmd": "mpms0d2",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Speed Point 3",
+        "Value": "700",
+        "Description": "Power Map Drive Speed Point 3",
+        "Default": "700",
+        "Cmd": "mpms0d3",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Speed Point 4",
+        "Value": "870",
+        "Description": "Power Map Drive Speed Point 4",
+        "Default": "870",
+        "Cmd": "mpms0d4",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Current Point 0",
+        "Value": "0",
+        "Description": "Power Map Regeneration Current Point 0",
+        "Default": "0",
+        "Cmd": "mpma0r0",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Current Point 1",
+        "Value": "0",
+        "Description": "Power Map Regeneration Current Point 1",
+        "Default": "50",
+        "Cmd": "mpma0r1",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Current Point 2",
+        "Value": "50",
+        "Description": "Power Map Regeneration Current Point 2",
+        "Default": "50",
+        "Cmd": "mpma0r2",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Current Point 3",
+        "Value": "50",
+        "Description": "Power Map Regeneration Current Point 3",
+        "Default": "50",
+        "Cmd": "mpma0r3",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Current Point 4",
+        "Value": "50",
+        "Description": "Power Map Regeneration Current Point 4",
+        "Default": "50",
+        "Cmd": "mpma0r4",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Speed Point 0",
+        "Value": "0",
+        "Description": "Power Map Regeneration Speed Point 0",
+        "Default": "0",
+        "Cmd": "mpms0r0",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Speed Point 1",
+        "Value": "50",
+        "Description": "Power Map Regeneration Speed Point 1",
+        "Default": "50",
+        "Cmd": "mpms0r1",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Speed Point 2",
+        "Value": "500",
+        "Description": "Power Map Regeneration Speed Point 2",
+        "Default": "500",
+        "Cmd": "mpms0r2",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Speed Point 3",
+        "Value": "900",
+        "Description": "Power Map Regeneration Speed Point 3",
+        "Default": "900",
+        "Cmd": "mpms0r3",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Speed Point 4",
+        "Value": "1500",
+        "Description": "Power Map Regeneration Speed Point 4",
+        "Default": "1500",
+        "Cmd": "mpms0r4",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Max Speed Limit Active",
+        "Value": "1",
+        "Description": "Max Speed Limit Active Flag",
+        "Default": "ON",
+        "Cmd": "mfpla0mxs",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "OFF",
+            "Value": "0"
+          },
+          {
+            "Name": "ON",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Max Speed Limit Value",
+        "Value": "870",
+        "Description": "Max Speed Limit Value",
+        "Default": "900",
+        "Cmd": "mplrs0mxs",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      }
+    ],
+    "GroupName": "Sport",
+    "GroupDescription": "Driving Profile Sport",
+    "GroupType": 2
+  },
+  {
+    "ParamList": [
+      {
+        "Name": "Ramp Up",
+        "Value": "80",
+        "Description": "Ramp Up Command\n'0' means no ramp",
+        "Default": "80",
+        "Cmd": "mcrup1",
+        "Range": [
+          0.0,
+          100.0
+        ],
+        "Units": "%",
+        "Scale": 500.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Ramp Down",
+        "Value": "100",
+        "Description": "Ramp Down Command\n'0' means no ramp",
+        "Default": "100",
+        "Cmd": "mcrdwn1",
+        "Range": [
+          0.0,
+          100.0
+        ],
+        "Units": "%",
+        "Scale": 500.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Motor Speed Control Max",
+        "Value": "0",
+        "Description": "Motor Speed Control Max",
+        "Default": "0",
+        "Cmd": "msmxc1",
+        "Range": [
+          0.0,
+          999999.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Motor Speed Control Min",
+        "Value": "0",
+        "Description": "Motor Speed Control Min",
+        "Default": "0",
+        "Cmd": "msmnc1",
+        "Range": [
+          0.0,
+          999999.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Regeneration On Braking",
+        "Value": "1",
+        "Description": "Regeneration On Braking On/Off",
+        "Default": "ON",
+        "Cmd": "mtrfrgnonbrkp1",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "OFF",
+            "Value": "0"
+          },
+          {
+            "Name": "ON",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Regeneration On Throttle Release",
+        "Value": "0",
+        "Description": "Regeneration On Throttle Release On/Off",
+        "Default": "OFF",
+        "Cmd": "mtrfrgnthrrlsp1",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "OFF",
+            "Value": "0"
+          },
+          {
+            "Name": "ON",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Regeneration On Throttle Release Value",
+        "Value": "0",
+        "Description": "Regeneration On Throttle Release Value",
+        "Default": "0",
+        "Cmd": "mrotr1",
+        "Range": [
+          0.0,
+          100.0
+        ],
+        "Units": "%",
+        "Scale": 10.24,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Current Point 0",
+        "Value": "450",
+        "Description": "Power Map Drive Current Point 0",
+        "Default": "450",
+        "Cmd": "mpma1d0",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Current Point 1",
+        "Value": "450",
+        "Description": "Power Map Drive Current Point 1",
+        "Default": "450",
+        "Cmd": "mpma1d1",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Current Point 2",
+        "Value": "278",
+        "Description": "Power Map Drive Current Point 2",
+        "Default": "278",
+        "Cmd": "mpma1d2",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Current Point 3",
+        "Value": "203",
+        "Description": "Power Map Drive Current Point 3",
+        "Default": "203",
+        "Cmd": "mpma1d3",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Current Point 4",
+        "Value": "188",
+        "Description": "Power Map Drive Current Point 4",
+        "Default": "188",
+        "Cmd": "mpma1d4",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Speed Point 0",
+        "Value": "0",
+        "Description": "Power Map Drive Speed Point 0",
+        "Default": "0",
+        "Cmd": "mpms1d0",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Speed Point 1",
+        "Value": "280",
+        "Description": "Power Map Drive Speed Point 1",
+        "Default": "280",
+        "Cmd": "mpms1d1",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Speed Point 2",
+        "Value": "500",
+        "Description": "Power Map Drive Speed Point 2",
+        "Default": "500",
+        "Cmd": "mpms1d2",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Speed Point 3",
+        "Value": "700",
+        "Description": "Power Map Drive Speed Point 3",
+        "Default": "700",
+        "Cmd": "mpms1d3",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Speed Point 4",
+        "Value": "870",
+        "Description": "Power Map Drive Speed Point 4",
+        "Default": "870",
+        "Cmd": "mpms1d4",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Current Point 0",
+        "Value": "0",
+        "Description": "Power Map Regeneration Current Point 0",
+        "Default": "0",
+        "Cmd": "mpma1r0",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Current Point 1",
+        "Value": "0",
+        "Description": "Power Map Regeneration Current Point 1",
+        "Default": "0",
+        "Cmd": "mpma1r1",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Current Point 2",
+        "Value": "50",
+        "Description": "Power Map Regeneration Current Point 2",
+        "Default": "0",
+        "Cmd": "mpma1r2",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Current Point 3",
+        "Value": "50",
+        "Description": "Power Map Regeneration Current Point 3",
+        "Default": "0",
+        "Cmd": "mpma1r3",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Current Point 4",
+        "Value": "50",
+        "Description": "Power Map Regeneration Current Point 4",
+        "Default": "0",
+        "Cmd": "mpma1r4",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Speed Point 0",
+        "Value": "0",
+        "Description": "Power Map Regeneration Speed Point 0",
+        "Default": "0",
+        "Cmd": "mpms1r0",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Speed Point 1",
+        "Value": "50",
+        "Description": "Power Map Regeneration Speed Point 1",
+        "Default": "0",
+        "Cmd": "mpms1r1",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Speed Point 2",
+        "Value": "500",
+        "Description": "Power Map Regeneration Speed Point 2",
+        "Default": "0",
+        "Cmd": "mpms1r2",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Speed Point 3",
+        "Value": "900",
+        "Description": "Power Map Regeneration Speed Point 3",
+        "Default": "0",
+        "Cmd": "mpms1r3",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Speed Point 4",
+        "Value": "1500",
+        "Description": "Power Map Regeneration Speed Point 4",
+        "Default": "0",
+        "Cmd": "mpms1r4",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Max Speed Limit Active",
+        "Value": "1",
+        "Description": "Max Speed Limit Active Flag",
+        "Default": "ON",
+        "Cmd": "mfpla1mxs",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "OFF",
+            "Value": "0"
+          },
+          {
+            "Name": "ON",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Max Speed Limit",
+        "Value": "765",
+        "Description": "PID Max Speed Limit Reference Static",
+        "Default": "765",
+        "Cmd": "mplrs1mxs",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      }
+    ],
+    "GroupName": "City",
+    "GroupDescription": "Driving Profile City",
+    "GroupType": 2
+  },
+  {
+    "ParamList": [
+      {
+        "Name": "Ramp Up",
+        "Value": "60",
+        "Description": "Ramp Up Command\n'0' means no ramp",
+        "Default": "60",
+        "Cmd": "mcrup2",
+        "Range": [
+          0.0,
+          100.0
+        ],
+        "Units": "%",
+        "Scale": 500.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Ramp Down",
+        "Value": "100",
+        "Description": "Ramp Down Command\n'0' means no ramp",
+        "Default": "100",
+        "Cmd": "mcrdwn2",
+        "Range": [
+          0.0,
+          100.0
+        ],
+        "Units": "%",
+        "Scale": 500.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Motor Speed Control Max",
+        "Value": "0",
+        "Description": "Motor Speed Control Max",
+        "Default": "0",
+        "Cmd": "msmxc2",
+        "Range": [
+          0.0,
+          999999.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Motor Speed Control Min",
+        "Value": "0",
+        "Description": "Motor Speed Control Min",
+        "Default": "0",
+        "Cmd": "msmnc2",
+        "Range": [
+          0.0,
+          999999.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Regeneration On Braking",
+        "Value": "1",
+        "Description": "Regeneration On Braking Flag",
+        "Default": "ON",
+        "Cmd": "mtrfrgnonbrkp2",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "OFF",
+            "Value": "0"
+          },
+          {
+            "Name": "ON",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Regeneration On Throttle Release",
+        "Value": "1",
+        "Description": "Regeneration On Throttle Release Flag",
+        "Default": "ON",
+        "Cmd": "mtrfrgnthrrlsp2",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "OFF",
+            "Value": "0"
+          },
+          {
+            "Name": "ON",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Regeneration On Throttle Release Value",
+        "Value": "50",
+        "Description": "Regeneration On Throttle Release Value",
+        "Default": "50",
+        "Cmd": "mrotr2",
+        "Range": [
+          0.0,
+          100.0
+        ],
+        "Units": "%",
+        "Scale": 10.24,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Current Point 0",
+        "Value": "370",
+        "Description": "Power Map Drive Current Point 0",
+        "Default": "370",
+        "Cmd": "mpma2d0",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Current Point 1",
+        "Value": "370",
+        "Description": "Power Map Drive Current Point 1",
+        "Default": "370",
+        "Cmd": "mpma2d1",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Current Point 2",
+        "Value": "228",
+        "Description": "Power Map Drive Current Point 2",
+        "Default": "228",
+        "Cmd": "mpma2d2",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Current Point 3",
+        "Value": "166",
+        "Description": "Power Map Drive Current Point 3",
+        "Default": "166",
+        "Cmd": "mpma2d3",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Current Point 4",
+        "Value": "154",
+        "Description": "Power Map Drive Current Point 4",
+        "Default": "154",
+        "Cmd": "mpma2d4",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Speed Point 0",
+        "Value": "0",
+        "Description": "Power Map Drive Speed Point 0",
+        "Default": "0",
+        "Cmd": "mpms2d0",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Speed Point 1",
+        "Value": "280",
+        "Description": "Power Map Drive Speed Point 1",
+        "Default": "280",
+        "Cmd": "mpms2d1",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Speed Point 2",
+        "Value": "500",
+        "Description": "Power Map Drive Speed Point 2",
+        "Default": "500",
+        "Cmd": "mpms2d2",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Speed Point 3",
+        "Value": "700",
+        "Description": "Power Map Drive Speed Point 3",
+        "Default": "700",
+        "Cmd": "mpms2d3",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Speed Point 4",
+        "Value": "870",
+        "Description": "Power Map Drive Speed Point 4",
+        "Default": "870",
+        "Cmd": "mpms2d4",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Current Point 0",
+        "Value": "0",
+        "Description": "Power Map Regeneration Current Point 0",
+        "Default": "0",
+        "Cmd": "mpma2r0",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Current Point 1",
+        "Value": "0",
+        "Description": "Power Map Regeneration Current Point 1",
+        "Default": "50",
+        "Cmd": "mpma2r1",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Current Point 2",
+        "Value": "50",
+        "Description": "Power Map Regeneration Current Point 2",
+        "Default": "50",
+        "Cmd": "mpma2r2",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Current Point 3",
+        "Value": "50",
+        "Description": "Power Map Regeneration Current Point 3",
+        "Default": "50",
+        "Cmd": "mpma2r3",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Current Point 4",
+        "Value": "50",
+        "Description": "Power Map Regeneration Current Point 4",
+        "Default": "50",
+        "Cmd": "mpma2r4",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Speed Point 0",
+        "Value": "0",
+        "Description": "Power Map Regeneration Speed Point 0",
+        "Default": "0",
+        "Cmd": "mpms2r0",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Speed Point 1",
+        "Value": "50",
+        "Description": "Power Map Regeneration Speed Point 1",
+        "Default": "50",
+        "Cmd": "mpms2r1",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Speed Point 2",
+        "Value": "500",
+        "Description": "Power Map Regeneration Speed Point 2",
+        "Default": "500",
+        "Cmd": "mpms2r2",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Speed Point 3",
+        "Value": "900",
+        "Description": "Power Map Regeneration Speed Point 3",
+        "Default": "900",
+        "Cmd": "mpms2r3",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Speed Point 4",
+        "Value": "1500",
+        "Description": "Power Map Regeneration Speed Point 4",
+        "Default": "1500",
+        "Cmd": "mpms2r4",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Max Speed Limit Active",
+        "Value": "1",
+        "Description": "Max Speed Limit Active Flag",
+        "Default": "ON",
+        "Cmd": "mfpla2mxs",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "OFF",
+            "Value": "0"
+          },
+          {
+            "Name": "ON",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": " Max Speed Limit Value",
+        "Value": "630",
+        "Description": " Max Speed Limit Value",
+        "Default": "630",
+        "Cmd": "mplrs2mxs",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      }
+    ],
+    "GroupName": "Eco",
+    "GroupDescription": "Driving Profile Eco",
+    "GroupType": 2
+  },
+  {
+    "ParamList": [
+      {
+        "Name": "Ramp Up",
+        "Value": "0",
+        "Description": "Ramp Up Command\n'0' means no ramp",
+        "Default": "0",
+        "Cmd": "mcrup3",
+        "Range": [
+          0.0,
+          100.0
+        ],
+        "Units": "%",
+        "Scale": 500.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Ramp Down",
+        "Value": "0",
+        "Description": "Ramp Down Command\n'0' means no ramp",
+        "Default": "0",
+        "Cmd": "mcrdwn3",
+        "Range": [
+          0.0,
+          100.0
+        ],
+        "Units": "%",
+        "Scale": 500.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Motor Speed Control Max",
+        "Value": "0",
+        "Description": "Motor Speed Control Max",
+        "Default": "0",
+        "Cmd": "msmxc3",
+        "Range": [
+          0.0,
+          999999.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Motor Speed Control Min",
+        "Value": "0",
+        "Description": "Motor Speed Control Min",
+        "Default": "0",
+        "Cmd": "msmnc3",
+        "Range": [
+          0.0,
+          999999.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Regeneration On Braking",
+        "Value": "1",
+        "Description": "Regeneration On Braking Flag",
+        "Default": "ON",
+        "Cmd": "mtrfrgnonbrkp3",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "OFF",
+            "Value": "0"
+          },
+          {
+            "Name": "ON",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Regeneration On Throttle Release",
+        "Value": "0",
+        "Description": "Regeneration On Throttle Release Flag",
+        "Default": "ON",
+        "Cmd": "mtrfrgnthrrlsp3",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "OFF",
+            "Value": "0"
+          },
+          {
+            "Name": "ON",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Regeneration On Throttle Release Value",
+        "Value": "0",
+        "Description": "Regeneration On Throttle Release Value",
+        "Default": "0",
+        "Cmd": "mrotr3",
+        "Range": [
+          0.0,
+          100.0
+        ],
+        "Units": "%",
+        "Scale": 10.24,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Current Point 0",
+        "Value": "0",
+        "Description": "Power Map Drive Current Point 0",
+        "Default": "0",
+        "Cmd": "mpma3d0",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Current Point 1",
+        "Value": "0",
+        "Description": "Power Map Drive Current Point 1",
+        "Default": "0",
+        "Cmd": "mpma3d1",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Current Point 2",
+        "Value": "0",
+        "Description": "Power Map Drive Current Point 2",
+        "Default": "0",
+        "Cmd": "mpma3d2",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Current Point 3",
+        "Value": "0",
+        "Description": "Power Map Drive Current Point 3",
+        "Default": "0",
+        "Cmd": "mpma3d3",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Current Point 4",
+        "Value": "0",
+        "Description": "Power Map Drive Current Point 4",
+        "Default": "0",
+        "Cmd": "mpma3d4",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Speed Point 0",
+        "Value": "0",
+        "Description": "Power Map Drive Speed Point 0",
+        "Default": "0",
+        "Cmd": "mpms3d0",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Speed Point 1",
+        "Value": "0",
+        "Description": "Power Map Drive Speed Point 1",
+        "Default": "0",
+        "Cmd": "mpms3d1",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Speed Point 2",
+        "Value": "0",
+        "Description": "Power Map Drive Speed Point 2",
+        "Default": "0",
+        "Cmd": "mpms3d2",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Speed Point 3",
+        "Value": "0",
+        "Description": "Power Map Drive Speed Point 3",
+        "Default": "0",
+        "Cmd": "mpms3d3",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Drive Speed Point 4",
+        "Value": "0",
+        "Description": "Power Map Drive Speed Point 4",
+        "Default": "0",
+        "Cmd": "mpms3d4",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Current Point 0",
+        "Value": "0",
+        "Description": "Power Map Regeneration Current Point 0",
+        "Default": "0",
+        "Cmd": "mpma3r0",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Current Point 1",
+        "Value": "0",
+        "Description": "Power Map Regeneration Current Point 1",
+        "Default": "0",
+        "Cmd": "mpma3r1",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Current Point 2",
+        "Value": "0",
+        "Description": "Power Map Regeneration Current Point 2",
+        "Default": "0",
+        "Cmd": "mpma3r2",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Current Point 3",
+        "Value": "0",
+        "Description": "Power Map Regeneration Current Point 3",
+        "Default": "0",
+        "Cmd": "mpma3r3",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Current Point 4",
+        "Value": "0",
+        "Description": "Power Map Regeneration Current Point 4",
+        "Default": "0",
+        "Cmd": "mpma3r4",
+        "Range": [
+          0.0,
+          600.0
+        ],
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Speed Point 0",
+        "Value": "0",
+        "Description": "Power Map Regeneration Speed Point 0",
+        "Default": "0",
+        "Cmd": "mpms3r0",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Speed Point 1",
+        "Value": "0",
+        "Description": "Power Map Regeneration Speed Point 1",
+        "Default": "0",
+        "Cmd": "mpms3r1",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Speed Point 2",
+        "Value": "0",
+        "Description": "Power Map Regeneration Speed Point 2",
+        "Default": "0",
+        "Cmd": "mpms3r2",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Speed Point 3",
+        "Value": "0",
+        "Description": "Power Map Regeneration Speed Point 3",
+        "Default": "0",
+        "Cmd": "mpms3r3",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Map Regen Speed Point 4",
+        "Value": "0",
+        "Description": "Power Map Regeneration Speed Point 4",
+        "Default": "0",
+        "Cmd": "mpms3r4",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Max Speed Limit Active",
+        "Value": "0",
+        "Description": "Max Speed Limit Active Flag",
+        "Default": "OFF",
+        "Cmd": "mfpla3mxs",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": [
+          {
+            "Name": "OFF",
+            "Value": "0"
+          },
+          {
+            "Name": "ON",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Max Speed Limit Value",
+        "Value": "0",
+        "Description": "Max Speed Limit Value",
+        "Default": "0",
+        "Cmd": "mplrs3mxs",
+        "Range": [
+          0.0,
+          10000.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      }
+    ],
+    "GroupName": "PTP",
+    "GroupDescription": "Driving Profile Push-To-Pass",
+    "GroupType": 2
+  },
+  {
+    "ParamList": [
+      {
+        "Name": "Max Speed",
+        "Value": "100",
+        "Description": "Max Speed Allowed in Turtle Mode",
+        "Default": "100",
+        "Cmd": "prjprm1",
+        "Range": [
+          0.0,
+          1500.0
+        ],
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      },
+      {
+        "Name": "Max DC Current",
+        "Value": "100",
+        "Description": "Max DC Current Allowed in Turtle Mode",
+        "Default": "100",
+        "Cmd": "prjprm2",
+        "Range": [
+          0.0,
+          300.0
+        ],
+        "Units": "A",
+        "Scale": 1000.0,
+        "Note": null,
+        "Save": true,
+        "DropDown": null
+      }
+    ],
+    "GroupName": "Turtle",
+    "GroupDescription": "Driving Profile Turtle",
+    "GroupType": 2
+  },
+  {
+    "ParamList": [
+      {
+        "Name": "Runtime",
+        "Value": "58.189",
+        "Description": "Runtime",
+        "Default": "0",
+        "Cmd": "runtime",
+        "Range": null,
+        "Units": "Seconds",
+        "Scale": 1000.0,
+        "Note": "58.189",
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Motor Temperature",
+        "Value": "38",
+        "Description": "Motor Temperature",
+        "Default": "0",
+        "Cmd": "mtrtmp",
+        "Range": null,
+        "Units": "�C",
+        "Scale": 100.0,
+        "Note": "38",
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "MCU Temperature",
+        "Value": "34.13",
+        "Description": "MCU Temperature",
+        "Default": "0",
+        "Cmd": "brdtmp",
+        "Range": null,
+        "Units": "�C",
+        "Scale": 100.0,
+        "Note": "34.13",
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "CPU Temperature",
+        "Value": "",
+        "Description": "CPU Temperature",
+        "Default": "0",
+        "Cmd": "cputmp",
+        "Range": null,
+        "Units": "�C",
+        "Scale": 100.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Pre-Charge Temperature",
+        "Value": "",
+        "Description": "Pre-Charge Temperature",
+        "Default": "0",
+        "Cmd": "pctemp",
+        "Range": null,
+        "Units": "�C",
+        "Scale": 100.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Highest Active Fault",
+        "Value": "33153",
+        "Description": "Highest Active Fault Code",
+        "Default": "0",
+        "Cmd": "flthi",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": "33153",
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Faults Vector LSB",
+        "Value": "0",
+        "Description": "Faults Vector, 32 bits bitwise\r\nLower bits of the whole faults vector",
+        "Default": "0",
+        "Cmd": "fltvlsb",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": "No Active Fault",
+        "Save": false,
+        "DropDown": [
+          {
+            "Name": "No Active Fault",
+            "Value": "0"
+          },
+          {
+            "Name": "Motor Over Temperature",
+            "Value": "1"
+          },
+          {
+            "Name": "Motor Under Temperature",
+            "Value": "2"
+          },
+          {
+            "Name": "Motor Temperature Sensor",
+            "Value": "4"
+          },
+          {
+            "Name": "Controller Over Temperature",
+            "Value": "8"
+          },
+          {
+            "Name": "Controller Under Temperature",
+            "Value": "16"
+          },
+          {
+            "Name": "Controller Temperature Sensor",
+            "Value": "32"
+          },
+          {
+            "Name": "Pre-Charge Over Temperature (P-BIT)",
+            "Value": "64"
+          },
+          {
+            "Name": "Pre-Charge Over Temperature (C-BIT)",
+            "Value": "128"
+          },
+          {
+            "Name": "Pre-Charge Temperature Sensor",
+            "Value": "256"
+          },
+          {
+            "Name": "Phase U Over Current RMS",
+            "Value": "512"
+          },
+          {
+            "Name": "Phase U Over Current Peak",
+            "Value": "1024"
+          },
+          {
+            "Name": "Phase U Current Sensor",
+            "Value": "2048"
+          },
+          {
+            "Name": "Phase V Over Current RMS",
+            "Value": "4096"
+          },
+          {
+            "Name": "Phase V Over Current Peak",
+            "Value": "8192"
+          },
+          {
+            "Name": "Phase V Current Sensor",
+            "Value": "16384"
+          },
+          {
+            "Name": "Phase W Over Current RMS",
+            "Value": "32768"
+          },
+          {
+            "Name": "Phase W Over Current Peak",
+            "Value": "65536"
+          },
+          {
+            "Name": "Phase Sensor Offset",
+            "Value": "131072"
+          },
+          {
+            "Name": "Phase U Disconnected",
+            "Value": "262144"
+          },
+          {
+            "Name": "Phase V Disconnected",
+            "Value": "524288"
+          },
+          {
+            "Name": "Phase W Disconnected",
+            "Value": "1048576"
+          },
+          {
+            "Name": "Bus Over Current",
+            "Value": "2097152"
+          },
+          {
+            "Name": "Bus Current Sensor",
+            "Value": "4194304"
+          },
+          {
+            "Name": "Pre-Charge Under Voltage",
+            "Value": "8388608"
+          },
+          {
+            "Name": "Bus Low Voltage",
+            "Value": "16777216"
+          },
+          {
+            "Name": "Bus Over Voltage",
+            "Value": "33554432"
+          },
+          {
+            "Name": "Pre-Charge Capacitors Low",
+            "Value": "67108864"
+          },
+          {
+            "Name": "Capacitors Low",
+            "Value": "134217728"
+          },
+          {
+            "Name": "Pre-Charge Latch",
+            "Value": "268435456"
+          },
+          {
+            "Name": "Pre-Charge Timeout",
+            "Value": "536870912"
+          },
+          {
+            "Name": "Pre-Charge Over Current",
+            "Value": "1073741824"
+          },
+          {
+            "Name": "Gate Driver Voltage",
+            "Value": "-2147483648"
+          }
+        ]
+      },
+      {
+        "Name": "Faults Vector MSB",
+        "Value": "",
+        "Description": "Faults Vector, 32 bits bitwise\r\nHigher bits of the whole faults vector",
+        "Default": "0",
+        "Cmd": "fltvmsb",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": [
+          {
+            "Name": "No Active Fault",
+            "Value": "0"
+          },
+          {
+            "Name": "VSW Under Voltage",
+            "Value": "1"
+          },
+          {
+            "Name": "Hall Sensor",
+            "Value": "2"
+          },
+          {
+            "Name": "AqB Sensor",
+            "Value": "4"
+          },
+          {
+            "Name": "Memory Read",
+            "Value": "8"
+          },
+          {
+            "Name": "CAN No Communication",
+            "Value": "16"
+          },
+          {
+            "Name": "CAN Timeout",
+            "Value": "32"
+          },
+          {
+            "Name": "CAN-ID 0x401/2 Timeout",
+            "Value": "64"
+          },
+          {
+            "Name": "CAN-ID 0x421/2 Timeout",
+            "Value": "128"
+          },
+          {
+            "Name": "CAN Mailbox 0x1AA/B Timeout",
+            "Value": "256"
+          },
+          {
+            "Name": "CAN Mailbox 3 Timeout",
+            "Value": "512"
+          },
+          {
+            "Name": "CAN Invalid Command",
+            "Value": "1024"
+          },
+          {
+            "Name": "CAN Digital Input",
+            "Value": "2048"
+          },
+          {
+            "Name": "Throttle Invalid",
+            "Value": "4096"
+          },
+          {
+            "Name": "Throttle",
+            "Value": "8192"
+          },
+          {
+            "Name": "Performance Derating Bus Voltage",
+            "Value": "16384"
+          },
+          {
+            "Name": "Performance Derating Motor Temperature",
+            "Value": "32768"
+          },
+          {
+            "Name": "Performance Derating Controller Temperature",
+            "Value": "65536"
+          }
+        ]
+      },
+      {
+        "Name": "Vbus",
+        "Value": "59.938",
+        "Description": "Bus Voltage (Post capacitors)",
+        "Default": "0",
+        "Cmd": "vbus",
+        "Range": null,
+        "Units": "V",
+        "Scale": 1000.0,
+        "Note": "59.938",
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Vbus In",
+        "Value": "",
+        "Description": "Bus In Voltage (Prior to capacitors)",
+        "Default": "0",
+        "Cmd": "vbusin",
+        "Range": null,
+        "Units": "V",
+        "Scale": 1000.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Vsw",
+        "Value": "",
+        "Description": "Switch Voltage",
+        "Default": "0",
+        "Cmd": "vsw",
+        "Range": null,
+        "Units": "V",
+        "Scale": 1000.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Current U",
+        "Value": "0",
+        "Description": "Current Phase U RMS",
+        "Default": "0",
+        "Cmd": "currarms",
+        "Range": null,
+        "Units": "A-RMS",
+        "Scale": 1000.0,
+        "Note": "0",
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Current V",
+        "Value": "0",
+        "Description": "Current Phase V RMS",
+        "Default": "0",
+        "Cmd": "currbrms",
+        "Range": null,
+        "Units": "A-RMS",
+        "Scale": 1000.0,
+        "Note": "0",
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Current W",
+        "Value": "0",
+        "Description": "Current Phase W RMS",
+        "Default": "0",
+        "Cmd": "currcrms",
+        "Range": null,
+        "Units": "A-RMS",
+        "Scale": 1000.0,
+        "Note": "0",
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Bus Current",
+        "Value": "0",
+        "Description": "Bus Current",
+        "Default": "0",
+        "Cmd": "currbus",
+        "Range": null,
+        "Units": "A",
+        "Scale": 1000.0,
+        "Note": "0",
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Operational State",
+        "Value": "",
+        "Description": "MCU Operational State",
+        "Default": "0",
+        "Cmd": "opstate",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": [
+          {
+            "Name": "Init",
+            "Value": "0"
+          },
+          {
+            "Name": "Neutral",
+            "Value": "1"
+          },
+          {
+            "Name": "Forward",
+            "Value": "2"
+          },
+          {
+            "Name": "Reverse",
+            "Value": "3"
+          },
+          {
+            "Name": "Lock",
+            "Value": "4"
+          },
+          {
+            "Name": "Fault",
+            "Value": "5"
+          },
+          {
+            "Name": "ATE",
+            "Value": "6"
+          }
+        ]
+      },
+      {
+        "Name": "Motor State",
+        "Value": "",
+        "Description": "Motor State",
+        "Default": "Neutral",
+        "Cmd": "mstate",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": [
+          {
+            "Name": "Neutral",
+            "Value": "0"
+          },
+          {
+            "Name": "Run",
+            "Value": "1"
+          },
+          {
+            "Name": "Lock",
+            "Value": "2"
+          },
+          {
+            "Name": "Fault",
+            "Value": "3"
+          },
+          {
+            "Name": "ATE",
+            "Value": "4"
+          },
+          {
+            "Name": "Self-Test",
+            "Value": "5"
+          }
+        ]
+      },
+      {
+        "Name": "Active Profile",
+        "Value": "",
+        "Description": "Active Driving Profile",
+        "Default": "",
+        "Cmd": "mtractp",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": [
+          {
+            "Name": "Sport",
+            "Value": "0"
+          },
+          {
+            "Name": "City",
+            "Value": "1"
+          },
+          {
+            "Name": "Eco",
+            "Value": "2"
+          },
+          {
+            "Name": "PTP",
+            "Value": "3"
+          }
+        ]
+      },
+      {
+        "Name": "Motorbike Active Profile",
+        "Value": "",
+        "Description": "Motorbike Active Driving Profile",
+        "Default": "",
+        "Cmd": "prjprm3",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": [
+          {
+            "Name": "Sport",
+            "Value": "0"
+          },
+          {
+            "Name": "City",
+            "Value": "1"
+          },
+          {
+            "Name": "Eco",
+            "Value": "2"
+          },
+          {
+            "Name": "PTP",
+            "Value": "3"
+          },
+          {
+            "Name": "Turtle",
+            "Value": "5"
+          }
+        ]
+      },
+      {
+        "Name": "IQ Command",
+        "Value": "0",
+        "Description": "Motor IQ Command",
+        "Default": "0",
+        "Cmd": "miqcmd",
+        "Range": null,
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": "0",
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "ID Command",
+        "Value": "",
+        "Description": "Motor ID Command",
+        "Default": "0",
+        "Cmd": "midcmd",
+        "Range": null,
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "IQ Command Max",
+        "Value": "",
+        "Description": "IQ Command Max",
+        "Default": "0",
+        "Cmd": "mcmdcurrmax",
+        "Range": null,
+        "Units": "A",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Phase Current Command RMS",
+        "Value": "",
+        "Description": "Motor Phase Current Command RMS",
+        "Default": "0",
+        "Cmd": "mphcurrcmd",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Throttle In",
+        "Value": "",
+        "Description": "Motor Normalized Throttle Input In",
+        "Default": "0",
+        "Cmd": "minthrin",
+        "Range": null,
+        "Units": "%",
+        "Scale": 10.24,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Brake In",
+        "Value": "",
+        "Description": "Motor Brake Input In",
+        "Default": "0",
+        "Cmd": "minbrkin",
+        "Range": null,
+        "Units": "%",
+        "Scale": 10.24,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Speed - Electric Hz",
+        "Value": "",
+        "Description": "Speed - Electric Hz",
+        "Default": "0",
+        "Cmd": "mspdelechz",
+        "Range": null,
+        "Units": "Electric Hz",
+        "Scale": 1000.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Speed - Electric RPM",
+        "Value": "",
+        "Description": "Speed - Electric RPM",
+        "Default": "0",
+        "Cmd": "mspdelecrpm",
+        "Range": null,
+        "Units": "Electric RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Speed - KMH",
+        "Value": "",
+        "Description": "Speed - KMH",
+        "Default": "0",
+        "Cmd": "mspdkmh",
+        "Range": null,
+        "Units": "KMH",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Speed - RPM",
+        "Value": "0",
+        "Description": "Speed - RPM",
+        "Default": "0",
+        "Cmd": "mspdrpm",
+        "Range": null,
+        "Units": "RPM",
+        "Scale": 1.0,
+        "Note": "0",
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Acceleration",
+        "Value": "",
+        "Description": "Acceleration",
+        "Default": "0",
+        "Cmd": "maccel",
+        "Range": null,
+        "Units": "RPM/sec",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Bus Voltage\nActive Derating Level",
+        "Value": "",
+        "Description": "Bus Voltage Active Derating Level",
+        "Default": "0",
+        "Cmd": "madlbv",
+        "Range": null,
+        "Units": "%",
+        "Scale": 10.24,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "MCU Temp\nActive Derating Level",
+        "Value": "",
+        "Description": "MCU Temperature Active Derating Level",
+        "Default": "0",
+        "Cmd": "madlte",
+        "Range": null,
+        "Units": "%",
+        "Scale": 10.24,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Motor Temp\nActive Derating Level",
+        "Value": "",
+        "Description": "Motor Temperature Active Derating Level",
+        "Default": "0",
+        "Cmd": "madltm",
+        "Range": null,
+        "Units": "%",
+        "Scale": 10.24,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Max Speed\nActive Limit Level",
+        "Value": "",
+        "Description": "Max Speed Active Limit Level",
+        "Default": "0",
+        "Cmd": "mpidalmxs",
+        "Range": null,
+        "Units": "%",
+        "Scale": 10.24,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Max Bus Current\nActive Limit Level",
+        "Value": "",
+        "Description": "Max Bus Current Active Limit Level",
+        "Default": "0",
+        "Cmd": "mpidalmxbc",
+        "Range": null,
+        "Units": "%",
+        "Scale": 10.24,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Min Bus Current\nActive Limit Level",
+        "Value": "",
+        "Description": "Min Bus Current Active Limit Level",
+        "Default": "0",
+        "Cmd": "mpidalmnbc",
+        "Range": null,
+        "Units": "%",
+        "Scale": 10.24,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Max Bus Voltage\nActive Limit Level",
+        "Value": "",
+        "Description": "Max Bus Voltage Active Limit Level",
+        "Default": "0",
+        "Cmd": "mpidalmxbv",
+        "Range": null,
+        "Units": "%",
+        "Scale": 10.24,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Min Bus Voltage\nActive Limit Level",
+        "Value": "",
+        "Description": "Min Bus Current Active Limit Level",
+        "Default": "0",
+        "Cmd": "mpidalmnbv",
+        "Range": null,
+        "Units": "%",
+        "Scale": 10.24,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Motor Ke",
+        "Value": "",
+        "Description": "Motor Ke Constant",
+        "Default": "0",
+        "Cmd": "mke",
+        "Range": null,
+        "Units": "V/RPM",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Motor Kv Estimated",
+        "Value": "",
+        "Description": "Motor Kv Estimated",
+        "Default": "0",
+        "Cmd": "mkve",
+        "Range": null,
+        "Units": "RPM/V",
+        "Scale": 1000.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Back EMF Voltage",
+        "Value": "",
+        "Description": "Motor Back EMF Voltage",
+        "Default": "0",
+        "Cmd": "mbemfvolt",
+        "Range": null,
+        "Units": "V",
+        "Scale": 1000.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Power In",
+        "Value": "",
+        "Description": "Motor Power In",
+        "Default": "0",
+        "Cmd": "mpwrin",
+        "Range": null,
+        "Units": "W",
+        "Scale": 1000.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Power Out",
+        "Value": "",
+        "Description": "Motor Power Out",
+        "Default": "0",
+        "Cmd": "mpwrout",
+        "Range": null,
+        "Units": "W",
+        "Scale": 1000.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Torque",
+        "Value": "",
+        "Description": "Torque",
+        "Default": "0",
+        "Cmd": "mtorque",
+        "Range": null,
+        "Units": "Nm",
+        "Scale": 1000.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Max Output Voltage",
+        "Value": "",
+        "Description": "Motor Max Output Voltage",
+        "Default": "0",
+        "Cmd": "mmxoutvolt",
+        "Range": null,
+        "Units": "V",
+        "Scale": 1000.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Output Voltage",
+        "Value": "",
+        "Description": "Motor Output Voltage",
+        "Default": "0",
+        "Cmd": "moutvolt",
+        "Range": null,
+        "Units": "V",
+        "Scale": 1000.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Speed Control Input",
+        "Value": "",
+        "Description": "Motor Speed Control Input",
+        "Default": "0",
+        "Cmd": "minspdcntrl",
+        "Range": null,
+        "Units": "%",
+        "Scale": 10.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Cruise Speed Flag",
+        "Value": "",
+        "Description": "Cruise Speed Flag",
+        "Default": "0",
+        "Cmd": "mfcrsspd",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": [
+          {
+            "Name": "OFF",
+            "Value": "0"
+          },
+          {
+            "Name": "ON",
+            "Value": "1"
+          }
+        ]
+      },
+      {
+        "Name": "Speed Target",
+        "Value": "",
+        "Description": "Motor Speed Target",
+        "Default": "0",
+        "Cmd": "mspdtar",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Distance",
+        "Value": "",
+        "Description": "Motor Distance",
+        "Default": "0",
+        "Cmd": "mdis",
+        "Range": null,
+        "Units": "Meters",
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Hall State",
+        "Value": "",
+        "Description": "Hall State",
+        "Default": "0",
+        "Cmd": "hallstate",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Angle Direction",
+        "Value": "",
+        "Description": "Angle Direction",
+        "Default": "0",
+        "Cmd": "hangdir",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Electric Angle",
+        "Value": "",
+        "Description": "Electric Angle",
+        "Default": "0",
+        "Cmd": "helecang",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "PWM Dead Time Cycles",
+        "Value": "",
+        "Description": "PWM Dead Time Cycles",
+        "Default": "0",
+        "Cmd": "pwmdtcyc",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "PWM Period",
+        "Value": "",
+        "Description": "PWM Period",
+        "Default": "0",
+        "Cmd": "pwmprd",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "FOC Iq Sensed",
+        "Value": "",
+        "Description": "FOC Iq Sensed",
+        "Default": "0",
+        "Cmd": "focisenq",
+        "Range": null,
+        "Units": "A",
+        "Scale": 1000.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "FOC Id Sensed",
+        "Value": "",
+        "Description": "FOC Id Sensed",
+        "Default": "0",
+        "Cmd": "focisend",
+        "Range": null,
+        "Units": "A",
+        "Scale": 1000.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "FOC Iq Command",
+        "Value": "",
+        "Description": "FOC Iq Command",
+        "Default": "0",
+        "Cmd": "focirefq",
+        "Range": null,
+        "Units": "A",
+        "Scale": 1000.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "FOC Id Command",
+        "Value": "",
+        "Description": "FOC Id Command",
+        "Default": "0",
+        "Cmd": "focirefd",
+        "Range": null,
+        "Units": "A",
+        "Scale": 1000.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "FOC vDQ Size",
+        "Value": "",
+        "Description": "FOC vDQ Size",
+        "Default": "0",
+        "Cmd": "focvdqsz",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "FOC vQ Max Reference",
+        "Value": "",
+        "Description": "FOC VDQ Max Reference",
+        "Default": "0",
+        "Cmd": "focvqmax",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Main Debug",
+        "Value": "",
+        "Description": "Main Debug",
+        "Default": "0",
+        "Cmd": "maindebug",
+        "Range": null,
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      }
+    ],
+    "GroupName": "Monitor",
+    "GroupDescription": "Monitor",
+    "GroupType": 3
+  },
+  {
+    "ParamList": [
+      {
+        "Name": "Version Minor",
+        "Value": "2",
+        "Description": "Version Minor.",
+        "Default": "0",
+        "Cmd": "verminor",
+        "Range": [
+          0.0,
+          99.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Version Middle",
+        "Value": "4",
+        "Description": "Version Middle.",
+        "Default": "0",
+        "Cmd": "vermiddle",
+        "Range": [
+          0.0,
+          99.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Version Major",
+        "Value": "0",
+        "Description": "Version Major.",
+        "Default": "0",
+        "Cmd": "vermajor",
+        "Range": [
+          0.0,
+          99.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      }
+    ],
+    "GroupName": "FW Version",
+    "GroupDescription": "Software Version",
+    "GroupType": 4
+  },
+  {
+    "ParamList": [
+      {
+        "Name": "Version Minor",
+        "Value": "0",
+        "Description": "Version Minor.",
+        "Default": "0",
+        "Cmd": "hwverminor",
+        "Range": [
+          0.0,
+          99.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Version Middle",
+        "Value": "0",
+        "Description": "Version Middle.",
+        "Default": "0",
+        "Cmd": "hwvermiddle",
+        "Range": [
+          0.0,
+          99.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Version Major",
+        "Value": "0",
+        "Description": "Version Major.",
+        "Default": "0",
+        "Cmd": "hwvermajor",
+        "Range": [
+          0.0,
+          99.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Serial Number",
+        "Value": "0",
+        "Description": "MCU Serial Number",
+        "Default": "0",
+        "Cmd": "serialnumber",
+        "Range": [
+          0.0,
+          99.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      }
+    ],
+    "GroupName": "HW Version",
+    "GroupDescription": "Hardware Version",
+    "GroupType": 4
+  },
+  {
+    "ParamList": [
+      {
+        "Name": "Version Minor",
+        "Value": "6",
+        "Description": "Version Major.",
+        "Default": "0",
+        "Cmd": "coreverminor",
+        "Range": [
+          0.0,
+          99.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Version Middle",
+        "Value": "7",
+        "Description": "Version Major.",
+        "Default": "0",
+        "Cmd": "corevermiddle",
+        "Range": [
+          0.0,
+          99.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      },
+      {
+        "Name": "Version Major",
+        "Value": "0",
+        "Description": "Version Major.",
+        "Default": "0",
+        "Cmd": "corevermajor",
+        "Range": [
+          0.0,
+          99.0
+        ],
+        "Units": null,
+        "Scale": 1.0,
+        "Note": null,
+        "Save": false,
+        "DropDown": null
+      }
+    ],
+    "GroupName": "Core Version",
+    "GroupDescription": "Core Version",
+    "GroupType": 4
+  }
+]
