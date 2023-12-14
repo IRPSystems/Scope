@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using Communication.Services;
+using CommunityToolkit.Mvvm.Input;
 using Controls.ViewModels;
 using DeviceCommunicators.MCU;
 using Entities.Enums;
@@ -32,31 +33,7 @@ namespace MCUScope.ViewModels
 		public ChartsSelectionViewModel ChartsSelection { get; set; }
 		public ScopeViewModel Scope { get; set; }
 
-		//private CanService _canService;
-		//public CanService CanService
-		//{
-		//	get => _canService;
-		//	set
-		//	{
-		//		_canService = value;
-		//		//_canService.CanMessageReceivedEvent += MessageReceivedEventHandler;
-
-		//		_communicationService.CanService = _canService;
-		//	//	_communicationService.
-		//	}
-		//}
-
-		//private CanbusControl _canbusControl;
-		//public CanbusControl CanbusControl
-		//{
-		//	get => _canbusControl;
-		//	set
-		//	{
-		//		_canbusControl = value;
-
-		//		_communicationService.CanbusControl.SetAsyncEvent(AsyncMessageReceivedEventHandler);
-		//	}
-		//}
+		
 
 
 		#region RecodStateColor
@@ -127,25 +104,21 @@ namespace MCUScope.ViewModels
 		private CancellationTokenSource _cancellationTokenSource;
 		private CancellationToken _cancellationToken;
 
-
-		//private MCU_Communicator _mcu_Communicator;
-		private CommunicationService _communicationService;
+		private CanService _canService;
 
 		#endregion Fields
 
 		#region Constroctur
 
-		public MCUScopeViewModel(MCU_Communicator mcu_Communicator) :
+		public MCUScopeViewModel(CanService canService) :
 			base("MCUScopeLayout", "MCUScope")
 		{
 
 			Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(
 				"MjQ2MzU2NkAzMjMwMmUzMzJlMzBOaGhMVVJBelp0Y1c1eXdoNHRTcHI4bGVOdmdxQWNXZkZxeklweENobmdjPQ==");
 
-			_communicationService = new CommunicationService();
-			if (mcu_Communicator != null)
-				_communicationService.CanService = mcu_Communicator.CanService;
-			
+			_canService = canService;
+			_canService.CanMessageReceivedEvent += CanMessageReceivedEventHandler;
 
 			_chartIndex = 0;
 			_seriesIndex = 0;
@@ -162,7 +135,6 @@ namespace MCUScope.ViewModels
 			MCUDevice = ReadFromMCUJson(@"param_defaults.json");
 
 			TriggerSelection = new TriggerSelectionViewModel(MCUDevice);
-			TriggerSelection.ContinuousEvent += ContinuousEventHandler;
 
 			ChartsSelection = new ChartsSelectionViewModel(MCUDevice);
 			ChartsSelection.AddChartEvent += AddChartEventHandler;
@@ -338,7 +310,7 @@ namespace MCUScope.ViewModels
 		{
 			byte[] data = _buildRequestMessages.BuildForceTriggerMessage();
 			//_mcu_Communicator.SendMessage(false, 0xAB, data, null);
-			_communicationService.Send(data);
+			_canService.Send(data);
 		}
 
 		private List<List<List<double>>> _dataList;
@@ -357,7 +329,7 @@ namespace MCUScope.ViewModels
 				TriggerSelection.IsContinuous,
 				TriggerSelection.TriggerData.TriggerPosition);
 			//_mcu_Communicator.SendMessage(false, 0xAB, data, null);
-			_communicationService.Send(data);
+			_canService.Send(data);
 			System.Threading.Thread.Sleep(100);
 
 			List<DeviceParameterData> paramsList = ChartsSelection.GetParamsList();
@@ -368,7 +340,7 @@ namespace MCUScope.ViewModels
 					return;
 
 				//_mcu_Communicator.SendMessage(false, 0xAB, data, null);
-				_communicationService.Send(data);
+				_canService.Send(data);
 				System.Threading.Thread.Sleep(100);
 			}
 
@@ -378,7 +350,7 @@ namespace MCUScope.ViewModels
 			if (data == null)
 				return;
 			//_mcu_Communicator.SendMessage(false, 0xAB, data, null);
-			_communicationService.Send(data);
+			_canService.Send(data);
 			System.Threading.Thread.Sleep(100);
 
 			data = _buildRequestMessages.BuildMessage4(
@@ -386,7 +358,7 @@ namespace MCUScope.ViewModels
 			if (data == null)
 				return;
 			//_mcu_Communicator.SendMessage(false, 0xAB, data, null);
-			_communicationService.Send(data);
+			_canService.Send(data);
 			System.Threading.Thread.Sleep(100);
 
 			_dataList = new List<List<List<double>>>();
@@ -435,11 +407,12 @@ namespace MCUScope.ViewModels
 			_timerRecordTime.Start();
 		}
 
-		private void ContinuousEventHandler(bool isContinuous)
+		
+
+		private void CanMessageReceivedEventHandler(uint node, byte[] buffer)
 		{
+			AsyncMessageReceivedEventHandler(buffer);
 		}
-
-
 
 		private void AsyncMessageReceivedEventHandler(byte[] buffer)
 		{
