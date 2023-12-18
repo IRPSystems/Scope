@@ -22,6 +22,7 @@ using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using TrueDriveCommunication;
 
 namespace MCUScope.ViewModels
 {
@@ -117,8 +118,15 @@ namespace MCUScope.ViewModels
 			Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(
 				"MjQ2MzU2NkAzMjMwMmUzMzJlMzBOaGhMVVJBelp0Y1c1eXdoNHRTcHI4bGVOdmdxQWNXZkZxeklweENobmdjPQ==");
 
-			_canService = canService;
-			_canService.CanMessageReceivedEvent += CanMessageReceivedEventHandler;
+			if (canService != null)
+			{
+				_canService = canService;
+				_canService.CanMessageReceivedEvent += CanMessageReceivedEventHandler;
+			}
+			else
+			{
+				ComPort._canbusControl.GetCanDriver().CanMessageReceivedEvent += CanMessageReceivedEventHandler;
+			}
 
 			_chartIndex = 0;
 			_seriesIndex = 0;
@@ -310,7 +318,7 @@ namespace MCUScope.ViewModels
 		{
 			byte[] data = _buildRequestMessages.BuildForceTriggerMessage();
 			//_mcu_Communicator.SendMessage(false, 0xAB, data, null);
-			_canService.Send(data);
+			Send(data);
 		}
 
 		private List<List<List<double>>> _dataList;
@@ -329,7 +337,7 @@ namespace MCUScope.ViewModels
 				TriggerSelection.IsContinuous,
 				TriggerSelection.TriggerData.TriggerPosition);
 			//_mcu_Communicator.SendMessage(false, 0xAB, data, null);
-			_canService.Send(data);
+			Send(data);
 			System.Threading.Thread.Sleep(100);
 
 			List<DeviceParameterData> paramsList = ChartsSelection.GetParamsList();
@@ -340,7 +348,7 @@ namespace MCUScope.ViewModels
 					return;
 
 				//_mcu_Communicator.SendMessage(false, 0xAB, data, null);
-				_canService.Send(data);
+				Send(data);
 				System.Threading.Thread.Sleep(100);
 			}
 
@@ -350,7 +358,7 @@ namespace MCUScope.ViewModels
 			if (data == null)
 				return;
 			//_mcu_Communicator.SendMessage(false, 0xAB, data, null);
-			_canService.Send(data);
+			Send(data);
 			System.Threading.Thread.Sleep(100);
 
 			data = _buildRequestMessages.BuildMessage4(
@@ -358,7 +366,7 @@ namespace MCUScope.ViewModels
 			if (data == null)
 				return;
 			//_mcu_Communicator.SendMessage(false, 0xAB, data, null);
-			_canService.Send(data);
+			Send(data);
 			System.Threading.Thread.Sleep(100);
 
 			_dataList = new List<List<List<double>>>();
@@ -578,6 +586,19 @@ namespace MCUScope.ViewModels
 			});
 
 			
+		}
+
+		private void Send(byte[] data)
+		{
+			if(_canService != null)
+				_canService.Send(data);
+			else
+			{
+				ComPort._canbusControl.GetCanDriver().SendMessage(
+					data, 
+					ComPort._canbusControl.mailboxId, 
+					data.Length);
+			}
 		}
 
 		#endregion Methods
