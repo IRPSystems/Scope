@@ -1,5 +1,6 @@
 ﻿
 using DeviceCommunicators.MCU;
+using DeviceCommunicators.Models;
 using Entities.Models;
 using MCUScope.Enums;
 using System;

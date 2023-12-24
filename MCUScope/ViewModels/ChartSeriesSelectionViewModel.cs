@@ -14,6 +14,7 @@ using System;
 using System.Windows.Media;
 using DeviceCommunicators.MCU;
 using System.Linq;
+using DeviceCommunicators.Models;
 
 namespace MCUScope.ViewModels
 {

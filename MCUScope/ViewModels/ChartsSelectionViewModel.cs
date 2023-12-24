@@ -1,7 +1,9 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using DeviceCommunicators.Models;
 using DeviceHandler.Models;
+using DeviceHandler.Models.DeviceFullDataModels;
 using Entities.Enums;
 using Entities.Models;
 using MCUScope.Models;
@@ -48,7 +50,7 @@ namespace MCUScope.ViewModels
 			_devicesContainter.DevicesFullDataList = new ObservableCollection<DeviceFullData>();
 			_devicesContainter.DevicesList = new ObservableCollection<DeviceData>();
 			_devicesContainter.TypeToDevicesFullData = new Dictionary<DeviceTypesEnum, DeviceFullData>();
-			DeviceFullData deviceFullData = new DeviceFullData(mcuDevice);
+			DeviceFullData deviceFullData = DeviceFullData.Factory(mcuDevice);
 			_devicesContainter.DevicesFullDataList.Add(deviceFullData);
 			_devicesContainter.DevicesList.Add(mcuDevice);
 			_devicesContainter.TypeToDevicesFullData.Add(mcuDevice.DeviceType, deviceFullData);

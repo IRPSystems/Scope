@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using Controls.ViewModels;
 using DeviceCommunicators.MCU;
+using DeviceCommunicators.Models;
 using Entities.Enums;
 using Entities.Models;
 using MCUScope.Models;

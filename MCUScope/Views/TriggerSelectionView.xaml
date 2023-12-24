@@ -6,6 +6,7 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib" 
              xmlns:enums="clr-namespace:MCUScope.Enums" 
              xmlns:entity_models="clr-namespace:Entities.Models;assembly=Entities" 
+             xmlns:device_infrastructure_models="clr-namespace:DeviceCommunicators.Models;assembly=DeviceCommunicators"
              xmlns:mcu_modles="clr-namespace:DeviceCommunicators.MCU;assembly=DeviceCommunicators"
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" 
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
@@ -232,13 +233,13 @@
                     <HierarchicalDataTemplate DataType="{x:Type mcu_modles:MCU_DeviceData}" ItemsSource="{Binding MCU_GroupList}" >
                         <TextBlock Text="{Binding Path=Name}" Margin="0,2" />
                     </HierarchicalDataTemplate>
-                    <HierarchicalDataTemplate DataType="{x:Type entity_models:DeviceData}" ItemsSource="{Binding ParemetersList}">
+                    <HierarchicalDataTemplate DataType="{x:Type device_infrastructure_models:DeviceData}" ItemsSource="{Binding ParemetersList}">
                         <TextBlock Text="{Binding Path=Name}" Margin="0,2"/>
                     </HierarchicalDataTemplate>
                     <HierarchicalDataTemplate DataType="{x:Type mcu_modles:ParamGroup}" ItemsSource="{Binding ParamList}">
                         <TextBlock Text="{Binding Path=GroupName}" Margin="0,2" />
                     </HierarchicalDataTemplate>
-                    <DataTemplate DataType="{x:Type entity_models:DeviceParameterData}" >
+                    <DataTemplate DataType="{x:Type device_infrastructure_models:DeviceParameterData}" >
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
