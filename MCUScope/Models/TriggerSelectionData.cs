@@ -9,7 +9,7 @@ namespace MCUScope.Models
 {
 	public class TriggerSelectionData: ObservableObject
 	{
-		public const int NumOfSampels = 512;
+		public const int NumOfSampels = 256;
 		public const int InterruptFreq = 16000;
 
 
