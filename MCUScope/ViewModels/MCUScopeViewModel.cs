@@ -428,8 +428,14 @@ namespace MCUScope.ViewModels
 			
 			if (!_isTriggerReceived)
 			{
-				//_chartPointsCounter += 2;
 				HeaderMessageReceived(buffer);
+				return;
+			}
+
+			bool isFooterReceived = IsFooterMessageReceived(buffer);
+			if (isFooterReceived) 
+			{
+				EndReceivingData();
 				return;
 			}
 
@@ -451,30 +457,28 @@ namespace MCUScope.ViewModels
 			val = BitConverter.ToInt16(buffer, 6);
 			SetSingleValue(val);
 
-			if (_chartPointsCounter == TriggerSelectionData.NumOfSampels)
+		}
+
+		private void EndReceivingData()
+		{
+			_timerRecordTime.Stop();
+
+
+			for (int i = 0; i < Scope.ChartsList.Count; i++)
 			{
-				_timerRecordTime.Stop();
-
-				
-				for (int i = 0; i < Scope.ChartsList.Count; i++)
+				if (Application.Current != null)
 				{
-					if (Application.Current != null)
+					Application.Current.Dispatcher.Invoke(() =>
 					{
-						Application.Current.Dispatcher.Invoke(() =>
-						{
-							Scope.UpdateChart(
-								_interval,
-								_dataList[i],
-								Scope.ChartsList[i].Name);
-						});
-					}
-
-					System.Threading.Thread.Sleep(1);
+						Scope.UpdateChart(
+							_interval,
+							_dataList[i],
+							Scope.ChartsList[i].Name);
+					});
 				}
 
-				
+				System.Threading.Thread.Sleep(1);
 			}
-
 		}
 
 		private void HeaderMessageReceived(byte[] buffer)
@@ -502,6 +506,12 @@ namespace MCUScope.ViewModels
 
 				}
 			}, _cancellationToken);
+		}
+
+		private bool IsFooterMessageReceived(byte[] buffer)
+		{			
+			ulong header = BitConverter.ToUInt64(buffer, 0);
+			return (header == 0xDCBADCBADCBADCBA);
 		}
 
 
