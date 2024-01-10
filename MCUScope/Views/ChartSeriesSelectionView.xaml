@@ -69,7 +69,69 @@
                 <iconPacks:PackIconMaterial Kind="TrashCan" Width="15" Height="15"/>
             </Button>
             
-            <ListView Name="lsLog" Grid.Row="4" ItemsSource="{Binding ParametersList}"
+            
+            
+            
+            
+            
+
+            <DataGrid Grid.Row="4"
+                      ItemsSource="{Binding ParametersList}"
+                      AllowDrop="True"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      Name="lsLog">
+
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridRow" BasedOn="{StaticResource MahApps.Styles.DataGridRow}">
+                        <Setter Property="IsSelected" Value="{Binding Data.IsSelected, Mode=TwoWay}" />
+                    </Style>
+                </DataGrid.Resources>
+
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="Name" Binding="{Binding Parameter.Name}" IsReadOnly="True" Width="200"/>
+                    <DataGridTextColumn Header="Scale" Binding="{Binding Scale}" />
+
+                </DataGrid.Columns>
+
+                <i:Interaction.Triggers>
+
+                    <i:EventTrigger EventName="Drop">
+                        <i:InvokeCommandAction Command="{Binding Path=DataContext.LoggindList_DropCommand, 
+                                                             Mode=OneWay, 
+                                                             RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" 
+                                           PassEventArgsToCommand="True"/>
+                    </i:EventTrigger>
+
+                    <i:EventTrigger EventName="DragEnter">
+                        <i:InvokeCommandAction Command="{Binding Path=DataContext.LoggindList_DragEnterCommand, 
+                                                             Mode=OneWay, 
+                                                             RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" 
+                                           PassEventArgsToCommand="True"/>
+                    </i:EventTrigger>
+
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding Path=DataContext.LoggindList_SelectionChangedCommand, 
+                                                             Mode=OneWay, 
+                                                             RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" 
+                                           PassEventArgsToCommand="True"/>
+                    </i:EventTrigger>
+
+
+                    <i:EventTrigger EventName="KeyDown">
+                        <i:InvokeCommandAction Command="{Binding Path=DataContext.LoggindList_KeyDownCommand, 
+                                                             Mode=OneWay, 
+                                                             RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" 
+                                           PassEventArgsToCommand="True"/>
+                    </i:EventTrigger>
+
+
+                </i:Interaction.Triggers>
+
+            </DataGrid>
+            
+            <!--<ListView Name="lsLog" Grid.Row="4" ItemsSource="{Binding ParametersList}"
                       AllowDrop="True">
 
                 <ListView.Resources>
@@ -118,7 +180,7 @@
 
                 </i:Interaction.Triggers>
 
-            </ListView>
+            </ListView>-->
 
         </Grid>
 

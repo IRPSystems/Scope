@@ -15,11 +15,14 @@ using System.Windows.Media;
 using DeviceCommunicators.MCU;
 using System.Linq;
 using DeviceCommunicators.Models;
+using MCUScope.Models;
 
 namespace MCUScope.ViewModels
 {
 	public class ChartSeriesSelectionViewModel: ObservableObject
 	{
+
+		
 
 		#region Properties
 
@@ -27,7 +30,7 @@ namespace MCUScope.ViewModels
 
 		public ParametersViewModel FullParametersList { get; set; }
 
-		public ObservableCollection<DeviceParameterData> ParametersList { get; set; }
+		public ObservableCollection<SelectedParameterData> ParametersList { get; set; }
 
 		public bool IsSelected { get; set; }
 
@@ -64,7 +67,7 @@ namespace MCUScope.ViewModels
 			IsPlayEnabled = false;
 			IsStopEnabled = false;
 
-			ParametersList = new ObservableCollection<DeviceParameterData>();
+			ParametersList = new ObservableCollection<SelectedParameterData>();
 
 			DeletParameterLogListCommand = new RelayCommand<System.Collections.IList>(DeletParameterLogList);
 
@@ -91,20 +94,23 @@ namespace MCUScope.ViewModels
 			if (param == null)
 				return;
 
-			ParametersList.Add(param);
+			SelectedParameterData selectedParameterData = new SelectedParameterData()
+			{  Parameter = param };
+
+			ParametersList.Add(selectedParameterData);
 		}
 
 
 		private void DeletParameterLogList(System.Collections.IList paramsList)
 		{
-			List<DeviceParameterData> list = new List<DeviceParameterData>();
-			foreach (DeviceParameterData data in paramsList)
+			List<SelectedParameterData> list = new List<SelectedParameterData>();
+			foreach (SelectedParameterData data in paramsList)
 				list.Add(data);
 
-			foreach (DeviceParameterData data in list)
+			foreach (SelectedParameterData data in list)
 			{
 				ParametersList.Remove(data);
-				DeleteSeriesEvent?.Invoke(ChartName, data);
+				DeleteSeriesEvent?.Invoke(ChartName, data.Parameter);
 			}
 
 		}
@@ -134,15 +140,15 @@ namespace MCUScope.ViewModels
 
 		private void AddParamToLogList(DeviceParameterData param)
 		{
-			int index = ParametersList.IndexOf(param);
-			if (index >= 0)
+			SelectedParameterData selectedParameterData = ParametersList.ToList().Find((sp) => sp.Parameter == param);
+			if (selectedParameterData != null)
 			{
 				MessageBox.Show("The parameter already exist");
 				return;
 			}
 
 
-			ParametersList.Add(param);
+			ParametersList.Add(new SelectedParameterData() { Parameter = param});
 			AddSeriesEvent?.Invoke(ChartName, param);
 		}
 

@@ -341,8 +341,8 @@ namespace MCUScope.ViewModels
 			Send(data);
 			System.Threading.Thread.Sleep(100);
 
-			List<DeviceParameterData> paramsList = ChartsSelection.GetParamsList();
-			foreach (DeviceParameterData param in paramsList)
+			List<SelectedParameterData> paramsList = ChartsSelection.GetParamsList();
+			foreach (SelectedParameterData param in paramsList)
 			{
 				data = _buildRequestMessages.BuildMessage2(param);
 				if (data == null)

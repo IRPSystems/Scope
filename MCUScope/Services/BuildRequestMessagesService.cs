@@ -3,6 +3,7 @@ using DeviceCommunicators.MCU;
 using DeviceCommunicators.Models;
 using Entities.Models;
 using MCUScope.Enums;
+using MCUScope.Models;
 using System;
 
 namespace MCUScope.Services
@@ -55,23 +56,22 @@ namespace MCUScope.Services
 
 
 
-		public byte[] BuildMessage2(DeviceParameterData parameter)
+		public byte[] BuildMessage2(SelectedParameterData parameter)
 		{
 			byte[] data = new byte[8];
 
 			Array.Copy(
 				GetBytesOfID(_func2ID), data, 3);
 
-			if(!(parameter is MCU_ParamData mcuParam))
+			if(!(parameter.Parameter is MCU_ParamData mcuParam))
 				return null;
 
 			byte[] id = new byte[3];
 			mcuParam.GetMessageID(ref id);
 			Array.Copy(id, 0, data, 5, 3);
 
-			//data[5] = 0xF3;
-			//data[6] = 0xCE;
-			//data[7] = 0x8;
+			
+			data[4] = parameter.Scale;
 
 			return data;
 		}

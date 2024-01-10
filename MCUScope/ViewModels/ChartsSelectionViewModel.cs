@@ -138,12 +138,12 @@ namespace MCUScope.ViewModels
 			return numOfSerieses;
 		}
 
-		public List<DeviceParameterData> GetParamsList()
+		public List<SelectedParameterData> GetParamsList()
 		{
-			List<DeviceParameterData> paramsList = new List<DeviceParameterData>();
+			List<SelectedParameterData> paramsList = new List<SelectedParameterData>();
 			foreach (ChartSeriesSelectionViewModel chart in ChartsSelectionsList)
 			{
-				foreach(DeviceParameterData param in chart.ParametersList)
+				foreach(SelectedParameterData param in chart.ParametersList)
 					paramsList.Add(param);
 			}
 
