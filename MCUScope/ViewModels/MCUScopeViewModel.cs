@@ -126,7 +126,7 @@ namespace MCUScope.ViewModels
 			}
 			else
 			{
-				ComPort._canbusControl.GetCanDriver().CanMessageReceivedEvent += CanMessageReceivedEventHandler;
+				ComPort._canbusControl.GetCanDriver().CanService.CanMessageReceivedEvent += CanMessageReceivedEventHandler;
 			}
 
 			_chartIndex = 0;
@@ -605,10 +605,10 @@ namespace MCUScope.ViewModels
 				_canService.Send(data);
 			else
 			{
-				ComPort._canbusControl.GetCanDriver().SendMessage(
+				ComPort._canbusControl.GetCanDriver().CanService.Send(
 					data, 
 					ComPort._canbusControl.mailboxId, 
-					data.Length);
+					false);
 			}
 		}
 
