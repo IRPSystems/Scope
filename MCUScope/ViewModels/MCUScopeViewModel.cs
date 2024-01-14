@@ -168,7 +168,7 @@ namespace MCUScope.ViewModels
 			_buildRequestMessages = new BuildRequestMessagesService();
 
 
-			RecodStateColor = Application.Current.MainWindow.FindResource("MahApps.Brushes.Gray5") as SolidColorBrush;
+			RecodStateColor = Application.Current.FindResource("MahApps.Brushes.Gray5") as SolidColorBrush;
 			RecodStateDescription = "Not recording";
 
 			_cancellationTokenSource = new CancellationTokenSource();
