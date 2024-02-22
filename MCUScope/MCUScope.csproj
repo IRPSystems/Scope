@@ -11,8 +11,8 @@
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="MahApps.Metro.IconPacks" Version="4.11.0" />
     <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" PrivateAssets="All" />
-    <PackageReference Include="Syncfusion.Shared.WPF" Version="20.3.0.61" />
-    <PackageReference Include="Syncfusion.Tools.WPF" Version="20.3.0.61" />
+    <PackageReference Include="Syncfusion.Shared.WPF" Version="24.2.7" />
+    <PackageReference Include="Syncfusion.Tools.WPF" Version="24.2.7" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,7 +21,7 @@
     <ProjectReference Include="..\..\Infrastructure\Controls\Controls.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Entities\Entities.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Services\Services.csproj" />
-    <ProjectReference Include="..\..\TrueDriveCommunication\TrueDriveCommunication.csproj" />
+    <ProjectReference Include="..\..\TrueDriveManager_UseInfrastructure\TrueDriveCommunication\TrueDriveCommunication.csproj" />
     <ProjectReference Include="..\Scope\Scope.csproj" />
   </ItemGroup>
 

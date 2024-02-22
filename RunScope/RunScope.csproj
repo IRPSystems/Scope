@@ -12,6 +12,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\**" />
+    <EmbeddedResource Remove="Views\**" />
+    <None Remove="Views\**" />
+    <Page Remove="Views\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageReference Include="Ixxat.Vci4" Version="4.1.4" />
     <PackageReference Include="Ixxat.Vci4.StrongName" Version="4.1.4" />
@@ -23,12 +30,12 @@
   <ItemGroup>
     <ProjectReference Include="..\..\DevicesInfrastructures\DeviceHandler\DeviceHandler.csproj" />
     <ProjectReference Include="..\..\DevicesInfrastructures\DeviceSimulators\DeviceSimulators.csproj" />
+    <ProjectReference Include="..\..\TrueDriveManager_UseInfrastructure\TrueDriveCommunication\TrueDriveCommunication.csproj" />
     <ProjectReference Include="..\MCUScope\MCUScope.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Services\" />
-    <Folder Include="Views\" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">

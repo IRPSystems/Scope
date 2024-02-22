@@ -2,9 +2,11 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DeviceCommunicators.MCU;
+using DeviceCommunicators.Models;
 using DeviceCommunicators.Services;
 using DeviceHandler.Enums;
 using DeviceHandler.Models;
+using DeviceHandler.Models.DeviceFullDataModels;
 using DeviceHandler.ViewModels;
 using DeviceSimulators.ViewModels;
 using DeviceSimulators.Views;
@@ -51,7 +53,7 @@ namespace RunScope.ViewModels
 			LoggerService.Inforamtion(this, "-------------------------------------- Run Scope ---------------------");
 
 			ClosingCommand = new RelayCommand<CancelEventArgs>(Closing);
-			MCUSimulatorCommand = new RelayCommand(MCUSimulator);
+			//MCUSimulatorCommand = new RelayCommand(MCUSimulator);
 
 			Version = Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
@@ -85,8 +87,11 @@ namespace RunScope.ViewModels
 
 			_checkCommunication.Dispose();
 
-			MCUScope.Close();
-			MCUScope.Dispose();
+			if (MCUScope != null)
+			{
+				MCUScope.Close();
+				MCUScope.Dispose();
+			}
 
 		}
 
@@ -106,7 +111,7 @@ namespace RunScope.ViewModels
 
 			MCUScope = new MCUScopeViewModel(_mcu_Communicator.CanService);
 
-			ObservableCollection<DeviceBase> deviceList = new ObservableCollection<DeviceBase>();
+			ObservableCollection<DeviceData> deviceList = new ObservableCollection<DeviceData>();
 			ReadDevicesFileService readDevicesFileService = new ReadDevicesFileService();
 			readDevicesFileService.ReadFromMCUJson(
 				"param_defaults.json",
@@ -141,23 +146,23 @@ namespace RunScope.ViewModels
 		}
 
 
-		private void MCUSimulator()
-		{
-			DevicesContainer devicesContainter = new DevicesContainer();
-			DeviceFullData deviceFullData = new DeviceFullData(MCUScope.MCUDevice);
+		//private void MCUSimulator()
+		//{
+		//	DevicesContainer devicesContainter = new DevicesContainer();
+		//	DeviceFullData deviceFullData = DeviceFullData.Factory(MCUScope.MCUDevice);
 
-			devicesContainter.DevicesFullDataList = new ObservableCollection<DeviceFullData>();
-			devicesContainter.DevicesList = new ObservableCollection<Entities.Models.DeviceData>();
-			devicesContainter.TypeToDevicesFullData = new Dictionary<Entities.Enums.DeviceTypesEnum, DeviceFullData>();
+		//	devicesContainter.DevicesFullDataList = new ObservableCollection<DeviceFullData>();
+		//	devicesContainter.DevicesList = new ObservableCollection<DeviceData>();
+		//	devicesContainter.TypeToDevicesFullData = new Dictionary<Entities.Enums.DeviceTypesEnum, DeviceFullData>();
 
-			devicesContainter.DevicesFullDataList.Add(deviceFullData);
-			devicesContainter.DevicesList.Add(deviceFullData.Device);
-			devicesContainter.TypeToDevicesFullData.Add(deviceFullData.Device.DeviceType, deviceFullData);
+		//	devicesContainter.DevicesFullDataList.Add(deviceFullData);
+		//	devicesContainter.DevicesList.Add(deviceFullData.Device);
+		//	devicesContainter.TypeToDevicesFullData.Add(deviceFullData.Device.DeviceType, deviceFullData);
 
-			DeviceSimulatorsViewModel dsvm = new DeviceSimulatorsViewModel(devicesContainter);
-			DeviceSimulatorsView dsv = new DeviceSimulatorsView() { DataContext = dsvm };
-			dsv.Show();
-		}
+		//	DeviceSimulatorsViewModel dsvm = new DeviceSimulatorsViewModel(devicesContainter);
+		//	DeviceSimulatorsView dsv = new DeviceSimulatorsView() { DataContext = dsvm };
+		//	dsv.Show();
+		//}
 
 #endregion Methods
 
