@@ -4,7 +4,6 @@ using Controls.ViewModels;
 using DeviceCommunicators.MCU;
 using DeviceCommunicators.Models;
 using Entities.Enums;
-using Entities.Models;
 using MCUScope.Models;
 using MCUScope.Services;
 using MCUScope.Views;
