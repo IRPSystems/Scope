@@ -107,6 +107,9 @@ namespace MCUScope.ViewModels
 
 		private CanService _canService;
 
+		private MCU_ParamData _paramPhasesFrequency;
+		//private uint _phasesFrequency;
+
 		#endregion Fields
 
 		#region Constroctur
@@ -122,10 +125,12 @@ namespace MCUScope.ViewModels
 			{
 				_canService = canService;
 				_canService.CanMessageReceivedEvent += CanMessageReceivedEventHandler;
+				_canService.MessageReceivedEvent += MessageReceivedEventHandler; ;
 			}
 			else
 			{
 				ComPort._canbusControl.GetCanDriver().CanService.CanMessageReceivedEvent += CanMessageReceivedEventHandler;
+				ComPort._canbusControl.GetCanDriver().CanService.MessageReceivedEvent += MessageReceivedEventHandler;
 			}
 
 			_chartIndex = 0;
@@ -176,8 +181,25 @@ namespace MCUScope.ViewModels
 			_timerRecordTime = new System.Timers.Timer();
 			_timerRecordTime.Elapsed += RecordTimeElapsedEventHandler;
 
-			
+
+			_paramPhasesFrequency = new MCU_ParamData()
+			{
+				Cmd = "pwmfreq",
+				Name = "pwmPhasesFrequency"
+			};
+
+			byte[] idBuf = new byte[3];
+			byte[] buffer = new byte[8];
+			MCU_Communicator.ConvertToData(_paramPhasesFrequency, 0, ref idBuf, ref buffer, false);
+			if (_canService == null)
+				ComPort._canbusControl.GetCanDriver().CanService.Send(buffer, 0xAB, false);
+			else
+				_canService.Send(buffer, 0xAB, false);
+
+
 		}
+
+		
 
 		#endregion Constroctur
 
@@ -411,11 +433,30 @@ namespace MCUScope.ViewModels
 				});
 			}
 
+
+
+			
+
+
 			_timerRecordTime.Interval = timerInterval;
 			_timerRecordTime.Start();
 		}
 
-		
+		private void MessageReceivedEventHandler(byte[] buffer)
+		{
+			byte[] id = new byte[3];
+			_paramPhasesFrequency.GetMessageID(ref id);
+
+			if (id[0] == buffer[0] && id[1] == buffer[1] && id[2] == buffer[2])
+			{
+				byte[] valueBuff = new byte[4];
+				Array.Copy(buffer, 4, valueBuff, 0, 4);
+				Array.Reverse(valueBuff);
+				uint phasesFrequency = BitConverter.ToUInt32(valueBuff, 0);
+
+				TriggerSelection.SetPhasesFrequency(phasesFrequency);
+			}
+		}
 
 		private void CanMessageReceivedEventHandler(uint node, byte[] buffer)
 		{

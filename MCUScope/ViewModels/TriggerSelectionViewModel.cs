@@ -3,16 +3,13 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DeviceCommunicators.MCU;
 using DeviceCommunicators.Models;
-using Entities.Models;
 using MCUScope.Models;
 using Services.Services;
 using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace MCUScope.ViewModels
 {
@@ -38,6 +35,14 @@ namespace MCUScope.ViewModels
 
 		public DeviceData McuDevice { get; set; }
 
+		public double RecordIntervalStep { get; set; }
+		public double RecordIntervalMin { get; set; }
+		public double RecordIntervalMax { get; set; }
+
+
+
+		private uint _phasesFrequency;
+
 		#endregion Propeties and Fields
 
 
@@ -55,7 +60,7 @@ namespace MCUScope.ViewModels
 
 			IsContinuous = false;
 
-			
+			RecordIntervalStep = 1;
 		}
 
 		#endregion Constructor
@@ -67,6 +72,16 @@ namespace MCUScope.ViewModels
 			ContinuousEvent?.Invoke(IsContinuous);
 		}
 
+		public void SetPhasesFrequency(uint phasesFrequency)
+		{
+			_phasesFrequency = phasesFrequency;
+
+			RecordIntervalStep = 1.0 / (double)_phasesFrequency;
+			RecordIntervalMin = RecordIntervalStep;
+			RecordIntervalMax = 255.0 / (double)_phasesFrequency;
+
+			TriggerData.Interval = RecordIntervalStep;
+		}
 
 
 		#region Search parameter
