@@ -10,8 +10,9 @@ namespace MCUScope.Models
 	public class TriggerSelectionData: ObservableObject
 	{
 		public const int NumOfSampels = 256;
-		public const int InterruptFreq = 16000;
+		//	public const int InterruptFreq = 16000;
 
+		public uint PhasesFrequency { get; set; }
 
 		public TriggerTypesEnum TriggerType { get; set; }
 		public DeviceParameterData TriggerKeyword { get; set; }
@@ -27,7 +28,7 @@ namespace MCUScope.Models
 			{
 				_interval = value;
 
-				_recordGap = (int)((_interval / NumOfSampels) * InterruptFreq);
+				_recordGap = (int)((_interval / NumOfSampels) * PhasesFrequency);
 
 				OnPropertyChanged(nameof(RecordGap));
 			}
@@ -41,7 +42,7 @@ namespace MCUScope.Models
 			{
 				_recordGap = value;
 
-				_interval = ((double)_recordGap / InterruptFreq) * NumOfSampels;
+				_interval = ((double)_recordGap / PhasesFrequency) * NumOfSampels;
 
 				OnPropertyChanged(nameof(Interval));
 			}

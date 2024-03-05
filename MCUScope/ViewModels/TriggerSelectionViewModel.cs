@@ -41,7 +41,7 @@ namespace MCUScope.ViewModels
 
 
 
-		private uint _phasesFrequency;
+		//private uint _phasesFrequency;
 
 		#endregion Propeties and Fields
 
@@ -74,11 +74,11 @@ namespace MCUScope.ViewModels
 
 		public void SetPhasesFrequency(uint phasesFrequency)
 		{
-			_phasesFrequency = phasesFrequency;
+			TriggerData.PhasesFrequency = phasesFrequency;
 
-			RecordIntervalStep = 1.0 / (double)_phasesFrequency;
+			RecordIntervalStep = 1.0 / (double)TriggerData.PhasesFrequency;
 			RecordIntervalMin = RecordIntervalStep;
-			RecordIntervalMax = 255.0 / (double)_phasesFrequency;
+			RecordIntervalMax = 255.0 / (double)TriggerData.PhasesFrequency;
 
 			TriggerData.Interval = RecordIntervalStep;
 		}

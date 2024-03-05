@@ -25,4 +25,8 @@
     <ProjectReference Include="..\Scope\Scope.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Converters\" />
+  </ItemGroup>
+
 </Project>

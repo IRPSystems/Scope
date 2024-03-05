@@ -12,7 +12,6 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls" 
              xmlns:converter_global="clr-namespace:Converters;assembly=Converters"
-             xmlns:converters="clr-namespace:MCUScope.Converters"
              xmlns:validation_rules="clr-namespace:MCUScope.ValidationRules"
              xmlns:local="clr-namespace:MCUScope.Views"
              mc:Ignorable="d" 
@@ -26,7 +25,6 @@
             </ResourceDictionary.MergedDictionaries>
 
             <converter_global:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
-            <converters:RecordingGapToIntervalConverter x:Key="RecordingGapToIntervalConverter"/>
 
             <ObjectDataProvider MethodName="GetValues" 
                                 ObjectType="{x:Type sys:Enum}"

@@ -419,7 +419,7 @@ namespace MCUScope.ViewModels
 			}
 
 			_interval = (double)TriggerSelection.TriggerData.RecordGap /
-				(double)TriggerSelectionData.InterruptFreq;
+				(double)TriggerSelection.TriggerData.PhasesFrequency;
 
 			int timerInterval = 50;
 			_intervalPercentage = (double)timerInterval * (_interval * 1000);
