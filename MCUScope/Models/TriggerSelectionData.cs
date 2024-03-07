@@ -28,25 +28,14 @@ namespace MCUScope.Models
 			{
 				_interval = value;
 
-				_recordGap = (int)((_interval / NumOfSampels) * PhasesFrequency);
+				double d = _interval * PhasesFrequency;
+				RecordGap = (int)(d - 1);
 
 				OnPropertyChanged(nameof(RecordGap));
 			}
 		}
 
-		private int _recordGap;
-		public int RecordGap
-		{
-			get => _recordGap;
-			set
-			{
-				_recordGap = value;
-
-				_interval = ((double)_recordGap / PhasesFrequency) * NumOfSampels;
-
-				OnPropertyChanged(nameof(Interval));
-			}
-		}
+		public int RecordGap { get; set; }
 
 
 
