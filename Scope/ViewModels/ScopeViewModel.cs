@@ -72,9 +72,10 @@ namespace Scope.ViewModels
 
 		public void AddChart(
 			string chartName,
-			string intervalUnits)
+			string intervalUnits,
+			ChartViewModel.XAxisTypes xAxisTypes)
 		{
-			ChartViewModel chartViewModel = new ChartViewModel(chartName, intervalUnits);
+			ChartViewModel chartViewModel = new ChartViewModel(chartName, intervalUnits, xAxisTypes);
 			ChartsList.Add(chartViewModel);
 			_nameToChart.Add(chartName, chartViewModel);
 

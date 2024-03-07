@@ -8,5 +8,6 @@ namespace Scope.Models
 	{
 		public double Value { get; set; }
 		public TimeSpan Time { get; set; }
+		public double Seconds { get; set; }
 	}
 }

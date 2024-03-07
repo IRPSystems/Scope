@@ -238,7 +238,7 @@ namespace MCUScope.ViewModels
 
 		private void AddChartEventHandler(string chartName)
 		{
-			Scope.AddChart(chartName, "sec");
+			Scope.AddChart(chartName, "sec", ChartViewModel.XAxisTypes.Double);
 		}
 
 		private void DeleteChartEventHandler(string chartName)
@@ -418,8 +418,7 @@ namespace MCUScope.ViewModels
 				case Enums.TriggerPositionTypesEnum.ShowData6_25BeforeAnd93_75AfterTrigger: _percentageBeforTrigger = 6.25; break;
 			}
 
-			_interval = (double)TriggerSelection.TriggerData.RecordGap /
-				(double)TriggerSelection.TriggerData.PhasesFrequency;
+			_interval = TriggerSelection.TriggerData.Interval;
 
 			int timerInterval = 50;
 			_intervalPercentage = (double)timerInterval * (_interval * 1000);

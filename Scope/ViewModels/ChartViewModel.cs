@@ -18,6 +18,9 @@ namespace Scope.ViewModels
 {
 	public class ChartViewModel: ObservableObject
 	{
+		public enum XAxisTypes { TimeSpan, Double}
+
+
 		#region Properties
 
 		public SfChart Chart { get; set; }
@@ -64,7 +67,8 @@ namespace Scope.ViewModels
 
 		public ChartViewModel(
 			string chartName,
-			string intervalUnits)
+			string intervalUnits,
+			XAxisTypes xAxisTypes)
 		{
 			Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(
 				"MjQ2MzU2NkAzMjMwMmUzMzJlMzBOaGhMVVJBelp0Y1c1eXdoNHRTcHI4bGVOdmdxQWNXZkZxeklweENobmdjPQ==");
@@ -81,7 +85,7 @@ namespace Scope.ViewModels
 			_nameToSeries = new Dictionary<string, LineSeries>();
 			Chart = new SfChart();
 
-			AddAxes(intervalUnits);
+			AddAxes(intervalUnits, xAxisTypes);
 
 			Chart.Legend = new ChartLegend()
 			{
@@ -106,18 +110,34 @@ namespace Scope.ViewModels
 
 		#region Methods
 
-		private void AddAxes(string intervalUnits)
+		private void AddAxes(string intervalUnits, XAxisTypes xAxisTypes)
 		{
-			string lableFormat = @"hh\:mm\:ss\:fff";
-			if(intervalUnits != null && intervalUnits.ToLower() == "sec")
-				lableFormat = @"ss\:ffffff";
-
-			Chart.PrimaryAxis = new TimeSpanAxis()
+			string lableFormat = string.Empty;
+			if (xAxisTypes == XAxisTypes.TimeSpan)
 			{
-				LabelFormat = lableFormat,
-				ShowGridLines = true,
-				ShowTrackBallInfo = true,				
-			};
+				lableFormat = @"hh\:mm\:ss\:fff";
+				if (intervalUnits != null && intervalUnits.ToLower() == "sec")
+					lableFormat = @"ss\:ffffff";
+			}
+
+			if (xAxisTypes == XAxisTypes.TimeSpan)
+			{
+				Chart.PrimaryAxis = new TimeSpanAxis()
+				{
+					LabelFormat = lableFormat,
+					ShowGridLines = true,
+					ShowTrackBallInfo = true,
+				};
+			}
+			else
+			{
+				Chart.PrimaryAxis = new NumericalAxis()
+				{
+					LabelFormat = lableFormat,
+					ShowGridLines = true,
+					ShowTrackBallInfo = true,
+				};
+			}
 
 			Chart.SecondaryAxis = new NumericalAxis()
 			{
@@ -141,9 +161,16 @@ namespace Scope.ViewModels
 
 		private void AddCursors()
 		{
+			object x1 = null;
+			if (Chart.PrimaryAxis is NumericalAxis)
+				x1 = 1;
+			else
+				x1 = TimeSpan.FromMilliseconds(1000);
+
+
 			VerticalLineAnnotation marker1 = new VerticalLineAnnotation()
 			{
-				X1 = TimeSpan.FromMilliseconds(1000),
+				X1 = x1,
 				StrokeThickness = 2,
 				CanDrag = true,
 				Cursor = Cursors.Hand,
@@ -153,9 +180,15 @@ namespace Scope.ViewModels
 			Chart.Annotations.Add(marker1);
 
 
+			object x2 = null;
+			if (Chart.PrimaryAxis is NumericalAxis)
+				x2 = 20;
+			else
+				x2 = TimeSpan.FromMilliseconds(20);
+
 			VerticalLineAnnotation marker2 = new VerticalLineAnnotation()
 			{
-				X1 = TimeSpan.FromSeconds(20),
+				X1 = x2,
 				StrokeThickness = 2,
 				CanDrag = true,
 				Cursor = Cursors.Hand,
@@ -194,9 +227,12 @@ namespace Scope.ViewModels
 			string name,
 			Brush color)
 		{
+			string xBindingPath = "Time";
+			if (Chart.PrimaryAxis is NumericalAxis)
+				xBindingPath = "Seconds";
 			LineSeries lineSeries = new LineSeries()
 			{
-				XBindingPath = "Time",
+				XBindingPath = "Seconds",
 				YBindingPath = "Value",
 				Interior = color,
 				Label = name,
@@ -238,18 +274,34 @@ namespace Scope.ViewModels
 				return;
 
 			TimeSpan time = TimeSpan.FromMilliseconds(0);
+			double seconds = 0;
 			List<ScopeData> scopeDatasList = new List<ScopeData>();
 			foreach (double value in valuesList)
 			{
-				ScopeData scopeData = new ScopeData()
+				if (Chart.PrimaryAxis is TimeSpanAxis)
 				{
-					Value = value,
-					Time = time,
-				};
+					ScopeData scopeData = new ScopeData()
+					{
+						Value = value,
+						Time = time,
+					};
 
-				scopeDatasList.Add(scopeData);
+					scopeDatasList.Add(scopeData);
 
-				time += TimeSpan.FromMilliseconds(timeIntervalMs);
+					time += TimeSpan.FromMilliseconds(timeIntervalMs);
+				}
+				else if (Chart.PrimaryAxis is NumericalAxis)
+				{
+					ScopeData scopeData = new ScopeData()
+					{
+						Value = value,
+						Seconds = seconds,
+					};
+
+					scopeDatasList.Add(scopeData);
+
+					seconds += timeIntervalMs / 1000;
+				}
 			}
 
 			LineSeries series = _nameToSeries[name];
