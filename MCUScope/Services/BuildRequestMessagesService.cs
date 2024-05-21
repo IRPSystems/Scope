@@ -124,12 +124,12 @@ namespace MCUScope.Services
 
 
 
-			byte[] data1 = new byte[4];
-			for (int i = 0; i < data1.Length; i++)
-			{
-				data1[i] = (byte)(triggerThreshold >> (8 * i));
-			}
-			Array.Copy(data1, 0, data, 4, 4);
+			//byte[] data1 = new byte[4];
+			//for (int i = 0; i < data1.Length; i++)
+			//{
+			//	data1[i] = (byte)(triggerThreshold >> (8 * i));
+			//}
+			//Array.Copy(data1, 0, data, 4, 4);
 
 			//data[6] = 0x3;
 			//data[7] = 0xE8;
