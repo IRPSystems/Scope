@@ -82,6 +82,11 @@ namespace MCUScope.ViewModels
 
 		#region Methods
 
+		public void LoadMcuDevice()
+		{
+			FullParametersList.BuildDevicesList();
+		}
+
 		public void Dispose()
 		{
 		}

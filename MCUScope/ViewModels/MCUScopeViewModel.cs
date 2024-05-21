@@ -114,7 +114,7 @@ namespace MCUScope.ViewModels
 
 		#region Constroctur
 
-		public MCUScopeViewModel(CanService canService) :
+		public MCUScopeViewModel(CanService canService, string jsonPath) :
 			base("MCUScopeLayout", "MCUScope")
 		{
 
@@ -145,7 +145,7 @@ namespace MCUScope.ViewModels
 
 			DockFill = true;
 
-			MCUDevice = ReadFromMCUJson(@"param_defaults.json");
+			MCUDevice = ReadFromMCUJson(jsonPath);
 
 			TriggerSelection = new TriggerSelectionViewModel(MCUDevice);
 
@@ -196,14 +196,20 @@ namespace MCUScope.ViewModels
 			else
 				_canService.Send(buffer, 0xAB, false);
 
-
+			ReadJson.JsonHelper.OnLoadedParameterFile += JsonHelper_OnLoadedParameterFile;
 		}
-
-		
 
 		#endregion Constroctur
 
 		#region Methods
+
+		private void JsonHelper_OnLoadedParameterFile(object sender, EventArgs e)
+		{
+			MCUDevice = ReadFromMCUJson(ReadJson.JsonPath);
+
+			TriggerSelection.McuDevice = MCUDevice;
+			ChartsSelection.SetMcuDevice(MCUDevice);
+		}
 
 		public new void Dispose()
 		{

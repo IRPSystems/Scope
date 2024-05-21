@@ -37,6 +37,7 @@ namespace MCUScope.ViewModels
 
 			ChartsSelectionsList = new ObservableCollection<ChartSeriesSelectionViewModel>();
 
+			_devicesContainter = new DevicesContainer();
 			InitDeviceContainter(mcuDevice);
 		}
 
@@ -44,9 +45,20 @@ namespace MCUScope.ViewModels
 
 		#region Methods
 
-		private void InitDeviceContainter(DeviceData mcuDevice)
+		public void SetMcuDevice(DeviceData mcuDevice)
 		{
 			_devicesContainter = new DevicesContainer();
+			InitDeviceContainter(mcuDevice);
+
+			foreach(ChartSeriesSelectionViewModel vm in ChartsSelectionsList)
+			{
+				vm.LoadMcuDevice();
+			}
+		}
+
+		private void InitDeviceContainter(DeviceData mcuDevice)
+		{
+			
 			_devicesContainter.DevicesFullDataList = new ObservableCollection<DeviceFullData>();
 			_devicesContainter.DevicesList = new ObservableCollection<DeviceData>();
 			_devicesContainter.TypeToDevicesFullData = new Dictionary<DeviceTypesEnum, DeviceFullData>();
