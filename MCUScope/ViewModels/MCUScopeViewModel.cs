@@ -449,6 +449,9 @@ namespace MCUScope.ViewModels
 
 		private void MessageReceivedEventHandler(byte[] buffer)
 		{
+			if (_paramPhasesFrequency == null)
+				return;
+
 			byte[] id = new byte[3];
 			_paramPhasesFrequency.GetMessageID(ref id);
 
