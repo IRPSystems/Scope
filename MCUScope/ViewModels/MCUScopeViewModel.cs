@@ -468,6 +468,9 @@ namespace MCUScope.ViewModels
 
 		private void CanMessageReceivedEventHandler(uint node, byte[] buffer)
 		{
+			if (node != 0xAA)
+				return;
+
 			AsyncMessageReceivedEventHandler(buffer);
 		}
 
