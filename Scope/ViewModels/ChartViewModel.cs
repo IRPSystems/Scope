@@ -232,7 +232,7 @@ namespace Scope.ViewModels
 				xBindingPath = "Seconds";
 			LineSeries lineSeries = new LineSeries()
 			{
-				XBindingPath = "Seconds",
+				XBindingPath = xBindingPath,
 				YBindingPath = "Value",
 				Interior = color,
 				Label = name,
