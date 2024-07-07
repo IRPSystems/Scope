@@ -78,11 +78,21 @@
                 <Button Style="{StaticResource ButtonWithIconStyle}"
                     Width="25"
                     Height="25"
-                    Margin="0,0,50,0"
+                    Margin="0,0,5,0"
                     ToolTip="Get image"
                     Command="{Binding GetImageCommand}"
                     VerticalAlignment="Center">
                     <iconPacks:PackIconOcticons Kind="DeviceCamera" />
+                </Button>
+
+                <Button Style="{StaticResource ButtonWithIconStyle}"
+                        Width="25"
+                        Height="25"
+                        Margin="0,0,50,0"
+                        ToolTip="Export"
+                        Command="{Binding ExportCommand}"
+                        VerticalAlignment="Center">
+                    <iconPacks:Material Kind="ContentSave" />
                 </Button>
 
 

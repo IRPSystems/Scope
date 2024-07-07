@@ -81,6 +81,7 @@ namespace Scope.ViewModels
 			ShowHideMarkersCommand = new RelayCommand(ShowHideMarkers);
 			SelectZoomCommand = new RelayCommand(SelectZoom);
 			GetImageCommand = new RelayCommand(GetImage);
+			ExportCommand = new RelayCommand(Export);
 
 			_nameToSeries = new Dictionary<string, LineSeries>();
 			Chart = new SfChart();
@@ -341,15 +342,16 @@ namespace Scope.ViewModels
 
 			try
 			{
-				if (Application.Current != null)
-				{
-					Application.Current.Dispatcher.Invoke(() =>
-					{
+				//if (Application.Current != null)
+				//{
+				//	Application.Current.Dispatcher.Invoke(() =>
+				//	{
+				
+				// Write headers
 						foreach (ChartSeries series in Chart.Series)
 						{
 							_csvWriter.WriteField(series.Label);
 						}
-
 						_csvWriter.NextRecord();
 
 						if (!(Chart.Series[0] is LineSeries firstSeries))
@@ -382,8 +384,8 @@ namespace Scope.ViewModels
 
 							_csvWriter.NextRecord();
 						}
-					});
-				}
+				//	});
+				//}
 			}
 			catch
 			{ 
@@ -444,6 +446,17 @@ namespace Scope.ViewModels
 			
 		}
 
+		private void Export()
+		{
+			//SaveFileDialog sfd = new SaveFileDialog();
+			//sfd.Filter = "CSV File (*.csv)|*.csv";
+			//bool? results = sfd.ShowDialog();
+			//if (results != true)
+			//	return;
+
+			UpdateRecord();
+		}
+
 		private void SelectZoom()
 		{
 			_isEnablePanning = !_isEnablePanning;
@@ -459,6 +472,7 @@ namespace Scope.ViewModels
 		public RelayCommand SelectZoomCommand { get; private set; }
 
 		public RelayCommand GetImageCommand { get; private set; }
+		public RelayCommand ExportCommand { get; private set; }
 
 		#endregion Commands
 	}
