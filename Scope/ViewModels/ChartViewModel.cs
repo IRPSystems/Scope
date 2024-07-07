@@ -338,57 +338,56 @@ namespace Scope.ViewModels
 			_textWriter = new StreamWriter(path, false, System.Text.Encoding.UTF8);
 			_csvWriter = new CsvWriter(_textWriter, CultureInfo.CurrentCulture);
 			_csvWriter.WriteField("Time");
-			
+
 
 			try
 			{
-				//if (Application.Current != null)
-				//{
-				//	Application.Current.Dispatcher.Invoke(() =>
-				//	{
 				
+
 				// Write headers
-						foreach (ChartSeries series in Chart.Series)
-						{
-							_csvWriter.WriteField(series.Label);
-						}
-						_csvWriter.NextRecord();
+				foreach (ChartSeries series in Chart.Series)
+				{
+					_csvWriter.WriteField(series.Label);
+				}
+				_csvWriter.NextRecord();
 
-						if (!(Chart.Series[0] is LineSeries firstSeries))
-							return;
+				if (!(Chart.Series[0] is LineSeries firstSeries))
+					return;
 
-						List<object> pointsList = firstSeries.GetDataPoints(
-							Chart.PrimaryAxis.VisibleRange.Start,
-							Chart.PrimaryAxis.VisibleRange.End,
-							Chart.SecondaryAxis.VisibleRange.Start,
-							Chart.SecondaryAxis.VisibleRange.End);
+				List<object> pointsList = firstSeries.GetDataPoints(
+					Chart.PrimaryAxis.VisibleRange.Start,
+					Chart.PrimaryAxis.VisibleRange.End,
+					Chart.SecondaryAxis.VisibleRange.Start,
+					Chart.SecondaryAxis.VisibleRange.End);
 
 
-						for (int i = 0; i < pointsList.Count; i++)
-						{
-							if (!(pointsList[i] is ScopeData data))
-								continue;
+				for (int i = 0; i < pointsList.Count; i++)
+				{
+					if (!(pointsList[i] is ScopeData data))
+						continue;
 
-							_csvWriter.WriteField(data.Time.ToString(@"hh\:mm\:ss\:fff"));
-							foreach (ChartSeries series in Chart.Series)
-							{
-								if (!(series.ItemsSource is List<ScopeData> seriesData))
-									continue;
+					_csvWriter.WriteField(data.Time.ToString(@"hh\:mm\:ss\:fff"));
+					foreach (ChartSeries series in Chart.Series)
+					{
+						if (!(series.ItemsSource is List<ScopeData> seriesData))
+							continue;
 
-								_csvWriter.WriteField(seriesData[i].Value);
+						_csvWriter.WriteField(seriesData[i].Value);
 
-								System.Threading.Thread.Sleep(1);
-							}
+						System.Threading.Thread.Sleep(1);
+					}
 
-							System.Threading.Thread.Sleep(1);
+					System.Threading.Thread.Sleep(1);
 
-							_csvWriter.NextRecord();
-						}
-				//	});
-				//}
+					_csvWriter.NextRecord();
+				}
+
+				MessageBox.Show($"Saved successfuly to {fileName}", "Export");
+
 			}
 			catch
-			{ 
+			{
+				MessageBox.Show($"Failed to saved to {fileName}", "Export");
 			}
 
 			_csvWriter.Dispose();
