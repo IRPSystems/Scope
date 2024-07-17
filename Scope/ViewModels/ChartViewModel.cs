@@ -366,7 +366,11 @@ namespace Scope.ViewModels
 					if (!(pointsList[i] is ScopeData data))
 						continue;
 
-					_csvWriter.WriteField(data.Time.ToString(@"hh\:mm\:ss\:fff"));
+					if (Chart.PrimaryAxis is TimeSpanAxis)
+						_csvWriter.WriteField(data.Time.ToString(@"hh\:mm\:ss\:fff"));
+					else if (Chart.PrimaryAxis is NumericalAxis)
+						_csvWriter.WriteField(data.Seconds.ToString());
+
 					foreach (ChartSeries series in Chart.Series)
 					{
 						if (!(series.ItemsSource is List<ScopeData> seriesData))
@@ -382,12 +386,12 @@ namespace Scope.ViewModels
 					_csvWriter.NextRecord();
 				}
 
-				MessageBox.Show($"Saved successfuly to {fileName}", "Export");
+				MessageBox.Show($"Saved successfuly to {path}", "Export");
 
 			}
 			catch
 			{
-				MessageBox.Show($"Failed to saved to {fileName}", "Export");
+				MessageBox.Show($"Failed to saved to {path}", "Export");
 			}
 
 			_csvWriter.Dispose();
