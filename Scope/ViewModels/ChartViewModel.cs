@@ -267,7 +267,7 @@ namespace Scope.ViewModels
 		}
 
 		public void AddDataToSeries(
-			double timeIntervalMs,
+			double timeIntervalSec,
 			List<double> valuesList,
 			string name)
 		{
@@ -289,7 +289,7 @@ namespace Scope.ViewModels
 
 					scopeDatasList.Add(scopeData);
 
-					time += TimeSpan.FromMilliseconds(timeIntervalMs);
+					time += TimeSpan.FromMilliseconds(timeIntervalSec);
 				}
 				else if (Chart.PrimaryAxis is NumericalAxis)
 				{
@@ -301,7 +301,7 @@ namespace Scope.ViewModels
 
 					scopeDatasList.Add(scopeData);
 
-					seconds += timeIntervalMs / 1000;
+					seconds += timeIntervalSec / 1000;
 				}
 			}
 
