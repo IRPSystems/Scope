@@ -16,6 +16,7 @@ using DeviceCommunicators.MCU;
 using System.Linq;
 using DeviceCommunicators.Models;
 using MCUScope.Models;
+using Syncfusion.Windows.Shared;
 
 namespace MCUScope.ViewModels
 {
@@ -70,6 +71,7 @@ namespace MCUScope.ViewModels
 			ParametersList = new ObservableCollection<SelectedParameterData>();
 
 			DeletParameterLogListCommand = new RelayCommand<System.Collections.IList>(DeletParameterLogList);
+			DeleteCommand = new RelayCommand<DataGrid>(Delete);
 
 
 			DragDropData dragDropData = new DragDropData();
@@ -108,6 +110,16 @@ namespace MCUScope.ViewModels
 
 		private void DeletParameterLogList(System.Collections.IList paramsList)
 		{
+			Delete_Do(paramsList);
+		}
+
+		private void Delete(DataGrid dg)
+		{
+			Delete_Do(dg.SelectedItems);
+		}
+
+		private void Delete_Do(System.Collections.IList paramsList)
+		{
 			List<SelectedParameterData> list = new List<SelectedParameterData>();
 			foreach (SelectedParameterData data in paramsList)
 				list.Add(data);
@@ -119,7 +131,6 @@ namespace MCUScope.ViewModels
 			}
 
 		}
-
 
 
 		#region Drop
@@ -196,7 +207,7 @@ namespace MCUScope.ViewModels
 		#region Commands
 
 		public RelayCommand<System.Collections.IList> DeletParameterLogListCommand { get; private set; }
-
+		public RelayCommand<DataGrid> DeleteCommand { get; private set; }
 
 
 		#region Drop

@@ -80,7 +80,15 @@
                       AllowDrop="True"
                       AutoGenerateColumns="False"
                       CanUserAddRows="False"
-                      Name="lsLog">
+                      Name="dg">
+
+                <DataGrid.InputBindings>
+
+                    <KeyBinding Command="{Binding DeleteCommand}" 
+                                CommandParameter="{Binding ElementName=dg}"
+                                Gesture="DELETE" />
+
+                </DataGrid.InputBindings>
 
                 <DataGrid.Resources>
                     <Style TargetType="DataGridRow" BasedOn="{StaticResource MahApps.Styles.DataGridRow}">
