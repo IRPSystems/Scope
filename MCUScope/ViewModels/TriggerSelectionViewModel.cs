@@ -76,9 +76,9 @@ namespace MCUScope.ViewModels
 		{
 			TriggerData.PhasesFrequency = phasesFrequency;
 
-			RecordIntervalStep = 1.0 / (double)TriggerData.PhasesFrequency;
+			RecordIntervalStep = (1.0 * 1000) / (double)TriggerData.PhasesFrequency;
 			RecordIntervalMin = RecordIntervalStep;
-			RecordIntervalMax = 255.0 / (double)TriggerData.PhasesFrequency;
+			RecordIntervalMax = (255.0 * 1000) / (double)TriggerData.PhasesFrequency;
 
 			TriggerData.Interval = RecordIntervalStep;
 		}

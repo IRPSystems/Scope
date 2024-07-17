@@ -301,7 +301,7 @@ namespace Scope.ViewModels
 
 					scopeDatasList.Add(scopeData);
 
-					seconds += timeIntervalSec / 1000;
+					seconds += timeIntervalSec;
 				}
 			}
 

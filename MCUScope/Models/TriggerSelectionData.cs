@@ -28,7 +28,7 @@ namespace MCUScope.Models
 			{
 				_interval = value;
 
-				double d = _interval * PhasesFrequency;
+				double d = (_interval / 1000) * PhasesFrequency;
 				RecordGap = (int)(d - 1);
 
 				OnPropertyChanged(nameof(RecordGap));
