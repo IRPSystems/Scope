@@ -192,6 +192,8 @@ namespace MCUScope.ViewModels
 		{
 			base.Dispose();
 
+			Scope.Dispose();
+
 			_cancellationTokenSource.Cancel();
 		}
 

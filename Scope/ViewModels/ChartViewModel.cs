@@ -61,6 +61,8 @@ namespace Scope.ViewModels
 
 		private bool _isEnablePanning;
 
+		private ScopeUserData _scopeUserData;
+
 		#endregion Fields
 
 		#region Constructor
@@ -68,10 +70,12 @@ namespace Scope.ViewModels
 		public ChartViewModel(
 			string chartName,
 			string intervalUnits,
-			XAxisTypes xAxisTypes)
+			XAxisTypes xAxisTypes,
+			ScopeUserData scopeUserData)
 		{
-			Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(
-				"MjQ2MzU2NkAzMjMwMmUzMzJlMzBOaGhMVVJBelp0Y1c1eXdoNHRTcHI4bGVOdmdxQWNXZkZxeklweENobmdjPQ==");
+			_scopeUserData = scopeUserData;
+
+			
 
 			
 			Name = chartName;
@@ -323,16 +327,15 @@ namespace Scope.ViewModels
 
 			string fileName = "Record " + Name + " - " + DateTime.Now.ToString("dd-MMM-yyyy HH-mm-ss") + ".csv";
 
-			string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-			string path = System.IO.Path.Combine(documentsPath, "Logs");
-			if (!Directory.Exists(path))
-				Directory.CreateDirectory(path);
+			SaveFileDialog saveFileDialog = new SaveFileDialog();
+			saveFileDialog.InitialDirectory = _scopeUserData.ScopeRecordingDir;
+			saveFileDialog.FileName = fileName;
+			bool? result = saveFileDialog.ShowDialog();
+			if (result != true)
+				return;
 
-			path = System.IO.Path.Combine(path, "ScopeRecord");
-			if (!Directory.Exists(path))
-				Directory.CreateDirectory(path);
-
-			path = System.IO.Path.Combine(path, fileName);
+			_scopeUserData.ScopeRecordingDir = Path.GetDirectoryName(saveFileDialog.FileName);
+			string path = saveFileDialog.FileName;
 
 
 			_textWriter = new StreamWriter(path, false, System.Text.Encoding.UTF8);

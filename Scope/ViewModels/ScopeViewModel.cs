@@ -1,6 +1,7 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Scope.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -38,14 +39,21 @@ namespace Scope.ViewModels
 		private List<Brush> _colorsList;
 		private int _colorIndex;
 
+		private ScopeUserData _scopeUserData;
+
 		#endregion Fields
 
 		#region Constructor
 
 		public ScopeViewModel()
 		{
+			Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(
+				"MjQ2MzU2NkAzMjMwMmUzMzJlMzBOaGhMVVJBelp0Y1c1eXdoNHRTcHI4bGVOdmdxQWNXZkZxeklweENobmdjPQ==");
+
 			ChartsList = new ObservableCollection<ChartViewModel>();
 			_nameToChart = new Dictionary<string, ChartViewModel>();
+
+			_scopeUserData = ScopeUserData.LoadScopeUserData("Scope");
 
 			_colorIndex = 0;
 			var converter = new System.Windows.Media.BrushConverter();
@@ -70,12 +78,17 @@ namespace Scope.ViewModels
 
 		#region Methods
 
+		public void Dispose()
+		{
+			ScopeUserData.SaveScopeUserData("Scope", _scopeUserData);
+		}
+
 		public void AddChart(
 			string chartName,
 			string intervalUnits,
 			ChartViewModel.XAxisTypes xAxisTypes)
 		{
-			ChartViewModel chartViewModel = new ChartViewModel(chartName, intervalUnits, xAxisTypes);
+			ChartViewModel chartViewModel = new ChartViewModel(chartName, intervalUnits, xAxisTypes, _scopeUserData);
 			ChartsList.Add(chartViewModel);
 			_nameToChart.Add(chartName, chartViewModel);
 
