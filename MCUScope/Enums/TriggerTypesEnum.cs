@@ -11,5 +11,7 @@ namespace MCUScope.Enums
 		RisingEdge,
 		[Description("Falling Edge")]
 		FallingEdge,
+		[Description("Either")]
+		Either,
 	}
 }
