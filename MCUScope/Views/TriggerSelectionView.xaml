@@ -21,7 +21,6 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Controls;component/Resources/ButtonWithIcon.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Controls;component/Resources/ToggleButtonWithIcon.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <converter_global:EnumDescriptionConverter x:Key="EnumDescriptionConverter" />
@@ -70,16 +69,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <ToggleButton Grid.Row="0" Grid.Column="0"
-                      Style="{StaticResource ToggleButtonWithIconStyle}"
-                      HorizontalAlignment="Left"
-                      Width="25"
-                      ToolTip="Continuous"
-                      Margin="0,1,5,1"
-                      Command="{Binding ContinuousCommand}"
-                      IsChecked="{Binding IsContinuous}">
-            <iconPacks:PackIconModern Kind="TransformRotateCounterclockwise" Width="15" Height="15"/>
-        </ToggleButton>
+        
 
 
         <TextBlock Grid.Row="2" Grid.Column="0" Text="Type" VerticalAlignment="Center" />

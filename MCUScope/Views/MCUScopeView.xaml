@@ -56,6 +56,48 @@
 
             </DataTemplate>
 
+            <Style x:Key="ContinuousToggleButtonStyle" TargetType="ToggleButton">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ToggleButton">
+
+                            <Border Name="brdr"
+                                    BorderBrush="{DynamicResource MahApps.Brushes.Gray1}" BorderThickness="1"
+                                    Background="{DynamicResource MahApps.Brushes.Gray8}"
+                                    CornerRadius="3">
+
+                                <TextBlock x:Name="tb" Text="Start Continuous" 
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           FontSize="14"
+                                           FontWeight="DemiBold"/>
+
+                            </Border>
+
+                            <ControlTemplate.Triggers>
+
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="brdr" Property="Background" Value="{DynamicResource MahApps.Brushes.Gray6}"/>
+                                </Trigger>
+
+                                <Trigger Property="IsChecked" Value="True">
+                                    <Setter TargetName="brdr" Property="Background" Value="MediumOrchid"/>
+                                    <Setter TargetName="brdr" Property="BorderThickness" Value="2"/>
+                                    <Setter TargetName="tb" Property="Text" Value="Stop Continuous"/>
+                                    <Setter TargetName="tb" Property="Foreground" Value="White"/>
+                                </Trigger>
+
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter TargetName="brdr" Property="Opacity" Value="0.2"/>
+                                </Trigger>
+
+                            </ControlTemplate.Triggers>
+
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -104,11 +146,16 @@
                             ContentTemplate="{StaticResource ExecuteStateStyle}"
                             Margin="0,0,100,0"/>
 
-            <Grid>
-                
-            </Grid>
             
-            
+            <ToggleButton Width="120" 
+                          Style="{StaticResource ContinuousToggleButtonStyle}"
+                          ToolTip="Continuous"
+                          Command="{Binding ContinuousCommand}"
+                          IsChecked="{Binding IsContinuous}"/>
+
+
+
+
 
         </StackPanel>
 

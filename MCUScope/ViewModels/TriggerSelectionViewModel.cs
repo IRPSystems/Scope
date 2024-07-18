@@ -31,7 +31,7 @@ namespace MCUScope.ViewModels
 			}
 		}
 
-		public bool IsContinuous { get; set; }
+		
 
 		public DeviceData McuDevice { get; set; }
 
@@ -52,14 +52,13 @@ namespace MCUScope.ViewModels
 		{
 			McuDevice = mcuDevice;
 
-			ContinuousCommand = new RelayCommand(Continuous);
+			
 			ExpandAllCommand = new RelayCommand(ExpandAll);
 			CollapseAllCommand = new RelayCommand(CollapseAll);
 
 			TriggerData = new TriggerSelectionData();
 
-			IsContinuous = false;
-
+			
 			RecordIntervalStep = 1;
 		}
 
@@ -67,10 +66,7 @@ namespace MCUScope.ViewModels
 
 		#region Methods
 
-		private void Continuous()
-		{
-			ContinuousEvent?.Invoke(IsContinuous);
-		}
+		
 
 		public void SetPhasesFrequency(uint phasesFrequency)
 		{
@@ -214,7 +210,6 @@ namespace MCUScope.ViewModels
 
 		#region Commands
 
-		public RelayCommand ContinuousCommand { get; private set; }
 
 		public RelayCommand ExpandAllCommand { get; private set; }
 		public RelayCommand CollapseAllCommand { get; private set; }
@@ -240,11 +235,5 @@ namespace MCUScope.ViewModels
 		}
 
 		#endregion Commands
-
-		#region Event
-
-		public event Action<bool> ContinuousEvent;
-
-		#endregion Event
 	}
 }

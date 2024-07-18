@@ -42,9 +42,8 @@ namespace MCUScope.ViewModels
 		public ChartsSelectionViewModel ChartsSelection { get; set; }
 		public ScopeViewModel Scope { get; set; }
 
-		
 
-		
+
 
 		#region ExecuteState
 
@@ -58,6 +57,19 @@ namespace MCUScope.ViewModels
 		}
 
 		#endregion ExecuteState
+
+		#region IsContinuous
+
+		public static readonly DependencyProperty IsContinuousProperty =
+		 DependencyProperty.Register("IsContinuous", typeof(bool), typeof(MCUScopeViewModel));
+
+		public bool IsContinuous
+		{
+			get { return (bool)GetValue(IsContinuousProperty); }
+			set { SetValue(IsContinuousProperty, value); }
+		}
+
+		#endregion IsContinuous
 
 		#endregion Properties
 
@@ -89,6 +101,8 @@ namespace MCUScope.ViewModels
 		private MCU_ParamData _paramPhasesFrequency;
 
 		private List<SelectedParameterData> _recordParamsList;
+		private List<List<List<double>>> _dataList;
+		private int _paramIndex = 0;
 
 		#endregion Fields
 
@@ -102,6 +116,7 @@ namespace MCUScope.ViewModels
 				"MjQ2MzU2NkAzMjMwMmUzMzJlMzBOaGhMVVJBelp0Y1c1eXdoNHRTcHI4bGVOdmdxQWNXZkZxeklweENobmdjPQ==");
 
 			ExecuteState = ExecuteStateEnum.None;
+			IsContinuous = false;
 
 			if (canService != null)
 			{
@@ -124,6 +139,7 @@ namespace MCUScope.ViewModels
 			LoadSetuptCommand = new RelayCommand(LoadSetup);
 			ExecuteCommand = new RelayCommand(Execute);
 			ForceTrigCommand = new RelayCommand(ForceTrig);
+			ContinuousCommand = new RelayCommand(Continuous);
 
 			DockFill = true;
 
@@ -326,20 +342,16 @@ namespace MCUScope.ViewModels
 			Send(data);
 		}
 
-		private List<List<List<double>>> _dataList;
+		
 		private void Execute()
 		{
-			_isTriggerReceived = false;
-			_chartIndex = 0;
-			_seriesIndex = 0;
-			_chartTimeMS = 0;
-			_chartPointsCounter = 0;
+			
 
 			int numOfParams = ChartsSelection.GetNumOfSerieses();
 			byte[] data = _buildRequestMessages.BuildMessage1(
 				numOfParams,
 				TriggerSelection.TriggerData.RecordGap,
-				TriggerSelection.IsContinuous,
+				IsContinuous,
 				TriggerSelection.TriggerData.TriggerPosition);
 			//_mcu_Communicator.SendMessage(false, 0xAB, data, null);
 			Send(data);
@@ -374,6 +386,24 @@ namespace MCUScope.ViewModels
 			Send(data);
 			System.Threading.Thread.Sleep(100);
 
+
+			InitWaitForTrigger();
+
+
+			_interval = TriggerSelection.TriggerData.Interval / 1000;
+			ComPort._canbusControl.GetCanDriver().CanService.CanMessageReceivedEvent += CanMessageReceivedEventHandler;
+
+
+		}
+
+		private void InitWaitForTrigger()
+		{
+			_isTriggerReceived = false;
+			_chartIndex = 0;
+			_seriesIndex = 0;
+			_chartTimeMS = 0;
+			_chartPointsCounter = 0;
+
 			_dataList = new List<List<List<double>>>();
 			foreach (ChartViewModel chart in Scope.ChartsList)
 			{
@@ -386,10 +416,6 @@ namespace MCUScope.ViewModels
 				_dataList.Add(chartDataList);
 			}
 
-
-
-			_interval = TriggerSelection.TriggerData.Interval / 1000;
-
 			if (Application.Current != null)
 			{
 				Application.Current.Dispatcher.Invoke(() =>
@@ -397,7 +423,6 @@ namespace MCUScope.ViewModels
 					ExecuteState = ExecuteStateEnum.WaitForTrigger;
 				});
 			}
-
 		}
 
 		private void MessageReceivedEventHandler(byte[] buffer)
@@ -424,12 +449,9 @@ namespace MCUScope.ViewModels
 			if (node != 0xAA)
 				return;
 
-			AsyncMessageReceivedEventHandler(buffer);
-		}
+			
 
-		private int _paramIndex = 0;
-		private void AsyncMessageReceivedEventHandler(byte[] buffer)
-		{
+		
 			
 			if (!_isTriggerReceived)
 			{
@@ -456,7 +478,7 @@ namespace MCUScope.ViewModels
 
 		private void EndReceivingData()
 		{
-			//_timerRecordTime.Stop();
+			
 
 
 			for (int i = 0; i < Scope.ChartsList.Count; i++)
@@ -476,6 +498,20 @@ namespace MCUScope.ViewModels
 
 				System.Threading.Thread.Sleep(1);
 			}
+
+			System.Threading.Thread.Sleep(1000);
+
+			if (Application.Current != null)
+			{
+				Application.Current.Dispatcher.Invoke(() =>
+				{
+					if (IsContinuous)
+						InitWaitForTrigger();
+					else
+						ComPort._canbusControl.GetCanDriver().CanService.CanMessageReceivedEvent -= CanMessageReceivedEventHandler;
+				});
+			}
+
 		}
 
 		private void HeaderMessageReceived(byte[] buffer)
@@ -583,6 +619,11 @@ namespace MCUScope.ViewModels
 			}
 		}
 
+		private void Continuous()
+		{
+			ComPort._canbusControl.GetCanDriver().CanService.CanMessageReceivedEvent -= CanMessageReceivedEventHandler;
+		}
+
 		#endregion Methods
 
 		#region Commands
@@ -591,6 +632,8 @@ namespace MCUScope.ViewModels
 		public RelayCommand LoadSetuptCommand { get; private set; }
 		public RelayCommand ExecuteCommand { get; private set; }
 		public RelayCommand ForceTrigCommand { get; private set; }
+
+		public RelayCommand ContinuousCommand { get; private set; }
 
 		#endregion Commands
 
