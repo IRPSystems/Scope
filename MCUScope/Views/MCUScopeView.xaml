@@ -13,7 +13,48 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/Controls;component/Resources/ButtonWithIcon.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            
+
+            <DataTemplate x:Key="ExecuteStateStyle">
+                
+                <Border Name="brdr" BorderBrush="{DynamicResource MahApps.Brushes.Gray1}"
+                        BorderThickness="1">
+
+                    <TextBlock Name="tb" 
+                               FontSize="15"
+                               FontWeight="DemiBold"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                </Border>
+
+                <DataTemplate.Triggers>
+
+                    <DataTrigger Binding="{Binding ExecuteState}" Value="None">
+                        <Setter TargetName="brdr" Property="Background" Value="{DynamicResource MahApps.Brushes.Gray5}"/>
+                        <Setter TargetName="tb" Property="Text" Value=""/>
+                        <Setter TargetName="tb" Property="Foreground" Value="White"/>
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding ExecuteState}" Value="WaitForTrigger">
+                        <Setter TargetName="brdr" Property="Background" Value="Orange"/>
+                        <Setter TargetName="tb" Property="Text" Value="Wait For Trigger"/>
+                        <Setter TargetName="tb" Property="Foreground" Value="Black"/>
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding ExecuteState}" Value="Triggered">
+                        <Setter TargetName="brdr" Property="Background" Value="Yellow"/>
+                        <Setter TargetName="tb" Property="Text" Value="Triggered"/>
+                        <Setter TargetName="tb" Property="Foreground" Value="Black"/>
+                    </DataTrigger>
+
+                    <DataTrigger Binding="{Binding ExecuteState}" Value="End">
+                        <Setter TargetName="brdr" Property="Background" Value="MediumOrchid"/>
+                        <Setter TargetName="tb" Property="Text" Value="End"/>
+                        <Setter TargetName="tb" Property="Foreground" Value="White"/>
+                    </DataTrigger>
+
+                </DataTemplate.Triggers>
+
+            </DataTemplate>
 
         </ResourceDictionary>
     </UserControl.Resources>
@@ -55,27 +96,12 @@
                     Command="{Binding ForceTrigCommand}"
                     ToolTip="Ask the MCU to start recording even if a trigger did not occure"
                     Width="100"
-                    Margin="0,0,10,0"/>
+                    Margin="0,0,100,0"/>
 
 
-
-            <Ellipse Stroke="{DynamicResource MahApps.Brushes.Gray1}" 
-                     StrokeThickness="2"
-                     Fill="{Binding RecodStateColor}" 
-                     Height="27" Width="27"
-                     HorizontalAlignment="Left"
-                     ToolTip="{Binding RecodStateDescription}"
-                     Margin="0,0,10,0"/>
-
-
-            <Grid >
-                <ProgressBar Width="200" Margin="0,1" Minimum="0" Maximum="100" Value="{Binding DataPercentage}"/>
-
-                <TextBlock Text="{Binding DataPercentage, StringFormat={}{0:#.##}%}" 
-                           VerticalAlignment="Center" HorizontalAlignment="Center"
-                           Foreground="{DynamicResource MahApps.Brushes.Gray10}"/>
-                
-            </Grid>
+            <ContentControl Content="{Binding}" 
+                            Width="120"
+                            ContentTemplate="{StaticResource ExecuteStateStyle}"/>
 
         </StackPanel>
 

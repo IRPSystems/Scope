@@ -28,6 +28,14 @@ namespace MCUScope.ViewModels
 {
 	public class MCUScopeViewModel : DocingBaseViewModel
 	{
+		public enum ExecuteStateEnum
+		{
+			None,
+			WaitForTrigger,
+			Triggered,
+			End
+		}
+
 		#region Properties
 
 		public TriggerSelectionViewModel TriggerSelection { get; set; }
@@ -36,51 +44,26 @@ namespace MCUScope.ViewModels
 
 		
 
+		
 
-		#region RecodStateColor
+		#region ExecuteState
 
-		public static readonly DependencyProperty RecodStateColorProperty =
-		 DependencyProperty.Register("RecodStateColor", typeof(Brush), typeof(MCUScopeViewModel));
+		public static readonly DependencyProperty ExecuteStateProperty =
+		 DependencyProperty.Register("ExecuteState", typeof(ExecuteStateEnum), typeof(MCUScopeViewModel));
 
-		public Brush RecodStateColor
+		public ExecuteStateEnum ExecuteState
 		{
-			get { return (Brush)GetValue(RecodStateColorProperty); }
-			set { SetValue(RecodStateColorProperty, value); }
+			get { return (ExecuteStateEnum)GetValue(ExecuteStateProperty); }
+			set { SetValue(ExecuteStateProperty, value); }
 		}
 
-		#endregion RecodStateColor
-
-		#region RecodStateDescription
-
-		public static readonly DependencyProperty RecodStateDescriptionProperty =
-		 DependencyProperty.Register("RecodStateDescription", typeof(string), typeof(MCUScopeViewModel));
-
-		public string RecodStateDescription
-		{
-			get { return (string)GetValue(RecodStateDescriptionProperty); }
-			set { SetValue(RecodStateDescriptionProperty, value); }
-		}
-
-		#endregion RecodStateDescription
-
-		#region DataPercentage
-
-		public static readonly DependencyProperty DataPercentageProperty =
-		 DependencyProperty.Register("DataPercentage", typeof(double), typeof(MCUScopeViewModel));
-
-		public double DataPercentage
-		{
-			get { return (double)GetValue(DataPercentageProperty); }
-			set { SetValue(DataPercentageProperty, value); }
-		}
-
-		#endregion DataPercentage
+		#endregion ExecuteState
 
 		#endregion Properties
 
 		#region Fields
 
-		
+
 		private BuildRequestMessagesService _buildRequestMessages;
 
 		private ContentControl _triggerSelectionWindow;
@@ -97,10 +80,6 @@ namespace MCUScope.ViewModels
 
 
 		public DeviceData MCUDevice;
-
-		private System.Timers.Timer _timerRecordTime;
-		private double _percentageBeforTrigger;
-		private double _intervalPercentage;
 		
 		private CancellationTokenSource _cancellationTokenSource;
 		private CancellationToken _cancellationToken;
@@ -110,7 +89,6 @@ namespace MCUScope.ViewModels
 		private MCU_ParamData _paramPhasesFrequency;
 
 		private List<SelectedParameterData> _recordParamsList;
-		//private uint _phasesFrequency;
 
 		#endregion Fields
 
@@ -122,6 +100,8 @@ namespace MCUScope.ViewModels
 
 			Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(
 				"MjQ2MzU2NkAzMjMwMmUzMzJlMzBOaGhMVVJBelp0Y1c1eXdoNHRTcHI4bGVOdmdxQWNXZkZxeklweENobmdjPQ==");
+
+			ExecuteState = ExecuteStateEnum.None;
 
 			if (canService != null)
 			{
@@ -174,14 +154,9 @@ namespace MCUScope.ViewModels
 			_buildRequestMessages = new BuildRequestMessagesService();
 
 
-			RecodStateColor = Application.Current.FindResource("MahApps.Brushes.Gray5") as SolidColorBrush;
-			RecodStateDescription = "Not recording";
-
+			
 			_cancellationTokenSource = new CancellationTokenSource();
 			_cancellationToken = _cancellationTokenSource.Token;
-
-			_timerRecordTime = new System.Timers.Timer();
-			_timerRecordTime.Elapsed += RecordTimeElapsedEventHandler;
 
 
 			_paramPhasesFrequency = new MCU_ParamData()
@@ -217,7 +192,6 @@ namespace MCUScope.ViewModels
 		{
 			base.Dispose();
 
-			_timerRecordTime.Stop();
 			_cancellationTokenSource.Cancel();
 		}
 
@@ -347,7 +321,6 @@ namespace MCUScope.ViewModels
 		private void ForceTrig()
 		{
 			byte[] data = _buildRequestMessages.BuildForceTriggerMessage();
-			//_mcu_Communicator.SendMessage(false, 0xAB, data, null);
 			Send(data);
 		}
 
@@ -411,42 +384,18 @@ namespace MCUScope.ViewModels
 				_dataList.Add(chartDataList);
 			}
 
-			RecodStateColor = Brushes.Red;
-			RecodStateDescription = "Waiting for trigger";
 
-
-
-
-			switch (TriggerSelection.TriggerData.TriggerPosition)
-			{
-				case Enums.TriggerPositionTypesEnum.ShowOnlyDataBeforeTriggerHappened: _percentageBeforTrigger = 100; break;
-				case Enums.TriggerPositionTypesEnum.ShowData50BeforeAnd50AfterTrigger: _percentageBeforTrigger = 50; break;
-				case Enums.TriggerPositionTypesEnum.ShowData25BeforeAnd75AfterTrigger: _percentageBeforTrigger = 25; break;
-				case Enums.TriggerPositionTypesEnum.ShowData12_5BeforeAnd87_5AfterTrigger: _percentageBeforTrigger = 12.5; break;
-				case Enums.TriggerPositionTypesEnum.ShowData6_25BeforeAnd93_75AfterTrigger: _percentageBeforTrigger = 6.25; break;
-			}
 
 			_interval = TriggerSelection.TriggerData.Interval / 1000;
-
-			int timerInterval = 50;
-			_intervalPercentage = (double)timerInterval * (_interval * 1000);
-			_intervalPercentage *= (100.0 / (double)TriggerSelectionData.NumOfSampels);
 
 			if (Application.Current != null)
 			{
 				Application.Current.Dispatcher.Invoke(() =>
 				{
-					DataPercentage = 0;
+					ExecuteState = ExecuteStateEnum.WaitForTrigger;
 				});
 			}
 
-
-
-			
-
-
-			_timerRecordTime.Interval = timerInterval;
-			_timerRecordTime.Start();
 		}
 
 		private void MessageReceivedEventHandler(byte[] buffer)
@@ -505,7 +454,7 @@ namespace MCUScope.ViewModels
 
 		private void EndReceivingData()
 		{
-			_timerRecordTime.Stop();
+			//_timerRecordTime.Stop();
 
 
 			for (int i = 0; i < Scope.ChartsList.Count; i++)
@@ -518,6 +467,8 @@ namespace MCUScope.ViewModels
 							_interval,
 							_dataList[i],
 							Scope.ChartsList[i].Name);
+
+						ExecuteState = ExecuteStateEnum.End;
 					});
 				}
 
@@ -541,8 +492,7 @@ namespace MCUScope.ViewModels
 						Application.Current.Dispatcher.Invoke(() =>
 						{
 
-							RecodStateColor = Brushes.Green;
-							RecodStateDescription = "Trigger found";
+							ExecuteState = ExecuteStateEnum.Triggered;
 						});
 					}
 
@@ -615,41 +565,8 @@ namespace MCUScope.ViewModels
 				}
 			}
 
-
-
 		}
 
-
-		private void RecordTimeElapsedEventHandler(object sender, ElapsedEventArgs e)
-		{
-			if (Application.Current == null)
-				return;
-
-			
-
-
-			Application.Current.Dispatcher.Invoke(() =>
-			{
-				if (!_isTriggerReceived)
-				{
-					if (DataPercentage < _percentageBeforTrigger)
-						DataPercentage += _intervalPercentage;
-
-					if (DataPercentage >= _percentageBeforTrigger)
-						DataPercentage = _percentageBeforTrigger;
-				}
-				else
-				{
-					if (DataPercentage < 100)
-						DataPercentage += _intervalPercentage;
-
-					if (DataPercentage >= 100)
-						DataPercentage = 100;
-				}
-			});
-
-			
-		}
 
 		private void Send(byte[] data)
 		{
