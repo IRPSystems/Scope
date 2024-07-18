@@ -99,7 +99,7 @@
                 <DataGrid.Columns>
 
                     <DataGridTextColumn Header="Name" Binding="{Binding Parameter.Name}" IsReadOnly="True" Width="200"/>
-                    <DataGridTextColumn Header="Scale" Binding="{Binding Scale}" />
+                    <DataGridTextColumn Header="Shift" Binding="{Binding Scale}" />
 
                 </DataGrid.Columns>
 

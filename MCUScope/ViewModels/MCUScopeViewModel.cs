@@ -108,6 +108,8 @@ namespace MCUScope.ViewModels
 		private CanService _canService;
 
 		private MCU_ParamData _paramPhasesFrequency;
+
+		private List<SelectedParameterData> _recordParamsList;
 		//private uint _phasesFrequency;
 
 		#endregion Fields
@@ -368,8 +370,8 @@ namespace MCUScope.ViewModels
 			Send(data);
 			System.Threading.Thread.Sleep(100);
 
-			List<SelectedParameterData> paramsList = ChartsSelection.GetParamsList();
-			foreach (SelectedParameterData param in paramsList)
+			_recordParamsList = ChartsSelection.GetParamsList();
+			foreach (SelectedParameterData param in _recordParamsList)
 			{
 				data = _buildRequestMessages.BuildMessage2(param);
 				if (data == null)
@@ -474,6 +476,7 @@ namespace MCUScope.ViewModels
 			AsyncMessageReceivedEventHandler(buffer);
 		}
 
+		private int _paramIndex = 0;
 		private void AsyncMessageReceivedEventHandler(byte[] buffer)
 		{
 			
@@ -492,21 +495,11 @@ namespace MCUScope.ViewModels
 
 			LoggerService.Inforamtion(this, "Setting chart, value no.: " + _chartPointsCounter);
 
-			_chartPointsCounter++;
-			int val = BitConverter.ToInt16(buffer, 0);
-			SetSingleValue(val);
-
-			_chartPointsCounter++;
-			val = BitConverter.ToInt16(buffer, 2);
-			SetSingleValue(val);
-
-			_chartPointsCounter++;
-			val = BitConverter.ToInt16(buffer, 4);
-			SetSingleValue(val);
-
-			_chartPointsCounter++;
-			val = BitConverter.ToInt16(buffer, 6);
-			SetSingleValue(val);
+			
+			SetSingleValue(buffer, 0);
+			SetSingleValue(buffer, 2);
+			SetSingleValue(buffer, 4);
+			SetSingleValue(buffer, 6);
 
 		}
 
@@ -566,7 +559,7 @@ namespace MCUScope.ViewModels
 		}
 
 
-		private void SetSingleValue(int val)
+		private void SetSingleValue(byte[] buffer, int index)
 		{
 			try
 			{
@@ -585,6 +578,12 @@ namespace MCUScope.ViewModels
 
 				List<double> seriesDataList = null;
 				seriesDataList = chartDataList[_seriesIndex];
+
+
+				_chartPointsCounter++;
+				int val = BitConverter.ToInt16(buffer, 0);
+				val = (val << _recordParamsList[_paramIndex++].Scale);
+
 				seriesDataList.Add(val);
 
 				
