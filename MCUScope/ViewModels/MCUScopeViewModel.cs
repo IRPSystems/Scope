@@ -583,6 +583,8 @@ namespace MCUScope.ViewModels
 				_chartPointsCounter++;
 				int val = BitConverter.ToInt16(buffer, 0);
 				val = (val << _recordParamsList[_paramIndex++].Scale);
+				if (_paramIndex >= _recordParamsList.Count)
+					_paramIndex = 0;
 
 				seriesDataList.Add(val);
 
