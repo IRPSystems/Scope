@@ -70,7 +70,6 @@ namespace MCUScope.ViewModels
 
 			ParametersList = new ObservableCollection<SelectedParameterData>();
 
-			DeletParameterLogListCommand = new RelayCommand<System.Collections.IList>(DeletParameterLogList);
 			DeleteCommand = new RelayCommand<DataGrid>(Delete);
 
 
@@ -108,20 +107,19 @@ namespace MCUScope.ViewModels
 		}
 
 
-		private void DeletParameterLogList(System.Collections.IList paramsList)
-		{
-			Delete_Do(paramsList);
-		}
+		
 
 		private void Delete(DataGrid dg)
 		{
-			Delete_Do(dg.SelectedItems);
-		}
+		
+			if(dg.SelectedItems == null || dg.SelectedItems.Count == 0)
+			{
+				MessageBox.Show("No series was selected", "Warning");
+				return;
+			}
 
-		private void Delete_Do(System.Collections.IList paramsList)
-		{
 			List<SelectedParameterData> list = new List<SelectedParameterData>();
-			foreach (SelectedParameterData data in paramsList)
+			foreach (SelectedParameterData data in dg.SelectedItems)
 				list.Add(data);
 
 			foreach (SelectedParameterData data in list)
@@ -189,13 +187,6 @@ namespace MCUScope.ViewModels
 			_selectedItemsList = lv.SelectedItems;
 		}
 
-		private void LoggindList_KeyDown(KeyEventArgs e)
-		{
-			if (e.Key == Key.Delete)
-			{
-				DeletParameterLogList(_selectedItemsList);
-			}
-		}
 
 		private void ParamDoubleClickedEventHandler(DeviceParameterData param)
 		{
@@ -243,16 +234,6 @@ namespace MCUScope.ViewModels
 			{
 				return _LoggindList_SelectionChangedCommand ?? (_LoggindList_SelectionChangedCommand =
 					new RelayCommand<SelectionChangedEventArgs>(LoggindList_SelectionChanged));
-			}
-		}
-
-		private RelayCommand<KeyEventArgs> _LoggindList_KeyDownCommand;
-		public RelayCommand<KeyEventArgs> LoggindList_KeyDownCommand
-		{
-			get
-			{
-				return _LoggindList_KeyDownCommand ?? (_LoggindList_KeyDownCommand =
-					new RelayCommand<KeyEventArgs>(LoggindList_KeyDown));
 			}
 		}
 
