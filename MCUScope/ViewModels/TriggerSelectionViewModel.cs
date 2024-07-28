@@ -35,9 +35,7 @@ namespace MCUScope.ViewModels
 
 		public DeviceData McuDevice { get; set; }
 
-		public double RecordIntervalStep { get; set; }
-		public double RecordIntervalMin { get; set; }
-		public double RecordIntervalMax { get; set; }
+		
 
 
 
@@ -57,9 +55,6 @@ namespace MCUScope.ViewModels
 			CollapseAllCommand = new RelayCommand(CollapseAll);
 
 			TriggerData = new TriggerSelectionData();
-
-			
-			RecordIntervalStep = 1;
 		}
 
 		#endregion Constructor
@@ -72,11 +67,11 @@ namespace MCUScope.ViewModels
 		{
 			TriggerData.PhasesFrequency = phasesFrequency;
 
-			RecordIntervalStep = (1.0 * 1000) / (double)TriggerData.PhasesFrequency;
-			RecordIntervalMin = RecordIntervalStep;
-			RecordIntervalMax = (255.0 * 1000) / (double)TriggerData.PhasesFrequency;
+			TriggerData.RecordIntervalStep = 1 / (double)TriggerData.PhasesFrequency;
+			TriggerData.RecordIntervalMin = TriggerData.RecordIntervalStep;
+			TriggerData.RecordIntervalMax = 255.0 / TriggerData.PhasesFrequency;
 
-			TriggerData.Interval = RecordIntervalStep;
+			TriggerData.Interval = TriggerData.RecordIntervalStep;
 		}
 
 

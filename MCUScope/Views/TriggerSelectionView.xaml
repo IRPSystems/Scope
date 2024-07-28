@@ -96,41 +96,23 @@
 
         </ComboBox>
 
-        <!--<TextBlock Grid.Row="8" Grid.Column="0" Text="Interval" VerticalAlignment="Center" />-->
+        
         <StackPanel Grid.Row="8" Grid.Column="2" Orientation="Horizontal">
 
             <TextBlock Grid.Column="1" Text="Recording interval:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-            <mah:NumericUpDown Interval="{Binding RecordIntervalStep}"
-                               Minimum="{Binding RecordIntervalMin}"
-                               Maximum="{Binding RecordIntervalMax}"
+            <mah:NumericUpDown Interval="{Binding TriggerData.RecordIntervalStep}"
+                               
                                Value="{Binding TriggerData.Interval, UpdateSourceTrigger=PropertyChanged}"
                                Width="150"
                                ToolTip="The length of time the recording will take.">
-
-                <!--<mah:NumericUpDown.Resources>
-                    <validation_rules:BindingProxy x:Key="proxy" Data="{Binding TriggerData.Interval, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:#.0000000}}"/>
-                </mah:NumericUpDown.Resources>
-
-
-
-                <mah:NumericUpDown.Value>
-                    <Binding Path="TriggerData.Interval" UpdateSourceTrigger="PropertyChanged">
-                        <Binding.ValidationRules>
-                            <validation_rules:RecordingTimeValidationRule >
-
-                                <validation_rules:RecordingTimeValidationRule.RecordingTimeWrapper>
-                                    <validation_rules:RecordingTimeWrapper RecordingTime="{Binding Data, Source={StaticResource proxy}}" />
-                                </validation_rules:RecordingTimeValidationRule.RecordingTimeWrapper>
-
-                            </validation_rules:RecordingTimeValidationRule>
-                        </Binding.ValidationRules>
-                    </Binding>
-                </mah:NumericUpDown.Value>-->
-
-
             </mah:NumericUpDown>
-            <TextBlock Grid.Column="1" Text="ms" VerticalAlignment="Center" Margin="0,0,100,0"/>
             
+            <TextBlock Grid.Column="1" Text="{Binding TriggerData.IntervalUnits}" VerticalAlignment="Center" Margin="0,0,100,0"/>
+
+            <TextBlock Grid.Column="1" Text="{Binding TriggerData.RecordIntervalStep}" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <TextBlock Grid.Column="1" Text="{Binding TriggerData.RecordIntervalMin}" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <TextBlock Grid.Column="1" Text="{Binding TriggerData.RecordIntervalMax}" VerticalAlignment="Center" Margin="0,0,10,0"/>
+
         </StackPanel>
         
 
