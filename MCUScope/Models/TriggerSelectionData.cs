@@ -24,25 +24,26 @@ namespace MCUScope.Models
 		[JsonIgnore]
 		public double Interval 
 		{
-			get
-			{
-				return GetValueInUnits(_interval);
-			}
+			get => _interval;
+			//{
+			//	return GetValueInUnits(_interval);
+			//}
 			set
 			{
-				_interval = GetValueInSecs(value);
+				_interval = value;
+				//_interval = GetValueInSecs(value);
 
-				if(_interval < _recordIntervalMin)
-					_interval = _recordIntervalMin;
-				if(_interval > _recordIntervalMax)
-					_interval = _recordIntervalMax;
+				//if(_interval < _recordIntervalMin)
+				//	_interval = _recordIntervalMin;
+				//if(_interval > _recordIntervalMax)
+				//	_interval = _recordIntervalMax;
 
-				SetUnits();
+				//SetUnits();
 
-				double d = _interval * PhasesFrequency;
-				RecordGap = (int)(d - 1);
+				//double d = _interval * PhasesFrequency;
+				//RecordGap = (int)(d - 1);
 
-				OnPropertyChanged(nameof(RecordGap));
+				//OnPropertyChanged(nameof(RecordGap));
 			}
 		}
 

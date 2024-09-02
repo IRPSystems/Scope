@@ -100,18 +100,17 @@
         <StackPanel Grid.Row="8" Grid.Column="2" Orientation="Horizontal">
 
             <TextBlock Grid.Column="1" Text="Recording interval:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-            <mah:NumericUpDown Interval="{Binding TriggerData.RecordIntervalStep}"
-                               
+            <mah:NumericUpDown Interval="{Binding TriggerData.RecordIntervalStep}"                               
                                Value="{Binding TriggerData.Interval, UpdateSourceTrigger=PropertyChanged}"
                                Width="150"
                                ToolTip="The length of time the recording will take.">
             </mah:NumericUpDown>
             
-            <TextBlock Grid.Column="1" Text="{Binding TriggerData.IntervalUnits}" VerticalAlignment="Center" Margin="0,0,100,0"/>
+            <TextBlock Grid.Column="1" Text="ms" VerticalAlignment="Center" Margin="0,0,100,0"/>
 
-            <TextBlock Grid.Column="1" Text="{Binding TriggerData.RecordIntervalStep}" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <!--<TextBlock Grid.Column="1" Text="{Binding TriggerData.RecordIntervalStep}" VerticalAlignment="Center" Margin="0,0,10,0"/>
             <TextBlock Grid.Column="1" Text="{Binding TriggerData.RecordIntervalMin}" VerticalAlignment="Center" Margin="0,0,10,0"/>
-            <TextBlock Grid.Column="1" Text="{Binding TriggerData.RecordIntervalMax}" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <TextBlock Grid.Column="1" Text="{Binding TriggerData.RecordIntervalMax}" VerticalAlignment="Center" Margin="0,0,10,0"/>-->
 
         </StackPanel>
         
