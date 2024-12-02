@@ -3,6 +3,8 @@ using CommunityToolkit.Mvvm.Input;
 using Controls.ViewModels;
 using DeviceCommunicators.MCU;
 using DeviceCommunicators.Models;
+using DeviceHandler.Models;
+using DeviceHandler.Models.DeviceFullDataModels;
 using Entities.Enums;
 using MCUScope.Models;
 using MCUScope.Services;
@@ -18,11 +20,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using TrueDriveCommunication;
 
 namespace MCUScope.ViewModels
 {
@@ -90,13 +89,11 @@ namespace MCUScope.ViewModels
 		private bool _isTriggerReceived;
 		private double _interval;
 
-
-		public DeviceData MCUDevice;
 		
 		private CancellationTokenSource _cancellationTokenSource;
 		private CancellationToken _cancellationToken;
 
-		private CanService _canService;
+		//private CanService _canService;
 
 		private MCU_ParamData _paramPhasesFrequency;
 
@@ -104,13 +101,35 @@ namespace MCUScope.ViewModels
 		private List<List<List<double>>> _dataList;
 		private int _paramIndex = 0;
 
+		private DevicesContainer _devicesContainer;
+
+		private CanService CanService
+		{
+			get
+			{
+				if (_devicesContainer == null)
+					return null;
+
+				if (_devicesContainer.TypeToDevicesFullData.ContainsKey(DeviceTypesEnum.MCU) == false)
+					return null;
+
+				DeviceFullData mcuDeviceFullData =
+					_devicesContainer.TypeToDevicesFullData[DeviceTypesEnum.MCU];
+				MCU_Communicator communicator =
+					mcuDeviceFullData.DeviceCommunicator as MCU_Communicator;
+
+				return communicator.CanService;
+			}
+		}
+
 		#endregion Fields
 
 		#region Constroctur
 
-		public MCUScopeViewModel(CanService canService, string jsonPath) :
+		public MCUScopeViewModel(DevicesContainer devicesContainer, string jsonPath) :
 			base("MCUScopeLayout", "MCUScope")
 		{
+			_devicesContainer = devicesContainer;
 
 			Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(
 				"MjQ2MzU2NkAzMjMwMmUzMzJlMzBOaGhMVVJBelp0Y1c1eXdoNHRTcHI4bGVOdmdxQWNXZkZxeklweENobmdjPQ==");
@@ -118,16 +137,10 @@ namespace MCUScope.ViewModels
 			ExecuteState = ExecuteStateEnum.None;
 			IsContinuous = false;
 
-			if (canService != null)
+			if (CanService != null)
 			{
-				_canService = canService;
-				_canService.CanMessageReceivedEvent += CanMessageReceivedEventHandler;
-				_canService.MessageReceivedEvent += MessageReceivedEventHandler; ;
-			}
-			else
-			{
-				ComPort._canbusControl.GetCanDriver().CanService.CanMessageReceivedEvent += CanMessageReceivedEventHandler;
-				ComPort._canbusControl.GetCanDriver().CanService.MessageReceivedEvent += MessageReceivedEventHandler;
+				CanService.CanMessageReceivedEvent += CanMessageReceivedEventHandler;
+				CanService.MessageReceivedEvent += MessageReceivedEventHandler;
 			}
 
 			_chartIndex = 0;
@@ -143,11 +156,10 @@ namespace MCUScope.ViewModels
 
 			DockFill = true;
 
-			MCUDevice = ReadFromMCUJson(jsonPath);
 
-			TriggerSelection = new TriggerSelectionViewModel(MCUDevice);
+			TriggerSelection = new TriggerSelectionViewModel(_devicesContainer);
 
-			ChartsSelection = new ChartsSelectionViewModel(MCUDevice);
+			ChartsSelection = new ChartsSelectionViewModel(_devicesContainer);
 			ChartsSelection.AddChartEvent += AddChartEventHandler;
 			ChartsSelection.DeleteChartEvent += DeleteChartEventHandler;
 			ChartsSelection.AddSeriesEvent += AddSeriesEventHandler;
@@ -184,25 +196,15 @@ namespace MCUScope.ViewModels
 			byte[] idBuf = new byte[3];
 			byte[] buffer = new byte[8];
 			MCU_Communicator.ConvertToData(_paramPhasesFrequency, 0, ref idBuf, ref buffer, false);
-			if (_canService == null)
-				ComPort._canbusControl.GetCanDriver().CanService.Send(buffer, 0xAB, false);
-			else
-				_canService.Send(buffer, 0xAB, false);
-
-			ReadJson.JsonHelper.OnLoadedParameterFile += JsonHelper_OnLoadedParameterFile;
+			if (CanService != null)
+				CanService.Send(buffer, 0xAB, false);
 		}
 
 		#endregion Constroctur
 
 		#region Methods
 
-		private void JsonHelper_OnLoadedParameterFile(object sender, EventArgs e)
-		{
-			MCUDevice = ReadFromMCUJson(ReadJson.JsonPath);
-
-			TriggerSelection.McuDevice = MCUDevice;
-			ChartsSelection.SetMcuDevice(MCUDevice);
-		}
+		
 
 		public new void Dispose()
 		{
@@ -211,14 +213,6 @@ namespace MCUScope.ViewModels
 			Scope.Dispose();
 
 			_cancellationTokenSource.Cancel();
-		}
-
-		private DeviceData ReadFromMCUJson(string path)
-		{
-			MCU_DeviceData deviceData = new MCU_DeviceData("MCU", DeviceTypesEnum.MCU);
-			MCU_ListHandlerService mcu_ListHandler = new MCU_ListHandlerService();
-			mcu_ListHandler.ReadMCUDeviceData(path, deviceData);
-			return deviceData;
 		}
 
 		private void CreateWindow(
@@ -391,7 +385,9 @@ namespace MCUScope.ViewModels
 
 
 			_interval = TriggerSelection.TriggerData.Interval / 1000;
-			ComPort._canbusControl.GetCanDriver().CanService.CanMessageReceivedEvent += CanMessageReceivedEventHandler;
+
+			if(CanService != null)
+				CanService.CanMessageReceivedEvent += CanMessageReceivedEventHandler;
 
 
 		}
@@ -507,8 +503,8 @@ namespace MCUScope.ViewModels
 				{
 					if (IsContinuous)
 						InitWaitForTrigger();
-					else
-						ComPort._canbusControl.GetCanDriver().CanService.CanMessageReceivedEvent -= CanMessageReceivedEventHandler;
+					else if(CanService !=  null)
+						CanService.CanMessageReceivedEvent -= CanMessageReceivedEventHandler;
 				});
 			}
 
@@ -608,20 +604,13 @@ namespace MCUScope.ViewModels
 
 		private void Send(byte[] data)
 		{
-			if(_canService != null)
-				_canService.Send(data);
-			else
-			{
-				ComPort._canbusControl.GetCanDriver().CanService.Send(
-					data, 
-					ComPort._canbusControl.mailboxId, 
-					false);
-			}
+			if(CanService != null)
+				CanService.Send(data);
 		}
 
 		private void Continuous()
 		{
-			ComPort._canbusControl.GetCanDriver().CanService.CanMessageReceivedEvent -= CanMessageReceivedEventHandler;
+			CanService.CanMessageReceivedEvent -= CanMessageReceivedEventHandler;
 		}
 
 		#endregion Methods

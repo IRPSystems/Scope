@@ -60,7 +60,7 @@
             <RowDefinition Height="5" />
             <RowDefinition Height="27" />
             <RowDefinition Height="15" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -120,12 +120,12 @@
         <TextBlock Grid.Row="10" Grid.Column="0" Text="Selected Keyword" VerticalAlignment="Center" />
         <TextBlock Grid.Row="10" Grid.Column="2" Text="{Binding TriggerData.TriggerKeyword}" FontWeight="DemiBold" VerticalAlignment="Center"/>
 
-        <TextBlock Grid.Row="12" Grid.Column="0" Text="Search keyword" VerticalAlignment="Center" />
+        <TextBlock Grid.Row="12" Grid.Column="0" Text="Search keyword" VerticalAlignment="Top" Margin="0,35,0,0"/>
         <Grid Grid.Row="12" Grid.Column="2" ToolTip="The parameter on which the trigger will wait">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="5"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             
             
@@ -185,8 +185,7 @@
                       Background="Transparent"
                       BorderBrush="{DynamicResource MahApps.Brushes.Accent2}"
                       BorderThickness="1"
-                      FontSize="14"
-                      MaxHeight="200">
+                      FontSize="14">
 
                 <TreeView.Resources>
                     <Style TargetType="TreeViewItem">

@@ -3,6 +3,9 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using DeviceCommunicators.MCU;
 using DeviceCommunicators.Models;
+using DeviceHandler.Models;
+using DeviceHandler.Models.DeviceFullDataModels;
+using Entities.Enums;
 using MCUScope.Models;
 using Services.Services;
 using System;
@@ -31,9 +34,24 @@ namespace MCUScope.ViewModels
 			}
 		}
 
-		
 
-		public DeviceData McuDevice { get; set; }
+		private DevicesContainer _devicesContainer;
+		public MCU_DeviceData McuDevice 
+		{
+			get
+			{
+				if (_devicesContainer == null)
+					return null;
+
+				if (_devicesContainer.TypeToDevicesFullData.ContainsKey(DeviceTypesEnum.MCU) == false)
+					return null;
+
+				DeviceFullData mcuDeviceFullData =
+					_devicesContainer.TypeToDevicesFullData[DeviceTypesEnum.MCU];
+
+				return mcuDeviceFullData.Device as MCU_DeviceData;
+			}
+		}
 
 		
 
@@ -46,9 +64,9 @@ namespace MCUScope.ViewModels
 
 		#region Constructor
 
-		public TriggerSelectionViewModel(DeviceData mcuDevice)
+		public TriggerSelectionViewModel(DevicesContainer devicesContainer)
 		{
-			McuDevice = mcuDevice;
+			_devicesContainer = devicesContainer;
 
 			
 			ExpandAllCommand = new RelayCommand(ExpandAll);
@@ -87,11 +105,13 @@ namespace MCUScope.ViewModels
 
 		private void SetSearchedTest(string text)
 		{
-				HideShowParameters(McuDevice.ParemetersList, text);
+			if (McuDevice == null)
+				return;
 
-				if (McuDevice is MCU_DeviceData mcu_Device)
-					mcu_Device.HideNotVisibleGroups();
-			
+			HideShowParameters(McuDevice.ParemetersList, text);
+
+			McuDevice.HideNotVisibleGroups();
+
 		}
 
 		private void HideShowParameters(
@@ -143,10 +163,10 @@ namespace MCUScope.ViewModels
 		{
 			LoggerService.Inforamtion(this, "Expanding all the devices");
 
-			if (!(McuDevice is MCU_DeviceData mcu_Device))
+			if (McuDevice == null)
 				return;
 
-			foreach (ParamGroup group in mcu_Device.MCU_GroupList)
+			foreach (ParamGroup group in McuDevice.MCU_GroupList)
 				group.IsExpanded = true;
 		}
 
@@ -154,10 +174,10 @@ namespace MCUScope.ViewModels
 		{
 			LoggerService.Inforamtion(this, "Collapsing all the devices");
 
-			if (!(McuDevice is MCU_DeviceData mcu_Device))
+			if (McuDevice == null)
 				return;
 
-			foreach (ParamGroup group in mcu_Device.MCU_GroupList)
+			foreach (ParamGroup group in McuDevice.ParemetersList)
 				group.IsExpanded = false;
 		}
 
@@ -181,10 +201,10 @@ namespace MCUScope.ViewModels
 
 			CollapseAll();
 
-			if (!(McuDevice is MCU_DeviceData mcu_Device))
+			if (McuDevice == null)
 				return;
 
-			foreach (ParamGroup group in mcu_Device.MCU_GroupList)
+			foreach (ParamGroup group in McuDevice.MCU_GroupList)
 			{
 				DeviceParameterData param = group.ParamList.ToList().Find((p) => p.Name == TriggerData.TriggerKeyword.Name);
 				if(param != null) 

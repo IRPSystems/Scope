@@ -30,42 +30,26 @@ namespace MCUScope.ViewModels
 
 		#region Constructor
 
-		public ChartsSelectionViewModel(DeviceData mcuDevice)
+		public ChartsSelectionViewModel(DevicesContainer devicesContainter)
 		{
+			_devicesContainter = devicesContainter;
+
 			AddNewChartCommand = new RelayCommand(AddNewChart);
 			DeleteCommand = new RelayCommand(Delete);
 
 			ChartsSelectionsList = new ObservableCollection<ChartSeriesSelectionViewModel>();
-
-			_devicesContainter = new DevicesContainer();
-			InitDeviceContainter(mcuDevice);
 		}
 
 		#endregion Constructor
 
 		#region Methods
 
-		public void SetMcuDevice(DeviceData mcuDevice)
+		public void SetMcuDevice()
 		{
-			_devicesContainter = new DevicesContainer();
-			InitDeviceContainter(mcuDevice);
-
 			foreach(ChartSeriesSelectionViewModel vm in ChartsSelectionsList)
 			{
 				vm.LoadMcuDevice();
 			}
-		}
-
-		private void InitDeviceContainter(DeviceData mcuDevice)
-		{
-			
-			_devicesContainter.DevicesFullDataList = new ObservableCollection<DeviceFullData>();
-			_devicesContainter.DevicesList = new ObservableCollection<DeviceData>();
-			_devicesContainter.TypeToDevicesFullData = new Dictionary<DeviceTypesEnum, DeviceFullData>();
-			DeviceFullData deviceFullData = DeviceFullData.Factory(mcuDevice);
-			_devicesContainter.DevicesFullDataList.Add(deviceFullData);
-			_devicesContainter.DevicesList.Add(mcuDevice);
-			_devicesContainter.TypeToDevicesFullData.Add(mcuDevice.DeviceType, deviceFullData);
 		}
 
 		public void AddNewChart(ChartData chartData)
