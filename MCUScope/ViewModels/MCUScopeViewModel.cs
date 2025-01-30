@@ -393,7 +393,7 @@ namespace MCUScope.ViewModels
 			Send(data);
 			System.Threading.Thread.Sleep(100);
 
-			if (_dataList == null)
+			//if (_dataList == null)
 				InitDataList();
 
 			RecodStateColor = Brushes.Red;
@@ -527,7 +527,9 @@ namespace MCUScope.ViewModels
 				System.Threading.Thread.Sleep(1);
 			}
 
-			InitDataList();
+			if(TriggerSelection.IsContinuous) 
+				InitDataList();
+
 			_isTriggerReceived = false;
 		}
 

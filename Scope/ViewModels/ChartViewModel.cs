@@ -13,6 +13,7 @@ using System.IO;
 using System.Windows.Media.Imaging;
 using CsvHelper;
 using System.Globalization;
+using Services.Services;
 
 namespace Scope.ViewModels
 {
@@ -227,9 +228,7 @@ namespace Scope.ViewModels
 			string name,
 			Brush color)
 		{
-			string xBindingPath = "Time";
-			if (Chart.PrimaryAxis is NumericalAxis)
-				xBindingPath = "Seconds";
+			
 			LineSeries lineSeries = new LineSeries()
 			{
 				XBindingPath = "Seconds",
@@ -259,7 +258,7 @@ namespace Scope.ViewModels
 			LineSeries lineSeries = _nameToSeries[name];
 
 
-
+			LoggerService.Inforamtion(this, $"*** Deleteing the series {name}");
 			Chart.Series.Remove(lineSeries);
 			_nameToSeries.Remove(name);
 			SeriesesList.Remove(name);

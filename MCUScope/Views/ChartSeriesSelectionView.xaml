@@ -64,7 +64,7 @@
                     Width="25"
                     ToolTip="Delet parameter"
                     Margin="0,1,5,1"
-                    Command="{Binding DeletParameterLogListCommand}"
+                    Command="{Binding DeleteParameterLogListCommand}"
                     CommandParameter="{Binding Path=SelectedItems, ElementName=lsLog}">
                 <iconPacks:PackIconMaterial Kind="TrashCan" Width="15" Height="15"/>
             </Button>
@@ -81,6 +81,15 @@
                       AutoGenerateColumns="False"
                       CanUserAddRows="False"
                       Name="lsLog">
+
+                <DataGrid.InputBindings>
+
+                    <KeyBinding Command="{Binding DeleteParameterLogListCommand}"                                 
+                                CommandParameter="{Binding Path=SelectedItems, ElementName=lsLog}"
+                                Gesture="Delete" />
+
+                </DataGrid.InputBindings>
+
 
                 <DataGrid.Resources>
                     <Style TargetType="DataGridRow" BasedOn="{StaticResource MahApps.Styles.DataGridRow}">
@@ -119,68 +128,9 @@
                     </i:EventTrigger>
 
 
-                    <i:EventTrigger EventName="KeyDown">
-                        <i:InvokeCommandAction Command="{Binding Path=DataContext.LoggindList_KeyDownCommand, 
-                                                             Mode=OneWay, 
-                                                             RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGrid}}" 
-                                           PassEventArgsToCommand="True"/>
-                    </i:EventTrigger>
-
-
                 </i:Interaction.Triggers>
 
             </DataGrid>
-            
-            <!--<ListView Name="lsLog" Grid.Row="4" ItemsSource="{Binding ParametersList}"
-                      AllowDrop="True">
-
-                <ListView.Resources>
-                    <Style TargetType="ListViewItem" BasedOn="{StaticResource MahApps.Styles.ListViewItem}">
-                        <Setter Property="IsSelected" Value="{Binding Data.IsSelected, Mode=TwoWay}" />
-                    </Style>
-                </ListView.Resources>
-
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Grid.Column="2" Text="{Binding Name}" />                        
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-
-                <i:Interaction.Triggers>
-
-                    <i:EventTrigger EventName="Drop">
-                        <i:InvokeCommandAction Command="{Binding Path=DataContext.LoggindList_DropCommand, 
-                                                             Mode=OneWay, 
-                                                             RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" 
-                                           PassEventArgsToCommand="True"/>
-                    </i:EventTrigger>
-
-                    <i:EventTrigger EventName="DragEnter">
-                        <i:InvokeCommandAction Command="{Binding Path=DataContext.LoggindList_DragEnterCommand, 
-                                                             Mode=OneWay, 
-                                                             RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" 
-                                           PassEventArgsToCommand="True"/>
-                    </i:EventTrigger>
-
-                    <i:EventTrigger EventName="SelectionChanged">
-                        <i:InvokeCommandAction Command="{Binding Path=DataContext.LoggindList_SelectionChangedCommand, 
-                                                             Mode=OneWay, 
-                                                             RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" 
-                                           PassEventArgsToCommand="True"/>
-                    </i:EventTrigger>
-
-
-                    <i:EventTrigger EventName="KeyDown">
-                        <i:InvokeCommandAction Command="{Binding Path=DataContext.LoggindList_KeyDownCommand, 
-                                                             Mode=OneWay, 
-                                                             RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}" 
-                                           PassEventArgsToCommand="True"/>
-                    </i:EventTrigger>
-
-
-                </i:Interaction.Triggers>
-
-            </ListView>-->
 
         </Grid>
 

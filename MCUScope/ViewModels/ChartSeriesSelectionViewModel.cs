@@ -8,7 +8,6 @@ using Services.Services;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows;
 using System;
 using System.Windows.Media;
@@ -16,7 +15,6 @@ using DeviceCommunicators.MCU;
 using System.Linq;
 using DeviceCommunicators.Models;
 using MCUScope.Models;
-using Syncfusion.Windows.Shared;
 using System.Collections;
 
 namespace MCUScope.ViewModels
@@ -71,7 +69,7 @@ namespace MCUScope.ViewModels
 
 			ParametersList = new ObservableCollection<SelectedParameterData>();
 
-			DeleteCommand = new RelayCommand<DataGrid>(Delete);
+			DeleteParameterLogListCommand = new RelayCommand<IList>(DeleteParameterLogList);
 
 
 			DragDropData dragDropData = new DragDropData();
@@ -108,28 +106,21 @@ namespace MCUScope.ViewModels
 		}
 
 
-		
-
-		private void Delete(DataGrid dg)
+		private void DeleteParameterLogList(IList selectedParams)
 		{
-		
-			if(dg.SelectedItems == null || dg.SelectedItems.Count == 0)
-			{
-				MessageBox.Show("No series was selected", "Warning");
-				return;
-			}
-
 			List<SelectedParameterData> list = new List<SelectedParameterData>();
-			foreach (SelectedParameterData data in dg.SelectedItems)
-				list.Add(data);
+			foreach (var param in selectedParams)
+				list.Add(param as SelectedParameterData);
 
-			foreach (SelectedParameterData data in list)
+
+			foreach(var param in list)
 			{
-				ParametersList.Remove(data);
-				DeleteSeriesEvent?.Invoke(ChartName, data.Parameter);
+				ParametersList.Remove(param);
+				DeleteSeriesEvent?.Invoke(ChartName, param.Parameter);
 			}
-
 		}
+
+
 
 
 		#region Drop
@@ -203,8 +194,7 @@ namespace MCUScope.ViewModels
 
 		#region Commands
 
-		public RelayCommand<System.Collections.IList> DeletParameterLogListCommand { get; private set; }
-		public RelayCommand<DataGrid> DeleteCommand { get; private set; }
+		public RelayCommand<IList> DeleteParameterLogListCommand { get; private set; }
 
 
 		#region Drop
