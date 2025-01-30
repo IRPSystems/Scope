@@ -393,17 +393,8 @@ namespace MCUScope.ViewModels
 			Send(data);
 			System.Threading.Thread.Sleep(100);
 
-			_dataList = new List<List<List<double>>>();
-			foreach (ChartViewModel chart in Scope.ChartsList)
-			{
-				List<List<double>> chartDataList = new List<List<double>>();
-				foreach (string series in chart.SeriesesList)
-				{
-					chartDataList.Add(new List<double>());
-				}
-
-				_dataList.Add(chartDataList);
-			}
+			if (_dataList == null)
+				InitDataList();
 
 			RecodStateColor = Brushes.Red;
 			RecodStateDescription = "Waiting for trigger";
@@ -441,6 +432,21 @@ namespace MCUScope.ViewModels
 
 			_timerRecordTime.Interval = timerInterval;
 			_timerRecordTime.Start();
+		}
+
+		private void InitDataList()
+		{
+			_dataList = new List<List<List<double>>>();
+			foreach (ChartViewModel chart in Scope.ChartsList)
+			{
+				List<List<double>> chartDataList = new List<List<double>>();
+				foreach (string series in chart.SeriesesList)
+				{
+					chartDataList.Add(new List<double>());
+				}
+
+				_dataList.Add(chartDataList);
+			}
 		}
 
 		private void MessageReceivedEventHandler(byte[] buffer)
@@ -520,6 +526,9 @@ namespace MCUScope.ViewModels
 
 				System.Threading.Thread.Sleep(1);
 			}
+
+			InitDataList();
+			_isTriggerReceived = false;
 		}
 
 		private void HeaderMessageReceived(byte[] buffer)
