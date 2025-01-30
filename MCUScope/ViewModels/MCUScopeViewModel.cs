@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using Controls.ViewModels;
 using DeviceCommunicators.MCU;
 using DeviceCommunicators.Models;
+using DeviceHandler.Models.DeviceFullDataModels;
 using Entities.Enums;
 using MCUScope.Models;
 using MCUScope.Services;
@@ -126,11 +127,14 @@ namespace MCUScope.ViewModels
 				_canService = canService;
 				_canService.CanMessageReceivedEvent += CanMessageReceivedEventHandler;
 				_canService.MessageReceivedEvent += MessageReceivedEventHandler; ;
+				MCUDevice = ReadFromMCUJson(@"param_defaults.json");
 			}
 			else
 			{
 				ComPort._canbusControl.GetCanDriver().CanService.CanMessageReceivedEvent += CanMessageReceivedEventHandler;
 				ComPort._canbusControl.GetCanDriver().CanService.MessageReceivedEvent += MessageReceivedEventHandler;
+				DeviceFullData deviceFullData = ComPort._canbusControl.DevicesContainer.TypeToDevicesFullData[DeviceTypesEnum.MCU];
+				MCUDevice = deviceFullData.Device;
 			}
 
 			_chartIndex = 0;
@@ -144,8 +148,6 @@ namespace MCUScope.ViewModels
 			ForceTrigCommand = new RelayCommand(ForceTrig);
 
 			DockFill = true;
-
-			MCUDevice = ReadFromMCUJson(@"param_defaults.json");
 
 			TriggerSelection = new TriggerSelectionViewModel(MCUDevice);
 
