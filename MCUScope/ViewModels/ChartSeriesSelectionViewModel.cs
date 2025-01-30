@@ -16,6 +16,8 @@ using DeviceCommunicators.MCU;
 using System.Linq;
 using DeviceCommunicators.Models;
 using MCUScope.Models;
+using Syncfusion.Windows.Shared;
+using System.Collections;
 
 namespace MCUScope.ViewModels
 {
@@ -69,7 +71,7 @@ namespace MCUScope.ViewModels
 
 			ParametersList = new ObservableCollection<SelectedParameterData>();
 
-			DeletParameterLogListCommand = new RelayCommand<System.Collections.IList>(DeletParameterLogList);
+			DeleteCommand = new RelayCommand<DataGrid>(Delete);
 
 
 			DragDropData dragDropData = new DragDropData();
@@ -81,6 +83,11 @@ namespace MCUScope.ViewModels
 		#endregion Constructor
 
 		#region Methods
+
+		public void LoadMcuDevice()
+		{
+			FullParametersList.BuildDevicesList();
+		}
 
 		public void Dispose()
 		{
@@ -101,10 +108,19 @@ namespace MCUScope.ViewModels
 		}
 
 
-		private void DeletParameterLogList(System.Collections.IList paramsList)
+		
+
+		private void Delete(DataGrid dg)
 		{
+		
+			if(dg.SelectedItems == null || dg.SelectedItems.Count == 0)
+			{
+				MessageBox.Show("No series was selected", "Warning");
+				return;
+			}
+
 			List<SelectedParameterData> list = new List<SelectedParameterData>();
-			foreach (SelectedParameterData data in paramsList)
+			foreach (SelectedParameterData data in dg.SelectedItems)
 				list.Add(data);
 
 			foreach (SelectedParameterData data in list)
@@ -114,7 +130,6 @@ namespace MCUScope.ViewModels
 			}
 
 		}
-
 
 
 		#region Drop
@@ -131,8 +146,13 @@ namespace MCUScope.ViewModels
 					return;
 				}
 
-				DeviceParameterData param = e.Data.GetData(ParametersViewModel.DragDropFormat) as DeviceParameterData;
-				AddParamToLogList(param);
+				var data = e.Data.GetData(ParametersViewModel.DragDropFormat);
+				Type type = data.GetType();
+				if(e.Data.GetData(ParametersViewModel.DragDropFormat) is DeviceParameterData param)
+					AddParamToLogList(param);
+				else if (e.Data.GetData(ParametersViewModel.DragDropFormat) is List<object> list)
+					AddParamToLogList(list[0] as DeviceParameterData);
+
 			}
 
 
@@ -173,13 +193,6 @@ namespace MCUScope.ViewModels
 			_selectedItemsList = lv.SelectedItems;
 		}
 
-		private void LoggindList_KeyDown(KeyEventArgs e)
-		{
-			if (e.Key == Key.Delete)
-			{
-				DeletParameterLogList(_selectedItemsList);
-			}
-		}
 
 		private void ParamDoubleClickedEventHandler(DeviceParameterData param)
 		{
@@ -191,7 +204,7 @@ namespace MCUScope.ViewModels
 		#region Commands
 
 		public RelayCommand<System.Collections.IList> DeletParameterLogListCommand { get; private set; }
-
+		public RelayCommand<DataGrid> DeleteCommand { get; private set; }
 
 
 		#region Drop
@@ -227,16 +240,6 @@ namespace MCUScope.ViewModels
 			{
 				return _LoggindList_SelectionChangedCommand ?? (_LoggindList_SelectionChangedCommand =
 					new RelayCommand<SelectionChangedEventArgs>(LoggindList_SelectionChanged));
-			}
-		}
-
-		private RelayCommand<KeyEventArgs> _LoggindList_KeyDownCommand;
-		public RelayCommand<KeyEventArgs> LoggindList_KeyDownCommand
-		{
-			get
-			{
-				return _LoggindList_KeyDownCommand ?? (_LoggindList_KeyDownCommand =
-					new RelayCommand<KeyEventArgs>(LoggindList_KeyDown));
 			}
 		}
 
