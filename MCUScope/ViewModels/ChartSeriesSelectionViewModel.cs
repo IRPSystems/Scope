@@ -27,6 +27,7 @@ namespace MCUScope.ViewModels
 		#region Properties
 
 		public string ChartName { get; set; }
+		public string ChartDisplayName { get; set; }
 
 		public ParametersViewModel FullParametersList { get; set; }
 
@@ -160,7 +161,7 @@ namespace MCUScope.ViewModels
 
 
 			ParametersList.Add(new SelectedParameterData() { Parameter = param});
-			AddSeriesEvent?.Invoke(ChartName, param);
+			AddSeriesEvent?.Invoke(ChartName, ChartDisplayName, param);
 		}
 
 
@@ -237,7 +238,7 @@ namespace MCUScope.ViewModels
 
 		#region Events
 
-		public event Action<string, DeviceParameterData> AddSeriesEvent;
+		public event Action<string, string, DeviceParameterData> AddSeriesEvent;
 		public event Action<string, DeviceParameterData> DeleteSeriesEvent;
 
 		#endregion Events

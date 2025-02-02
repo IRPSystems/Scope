@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Scope.Models;
+using Syncfusion.UI.Xaml.Charts;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -73,10 +74,12 @@ namespace Scope.ViewModels
 
 		public void AddChart(
 			string chartName,
+			string chartDisplayname,
 			string intervalUnits,
 			ChartViewModel.XAxisTypes xAxisTypes)
 		{
-			ChartViewModel chartViewModel = new ChartViewModel(chartName, intervalUnits, xAxisTypes);
+			ChartViewModel chartViewModel = 
+				new ChartViewModel(chartDisplayname, intervalUnits, xAxisTypes);
 			ChartsList.Add(chartViewModel);
 			_nameToChart.Add(chartName, chartViewModel);
 
@@ -95,6 +98,16 @@ namespace Scope.ViewModels
 			_nameToChart.Remove(chartName);
 
 			CalcNumOfCols();
+			SetChartsName();
+		}
+
+		private void SetChartsName()
+		{
+			int counter = 1;
+			foreach (ChartViewModel chart in ChartsList)
+			{
+				chart.Name = "Chart " + counter++;
+			}
 		}
 
 		public void AddSeriesToChart(

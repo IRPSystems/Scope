@@ -26,14 +26,19 @@ namespace MCUScope.ViewModels
 
 		private DevicesContainer _devicesContainter;
 
+		private int _chartsCounter;
+
 		#endregion Fields
 
 		#region Constructor
 
 		public ChartsSelectionViewModel(DeviceData mcuDevice)
 		{
+			_chartsCounter = 1;
+
 			AddNewChartCommand = new RelayCommand(AddNewChart);
 			DeleteCommand = new RelayCommand(Delete);
+			ClearAllChartsCommand = new RelayCommand(ClearAllCharts);
 
 			ChartsSelectionsList = new ObservableCollection<ChartSeriesSelectionViewModel>();
 
@@ -75,9 +80,13 @@ namespace MCUScope.ViewModels
 			chartSeriesSelection.AddSeriesEvent += AddSeriesEventHandler;
 			chartSeriesSelection.DeleteSeriesEvent += DeleteSeriesEventHandler;
 
+			chartSeriesSelection.ChartName = "Chart " + _chartsCounter++;
+
 			SetChartsName();
 
-			AddChartEvent?.Invoke(chartSeriesSelection.ChartName);
+			AddChartEvent?.Invoke(
+				chartSeriesSelection.ChartName, 
+				chartSeriesSelection.ChartDisplayName);
 		}
 
 		private void Delete()
@@ -102,20 +111,39 @@ namespace MCUScope.ViewModels
 			DeleteChartEvent?.Invoke(selectedItem.ChartName);
 		}
 
+		private void ClearAllCharts()
+		{
+			List<ChartSeriesSelectionViewModel> list =
+				new List<ChartSeriesSelectionViewModel>();
+			foreach (ChartSeriesSelectionViewModel item in ChartsSelectionsList)
+				list.Add(item);
+
+			foreach (ChartSeriesSelectionViewModel item in list)
+			{
+				ChartsSelectionsList.Remove(item);
+
+				DeleteChartEvent?.Invoke(item.ChartName);
+			}
+		}
+
 		private void SetChartsName()
 		{
 			int counter = 1;
 			foreach (ChartSeriesSelectionViewModel item in ChartsSelectionsList)
 			{
-				item.ChartName = "Chart " + counter++;
+				item.ChartDisplayName = "Chart " + counter++;
 			}
 		}
 
 
-		private void AddSeriesEventHandler(string chartName, DeviceParameterData param)
+		private void AddSeriesEventHandler(
+			string chartName, 
+			string chartDisplayName,
+			DeviceParameterData param)
 		{
 			AddSeriesEvent?.Invoke(
 				chartName,
+				chartDisplayName,
 				param.Name);
 		}
 
@@ -156,14 +184,15 @@ namespace MCUScope.ViewModels
 
 		public RelayCommand AddNewChartCommand { get; private set; }
 		public RelayCommand DeleteCommand { get; private set; }
+		public RelayCommand ClearAllChartsCommand { get; private set; }
 
 		#endregion Commands
 
 		#region Events
 
-		public event Action<string> AddChartEvent;
+		public event Action<string, string> AddChartEvent;
 		public event Action<string> DeleteChartEvent;
-		public event Action<string, string> AddSeriesEvent;
+		public event Action<string, string, string> AddSeriesEvent;
 		public event Action<string, string> DeleteSeriesEvent;
 
 		#endregion Events

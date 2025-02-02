@@ -50,6 +50,16 @@
                 <iconPacks:PackIconMaterial Kind="TrashCan" />
             </Button>
 
+            <Button Style="{StaticResource ButtonWithIconStyle}"
+                    Width="25"
+                    Height="25"
+                    Margin="5,0,0,0"
+                    ToolTip="Clear all charts"
+                    Command="{Binding ClearAllChartsCommand}"
+                    VerticalAlignment="Center" HorizontalAlignment="Left">
+                <iconPacks:PackIconModern Kind="Clean" />
+            </Button>
+
         </StackPanel>
 
         <ListView Grid.Row="1"
@@ -78,7 +88,7 @@
                                             <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
 
-                                        <TextBlock Grid.Row="0" Text="{Binding ChartName}" />
+                                        <TextBlock Grid.Row="0" Text="{Binding ChartDisplayName}" />
 
                                         <local:ChartSeriesSelectionView Grid.Row="2" DataContext="{Binding}" />
 

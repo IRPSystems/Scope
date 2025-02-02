@@ -243,9 +243,9 @@ namespace MCUScope.ViewModels
 			Children.Add(window);
 		}
 
-		private void AddChartEventHandler(string chartName)
+		private void AddChartEventHandler(string chartName, string chartDisplayName)
 		{
-			Scope.AddChart(chartName, "sec", ChartViewModel.XAxisTypes.Double);
+			Scope.AddChart(chartName, chartDisplayName, "sec", ChartViewModel.XAxisTypes.Double);
 		}
 
 		private void DeleteChartEventHandler(string chartName)
@@ -253,7 +253,10 @@ namespace MCUScope.ViewModels
 			Scope.DeleteChart(chartName);
 		}
 
-		private void AddSeriesEventHandler(string chartName, string series)
+		private void AddSeriesEventHandler(
+			string chartName,
+			string chartDisplayName,
+			string series)
 		{
 			Scope.AddSeriesToChart(chartName, series);
 		}
