@@ -10,6 +10,7 @@ using MCUScope.Services;
 using MCUScope.Views;
 using Microsoft.Win32;
 using Newtonsoft.Json;
+using Scope.Models;
 using Scope.ViewModels;
 using Scope.Views;
 using Services.Services;
@@ -29,6 +30,9 @@ namespace MCUScope.ViewModels
 {
 	public class MCUScopeViewModel : DocingBaseViewModel
 	{
+		
+
+
 		#region Properties
 
 		public TriggerSelectionViewModel TriggerSelection { get; set; }
@@ -109,7 +113,8 @@ namespace MCUScope.ViewModels
 		private CanService _canService;
 
 		private MCU_ParamData _paramPhasesFrequency;
-		//private uint _phasesFrequency;
+
+		private List<DataFromMCU_Cahrt> _dataList;
 
 		#endregion Fields
 
@@ -345,12 +350,10 @@ namespace MCUScope.ViewModels
 			Send(data);
 		}
 
-		private List<List<List<double>>> _dataList;
+		
 		private void Execute()
 		{
 			_isTriggerReceived = false;
-			_chartIndex = 0;
-			_seriesIndex = 0;
 			_chartTimeMS = 0;
 			_chartPointsCounter = 0;
 
@@ -436,16 +439,24 @@ namespace MCUScope.ViewModels
 
 		private void InitDataList()
 		{
-			_dataList = new List<List<List<double>>>();
+
+			_chartIndex = 0;
+			_seriesIndex = 0;
+
+			_dataList = new List<DataFromMCU_Cahrt>();
 			foreach (ChartViewModel chart in Scope.ChartsList)
 			{
-				List<List<double>> chartDataList = new List<List<double>>();
+				DataFromMCU_Cahrt chartData = new DataFromMCU_Cahrt() 
+					{ SeriesDataList = new List<DataFromMCU_Series>() };
+
 				foreach (string series in chart.SeriesesList)
 				{
-					chartDataList.Add(new List<double>());
+					DataFromMCU_Series seriesData = new DataFromMCU_Series()
+					{ DataList = new List<double>() };
+					chartData.SeriesDataList.Add(seriesData);
 				}
 
-				_dataList.Add(chartDataList);
+				_dataList.Add(chartData);
 			}
 		}
 
@@ -577,15 +588,15 @@ namespace MCUScope.ViewModels
 				if (_chartIndex < 0 || _chartIndex >= _dataList.Count)
 					return;
 
-				List<List<double>> chartDataList = _dataList[_chartIndex];
-				while (chartDataList.Count == 0)
+				DataFromMCU_Cahrt chartDataList = _dataList[_chartIndex];
+				while (chartDataList.SeriesDataList.Count == 0)
 				{
 					HandleIndeces(chartDataList);
 					chartDataList = _dataList[_chartIndex];
 				}
 
 				List<double> seriesDataList = null;
-				seriesDataList = chartDataList[_seriesIndex];
+				seriesDataList = chartDataList.SeriesDataList[_seriesIndex].DataList;
 				seriesDataList.Add(val);
 
 				
@@ -600,10 +611,10 @@ namespace MCUScope.ViewModels
 			}
 		}
 
-		private void HandleIndeces(List<List<double>> chartDataList)
+		private void HandleIndeces(DataFromMCU_Cahrt chartDataList)
 		{
 			_seriesIndex++;
-			if (_seriesIndex >= chartDataList.Count)
+			if (_seriesIndex >= chartDataList.SeriesDataList.Count)
 			{
 				_seriesIndex = 0;
 				_chartIndex++;

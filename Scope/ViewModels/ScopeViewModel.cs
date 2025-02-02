@@ -1,6 +1,7 @@
 ﻿
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Scope.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -131,18 +132,18 @@ namespace Scope.ViewModels
 
 		public void UpdateChart(
 			double interval,
-			List<List<double>> valuesList,
+			DataFromMCU_Cahrt fromMCU_Cahrt,
 			string chartName)
 		{
 			if (_nameToChart.ContainsKey(chartName) == false)
 				return;
 
 			ChartViewModel chartViewModel = _nameToChart[chartName];
-			for (int i = 0; i < valuesList.Count; i++)
+			for (int i = 0; i < fromMCU_Cahrt.SeriesDataList.Count; i++)
 			{
 				chartViewModel.AddDataToSeries(
 					interval,
-					valuesList[i],
+					fromMCU_Cahrt.SeriesDataList[i].DataList,
 					chartViewModel.SeriesesList[i]);
 			}
 
