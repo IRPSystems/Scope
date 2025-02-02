@@ -29,6 +29,7 @@
     <Grid x:Name="grd">
 
         <ListView ItemsSource="{Binding ChartsList}"
+                  Name="lvChartsList"
                   BorderThickness="0" 
                   VerticalContentAlignment="Stretch" >
 
