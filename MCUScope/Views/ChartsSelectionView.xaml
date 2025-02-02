@@ -30,6 +30,7 @@
         <StackPanel Grid.Row="0" Orientation="Horizontal">
 
             <Button Style="{StaticResource ButtonWithIconStyle}"
+                    Name="btnAddNewChart"
                     Width="25"
                     Height="25"
                     Margin="5,0,0,0"
@@ -52,7 +53,8 @@
         </StackPanel>
 
         <ListView Grid.Row="1"
-                      ItemsSource="{Binding ChartsSelectionsList}">
+                  ItemsSource="{Binding ChartsSelectionsList}"
+                  Name="lbChartsList">
 
             <ListView.Resources>
 
