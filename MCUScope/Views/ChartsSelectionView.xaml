@@ -41,6 +41,7 @@
             </Button>
 
             <Button Style="{StaticResource ButtonWithIconStyle}"
+                    Name="btnDeleteChart"
                     Width="25"
                     Height="25"
                     Margin="5,0,0,0"
@@ -51,6 +52,7 @@
             </Button>
 
             <Button Style="{StaticResource ButtonWithIconStyle}"
+                    Name="btnClearAllCharts"
                     Width="25"
                     Height="25"
                     Margin="5,0,0,0"
