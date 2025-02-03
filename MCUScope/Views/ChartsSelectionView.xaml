@@ -55,12 +55,17 @@
                     Name="btnClearAllCharts"
                     Width="25"
                     Height="25"
-                    Margin="5,0,0,0"
+                    Margin="5,0,10,0"
                     ToolTip="Clear all charts"
                     Command="{Binding ClearAllChartsCommand}"
                     VerticalAlignment="Center" HorizontalAlignment="Left">
                 <iconPacks:PackIconModern Kind="Clean" />
             </Button>
+
+            <TextBlock Text="Only 2 parameters can be requested" 
+                       Foreground="Red" 
+                       FontSize="16"
+                       VerticalAlignment="Center"/>
 
         </StackPanel>
 

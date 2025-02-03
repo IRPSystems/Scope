@@ -10,6 +10,7 @@ using MCUScope.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows;
 
 namespace MCUScope.ViewModels
 {
@@ -74,8 +75,15 @@ namespace MCUScope.ViewModels
 
 		private void AddNewChart()
 		{
+			bool isAllowAddChart = IsAllowAddChartParameter();
+			if(isAllowAddChart == false)
+			{
+				MessageBox.Show("There are already 2 parameters requested", "Error");
+				return;
+			}
+
 			ChartSeriesSelectionViewModel chartSeriesSelection = 
-				new ChartSeriesSelectionViewModel(_devicesContainter);
+				new ChartSeriesSelectionViewModel(_devicesContainter, IsAllowAddChartParameter);
 			ChartsSelectionsList.Add(chartSeriesSelection);
 			chartSeriesSelection.AddSeriesEvent += AddSeriesEventHandler;
 			chartSeriesSelection.DeleteSeriesEvent += DeleteSeriesEventHandler;
@@ -176,6 +184,21 @@ namespace MCUScope.ViewModels
 			}
 
 			return paramsList;
+		}
+
+		private bool IsAllowAddChartParameter()
+		{
+			int paramsCounter = 0;
+			foreach (ChartSeriesSelectionViewModel chart in ChartsSelectionsList)
+			{
+				foreach (SelectedParameterData param in chart.ParametersList)
+					paramsCounter++;
+			}
+
+			if (paramsCounter >= 2)
+				return false;
+
+			return true;
 		}
 
 		#endregion Methods

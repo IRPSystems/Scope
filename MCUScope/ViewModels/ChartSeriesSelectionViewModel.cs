@@ -44,23 +44,22 @@ namespace MCUScope.ViewModels
 
 		private const int _maxLoggingParams = 40;
 
-
-
-
 		private DevicesContainer _devicesContainer;
 
-
-
 		private System.Collections.IList _selectedItemsList;
+
+		private Func<bool> _isAllowAddParameter_Func;
 
 		#endregion Fields
 
 		#region Constructor
 
 		public ChartSeriesSelectionViewModel(
-			DevicesContainer devicesContainer)
+			DevicesContainer devicesContainer,
+			Func<bool> isAllowAddParameter)
 		{
 			_devicesContainer = devicesContainer;
+			_isAllowAddParameter_Func = isAllowAddParameter;
 
 			ChartName = "Chart";
 
@@ -132,9 +131,10 @@ namespace MCUScope.ViewModels
 
 			if (e.Data.GetDataPresent(ParametersViewModel.DragDropFormat))
 			{
-				if (ParametersList.Count == _maxLoggingParams)
+				bool isAllowAddParameter = _isAllowAddParameter_Func();
+				if (isAllowAddParameter == false)
 				{
-					MessageBox.Show("Only up to 40 parameters are allowed");
+					MessageBox.Show("There are already 2 parameters requested", "Error");
 					return;
 				}
 
