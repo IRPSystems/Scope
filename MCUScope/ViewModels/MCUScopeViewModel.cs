@@ -1,6 +1,7 @@
 ﻿using Communication.Services;
 using CommunityToolkit.Mvvm.Input;
 using Controls.ViewModels;
+using DeviceCommunicators.Enums;
 using DeviceCommunicators.MCU;
 using DeviceCommunicators.Models;
 using DeviceHandler.Models.DeviceFullDataModels;
@@ -81,11 +82,24 @@ namespace MCUScope.ViewModels
 
 		#endregion DataPercentage
 
+		#region NumOfSamples
+
+		public static readonly DependencyProperty NumOfSamplesProperty =
+		 DependencyProperty.Register("NumOfSamples", typeof(int), typeof(MCUScopeViewModel));
+
+		public int NumOfSamples
+		{
+			get { return (int)GetValue(NumOfSamplesProperty); }
+			set { SetValue(NumOfSamplesProperty, value); }
+		}
+
+		#endregion NumOfSamples
+
 		#endregion Properties
 
 		#region Fields
 
-		
+
 		private BuildRequestMessagesService _buildRequestMessages;
 
 		private ContentControl _triggerSelectionWindow;
@@ -126,6 +140,7 @@ namespace MCUScope.ViewModels
 
 			Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(
 				"MjQ2MzU2NkAzMjMwMmUzMzJlMzBOaGhMVVJBelp0Y1c1eXdoNHRTcHI4bGVOdmdxQWNXZkZxeklweENobmdjPQ==");
+
 
 			if (canService != null)
 			{
@@ -204,6 +219,13 @@ namespace MCUScope.ViewModels
 				_canService.Send(buffer, 0xAB, false);
 
 
+			// Request the number of samples
+			MCU_ParamData param = new MCU_ParamData()
+			{
+				Cmd = "recbufsize"
+			};
+
+			ComPort._canbusControl.SendAndResponse(param, null, Callback);
 		}
 
 		
@@ -218,6 +240,21 @@ namespace MCUScope.ViewModels
 
 			_timerRecordTime.Stop();
 			_cancellationTokenSource.Cancel();
+		}
+
+		private void Callback(DeviceParameterData param, CommunicatorResultEnum status, string errDescription)
+		{
+			if (param.Value == null)
+				return;
+
+			if (Application.Current != null)
+			{
+				Application.Current.Dispatcher.Invoke(() =>
+				{
+					NumOfSamples = Convert.ToInt32(param.Value);
+				});
+			}
+			
 		}
 
 		private DeviceData ReadFromMCUJson(string path)
@@ -419,9 +456,15 @@ namespace MCUScope.ViewModels
 
 			_interval = TriggerSelection.TriggerData.Interval;
 
-			int timerInterval = 50;
-			_intervalPercentage = (double)timerInterval * (_interval * 1000);
-			_intervalPercentage *= (100.0 / (double)TriggerSelectionData.NumOfSampels);
+
+			if (NumOfSamples <= 0)
+				NumOfSamples = 128;
+			double timerInterval = NumOfSamples * _interval; // In secs
+			timerInterval *= 1000; // In MS
+
+			//int timerInterval = 50;
+			//_intervalPercentage = (double)timerInterval * (_interval * 1000);
+			//_intervalPercentage *= (100.0 / (double)TriggerSelectionData.NumOfSampels);
 
 			if (Application.Current != null)
 			{
@@ -433,10 +476,10 @@ namespace MCUScope.ViewModels
 
 
 
-			
 
 
-			_timerRecordTime.Interval = timerInterval;
+
+			_timerRecordTime.Interval = timerInterval / 100;
 			_timerRecordTime.Start();
 		}
 
@@ -500,6 +543,16 @@ namespace MCUScope.ViewModels
 				return;
 			}
 
+			_timerRecordTime.Stop();
+
+			if (Application.Current != null)
+			{
+				Application.Current.Dispatcher.Invoke(() =>
+				{
+					DataPercentage = 100;
+				});
+			}
+
 			LoggerService.Inforamtion(this, "Setting chart, value no.: " + _chartPointsCounter);
 
 			_chartPointsCounter++;
@@ -522,7 +575,15 @@ namespace MCUScope.ViewModels
 
 		private void EndReceivingData()
 		{
-			_timerRecordTime.Stop();
+			//_timerRecordTime.Stop();
+			
+			//if (Application.Current != null)
+			//{
+			//	Application.Current.Dispatcher.Invoke(() =>
+			//	{
+			//		DataPercentage = 100;
+			//	});
+			//}
 
 
 			for (int i = 0; i < Scope.ChartsList.Count; i++)
@@ -552,7 +613,7 @@ namespace MCUScope.ViewModels
 			Task.Run(() =>
 			{
 				ulong header = BitConverter.ToUInt64(buffer, 0);
-				if (header == 0xABCDABCDABCDABCD)
+				if (header == 0xABCDABCDABCDABCD) // TODO buffer size
 				{
 					_isTriggerReceived = true;
 
@@ -647,7 +708,7 @@ namespace MCUScope.ViewModels
 				if (!_isTriggerReceived)
 				{
 					if (DataPercentage < _percentageBeforTrigger)
-						DataPercentage += _intervalPercentage;
+						DataPercentage++;
 
 					if (DataPercentage >= _percentageBeforTrigger)
 						DataPercentage = _percentageBeforTrigger;
@@ -655,7 +716,7 @@ namespace MCUScope.ViewModels
 				else
 				{
 					if (DataPercentage < 100)
-						DataPercentage += _intervalPercentage;
+						DataPercentage++;
 
 					if (DataPercentage >= 100)
 						DataPercentage = 100;
