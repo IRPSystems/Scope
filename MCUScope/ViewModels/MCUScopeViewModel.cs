@@ -462,10 +462,6 @@ namespace MCUScope.ViewModels
 			double timerInterval = NumOfSamples * _interval; // In secs
 			timerInterval *= 1000; // In MS
 
-			//int timerInterval = 50;
-			//_intervalPercentage = (double)timerInterval * (_interval * 1000);
-			//_intervalPercentage *= (100.0 / (double)TriggerSelectionData.NumOfSampels);
-
 			if (Application.Current != null)
 			{
 				Application.Current.Dispatcher.Invoke(() =>
