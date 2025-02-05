@@ -475,7 +475,7 @@ namespace MCUScope.ViewModels
 
 
 
-			_timerRecordTime.Interval = timerInterval / 100;
+			_timerRecordTime.Interval = timerInterval / 10;
 			_timerRecordTime.Start();
 		}
 
@@ -704,7 +704,7 @@ namespace MCUScope.ViewModels
 				if (!_isTriggerReceived)
 				{
 					if (DataPercentage < _percentageBeforTrigger)
-						DataPercentage++;
+						DataPercentage += 10;
 
 					if (DataPercentage >= _percentageBeforTrigger)
 						DataPercentage = _percentageBeforTrigger;
@@ -712,7 +712,7 @@ namespace MCUScope.ViewModels
 				else
 				{
 					if (DataPercentage < 100)
-						DataPercentage++;
+						DataPercentage += 10;
 
 					if (DataPercentage >= 100)
 						DataPercentage = 100;
