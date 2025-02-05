@@ -500,6 +500,7 @@ namespace MCUScope.ViewModels
 
 				_dataList.Add(chartData);
 			}
+
 		}
 
 		private void MessageReceivedEventHandler(byte[] buffer)
@@ -599,7 +600,17 @@ namespace MCUScope.ViewModels
 			}
 
 			if(TriggerSelection.IsContinuous) 
+			{
 				InitDataList();
+
+				if (Application.Current != null)
+				{
+					Application.Current.Dispatcher.Invoke(() =>
+					{
+						DataPercentage = 25;
+					});
+				}
+			}
 
 			_isTriggerReceived = false;
 		}
