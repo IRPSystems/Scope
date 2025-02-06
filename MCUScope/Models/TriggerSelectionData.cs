@@ -44,25 +44,20 @@ namespace MCUScope.Models
 			{
 				_interval = value;
 
-				LoggerService.Inforamtion(this, $"*** Interval = {_interval}");
 
-
-				SetIntervalUnits();
 				FromIntervalToSecs();
 
 				if(_intervalInSecs > RecordIntervalMaxInSec && RecordIntervalMaxInSec != 0)
 				{
-					_interval = RecordIntervalMax;
+					_interval = RecordIntervalMaxInSec * 1000;
 
-					SetIntervalUnits();
 					FromIntervalToSecs();
 				}
 
 				if (_intervalInSecs < RecordIntervalMinInSec && RecordIntervalMinInSec != 0)
 				{
-					_interval = RecordIntervalMin;
+					_interval = RecordIntervalMinInSec * 1000;
 
-					SetIntervalUnits();
 					FromIntervalToSecs();
 				}
 			}
@@ -80,10 +75,6 @@ namespace MCUScope.Models
 				FromSecsToInterval();
 			}
 		}
-
-		public double RecordIntervalStep { get; set; }
-		public double RecordIntervalMin { get; set; }
-		public double RecordIntervalMax { get; set; }
 
 		public double RecordIntervalStepInSec { get; set; }
 		public double RecordIntervalMinInSec { get; set; }
@@ -127,14 +118,7 @@ namespace MCUScope.Models
 
 			_isSettingInterval = true;
 
-			switch (Units)
-			{
-				case SecUnits: IntervalInSecs = _interval; break;
-				case MiliSecUnits: IntervalInSecs = _interval / 1000; break;
-				case MicroSecUnits: IntervalInSecs = _interval / 1000000; break;
-			}
-
-			OnPropertyChanged(nameof(Interval));
+			IntervalInSecs = _interval / 1000; 
 
 			_isSettingInterval = false;
 		}
@@ -146,74 +130,13 @@ namespace MCUScope.Models
 
 			_isSettingSecs = true;
 
-			Units = SecUnits;
-			Interval = IntervalInSecs;
+			Units = MiliSecUnits;
+			Interval = IntervalInSecs * 1000;
 
 			_isSettingSecs = false;
 		}
 
-		private void SetIntervalUnits()
-		{
-			if(_interval == 0)
-				return;
-
-			switch (Units)
-			{
-				case SecUnits: 
-					if(_interval < 1 && _interval >= 0.001)
-					{
-						Units = MiliSecUnits;
-						_interval = _interval * 1000;
-
-						RecordIntervalStep = RecordIntervalStepInSec * 1000;
-						RecordIntervalMin = RecordIntervalMinInSec * 1000;
-						RecordIntervalMax = RecordIntervalMaxInSec * 1000;
-					}
-					if(_interval < 0.001)
-					{
-						Units = MicroSecUnits;
-						_interval = _interval * 1000000;
-
-						RecordIntervalStep = RecordIntervalStepInSec * 1000000;
-						RecordIntervalMin = RecordIntervalMinInSec * 1000000;
-						RecordIntervalMax = RecordIntervalMaxInSec * 1000000;
-					}
-					break;
-				case MiliSecUnits:
-					if (_interval > 1000)
-					{
-						Units = SecUnits;
-						_interval = _interval / 1000;
-
-						RecordIntervalStep = RecordIntervalStepInSec;
-						RecordIntervalMin = RecordIntervalMinInSec;
-						RecordIntervalMax = RecordIntervalMaxInSec;
-					}
-					else if (_interval < 1)
-					{
-						Units = MicroSecUnits;
-						_interval = _interval * 1000;
-
-						RecordIntervalStep = RecordIntervalStepInSec * 1000000;
-						RecordIntervalMin = RecordIntervalMinInSec * 1000000;
-						RecordIntervalMax = RecordIntervalMaxInSec * 1000000;
-					}
-					break;
-				case MicroSecUnits:
-					if (_interval >= 1000)
-					{
-						Units = MiliSecUnits;
-						_interval = _interval / 1000;
-
-						RecordIntervalStep = RecordIntervalStepInSec * 1000;
-						RecordIntervalMin = RecordIntervalMinInSec * 1000;
-						RecordIntervalMax = RecordIntervalMaxInSec * 1000;
-					}
-					break;
-			}
-
-			OnPropertyChanged(nameof(Interval));
-		}
+		
 
 		#endregion Methods
 

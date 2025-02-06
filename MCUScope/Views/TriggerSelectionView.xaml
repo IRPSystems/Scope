@@ -107,23 +107,17 @@
 
         </ComboBox>
 
-        <!--<TextBlock Grid.Row="8" Grid.Column="0" Text="Interval" VerticalAlignment="Center" />-->
+        
         <StackPanel Grid.Row="8" Grid.Column="2" Orientation="Horizontal">
 
             <TextBlock Grid.Column="1" Text="Recording interval:" VerticalAlignment="Center" Margin="0,0,5,0"/>
-            <!--<mah:NumericUpDown Interval="{Binding TriggerData.RecordIntervalStep}"
+            <mah:NumericUpDown Interval="{Binding TriggerData.RecordIntervalStepInSec}"
                                Value="{Binding TriggerData.Interval}"
                                Width="150"
                                ToolTip="The length of time the recording will take."
-                               Margin="0,0,5,0" ValueChanged="NumericUpDown_ValueChanged"/>-->
+                               Margin="0,0,5,0" />
 
-            <TextBox Text="{Binding TriggerData.Interval}" 
-                     Width="150" Margin="0,0,5,0"/>
-
-
-
-            <TextBlock Text="{Binding TriggerData.Units}" 
-                       VerticalAlignment="Center" />
+            <TextBlock Text="ms" VerticalAlignment="Center" />
             
         </StackPanel>
         
