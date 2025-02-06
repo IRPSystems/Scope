@@ -607,7 +607,7 @@ namespace MCUScope.ViewModels
 				{
 					Application.Current.Dispatcher.Invoke(() =>
 					{
-						DataPercentage = 25;
+						DataPercentage = _percentageBeforTrigger;
 					});
 				}
 			}
