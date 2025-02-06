@@ -454,7 +454,7 @@ namespace MCUScope.ViewModels
 				case Enums.TriggerPositionTypesEnum.ShowData6_25BeforeAnd93_75AfterTrigger: _percentageBeforTrigger = 6.25; break;
 			}
 
-			_interval = TriggerSelection.TriggerData.Interval;
+			_interval = TriggerSelection.TriggerData.IntervalInSecs;
 
 
 			if (NumOfSamples <= 0)

@@ -35,13 +35,8 @@ namespace MCUScope.ViewModels
 
 		public DeviceData McuDevice { get; set; }
 
-		public double RecordIntervalStep { get; set; }
-		public double RecordIntervalMin { get; set; }
-		public double RecordIntervalMax { get; set; }
 
-
-
-		//private uint _phasesFrequency;
+		private bool isKeywordRadioChecked = false;
 
 		#endregion Propeties and Fields
 
@@ -60,7 +55,7 @@ namespace MCUScope.ViewModels
 
 			IsContinuous = false;
 
-			RecordIntervalStep = 1;
+			TriggerData.RecordIntervalStepInSec = 1;
 		}
 
 		#endregion Constructor
@@ -76,17 +71,17 @@ namespace MCUScope.ViewModels
 		{
 			TriggerData.PhasesFrequency = phasesFrequency;
 
-			RecordIntervalStep = 1.0 / (double)TriggerData.PhasesFrequency;
-			RecordIntervalMin = RecordIntervalStep;
-			RecordIntervalMax = 255.0 / (double)TriggerData.PhasesFrequency;
+			TriggerData.RecordIntervalStepInSec = 1.0 / TriggerData.PhasesFrequency;
+			TriggerData.RecordIntervalMinInSec = TriggerData.RecordIntervalStepInSec;
+			TriggerData.RecordIntervalMaxInSec = 255.0 / TriggerData.PhasesFrequency;
 
-			TriggerData.Interval = RecordIntervalStep;
+			TriggerData.IntervalInSecs = TriggerData.RecordIntervalStepInSec;
 		}
 
 
 		#region Search parameter
 
-		private void DeviceParamSearch_Text(TextChangedEventArgs e)
+		private void DeviceParamSearch_TextChanged(TextChangedEventArgs e)
 		{
 			if (!(e.Source is TextBox tb))
 				return;
@@ -172,7 +167,7 @@ namespace MCUScope.ViewModels
 
 		#endregion Expand/Collapse
 
-		private bool isKeywordRadioChecked = false;
+		
 		private void KeywordRadioChecked(DeviceParameterData selectedParameter)
 		{
 			isKeywordRadioChecked = true;
@@ -209,7 +204,6 @@ namespace MCUScope.ViewModels
 		}
 
 
-
 		#endregion Methods
 
 		#region Commands
@@ -219,13 +213,13 @@ namespace MCUScope.ViewModels
 		public RelayCommand ExpandAllCommand { get; private set; }
 		public RelayCommand CollapseAllCommand { get; private set; }
 
-		private RelayCommand<TextChangedEventArgs> _DeviceParamSearch_TextChanged;
-		public RelayCommand<TextChangedEventArgs> DeviceParamSearch_TextChanged
+		private RelayCommand<TextChangedEventArgs> _DeviceParamSearch_TextChangedCommand;
+		public RelayCommand<TextChangedEventArgs> DeviceParamSearch_TextChangedCommand
 		{
 			get
 			{
-				return _DeviceParamSearch_TextChanged ?? (_DeviceParamSearch_TextChanged =
-					new RelayCommand<TextChangedEventArgs>(DeviceParamSearch_Text));
+				return _DeviceParamSearch_TextChangedCommand ?? (_DeviceParamSearch_TextChangedCommand =
+					new RelayCommand<TextChangedEventArgs>(DeviceParamSearch_TextChanged));
 			}
 		}
 

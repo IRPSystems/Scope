@@ -24,5 +24,5 @@ namespace MCUScope.Views
 		{
 			InitializeComponent();
 		}
-    }
+	}
 }
