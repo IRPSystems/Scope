@@ -146,21 +146,6 @@ namespace MCUScope.ViewModels
 			_devicesContainer = devicesContainer;
 
 
-			//if (canService != null)
-			//{
-			//	_canService = canService;
-			//	_canService.CanMessageReceivedEvent += CanMessageReceivedEventHandler;
-			//	_canService.MessageReceivedEvent += MessageReceivedEventHandler; ;
-			//	MCUDevice = ReadFromMCUJson(@"param_defaults.json");
-			//}
-			//else
-			//{
-			//	ComPort._canbusControl.GetCanDriver().CanService.CanMessageReceivedEvent += CanMessageReceivedEventHandler;
-			//	ComPort._canbusControl.GetCanDriver().CanService.MessageReceivedEvent += MessageReceivedEventHandler;
-			//	DeviceFullData deviceFullData = ComPort._canbusControl.DevicesContainer.TypeToDevicesFullData[DeviceTypesEnum.MCU];
-			//	MCUDevice = deviceFullData.Device;
-			//}
-
 			DeviceFullData deviceFullData = devicesContainer.TypeToDevicesFullData[DeviceTypesEnum.MCU];
 			MCUDevice = deviceFullData.Device;
 
