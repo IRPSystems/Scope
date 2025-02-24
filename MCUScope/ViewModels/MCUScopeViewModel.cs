@@ -4,6 +4,7 @@ using Controls.ViewModels;
 using DeviceCommunicators.Enums;
 using DeviceCommunicators.MCU;
 using DeviceCommunicators.Models;
+using DeviceHandler.Models;
 using DeviceHandler.Models.DeviceFullDataModels;
 using Entities.Enums;
 using MCUScope.Models;
@@ -25,7 +26,6 @@ using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using TrueDriveCommunication;
 
 namespace MCUScope.ViewModels
 {
@@ -130,32 +130,39 @@ namespace MCUScope.ViewModels
 
 		private List<DataFromMCU_Cahrt> _dataList;
 
+		private DevicesContainer _devicesContainer;
+
 		#endregion Fields
 
 		#region Constroctur
 
-		public MCUScopeViewModel(CanService canService) :
+		public MCUScopeViewModel(DevicesContainer devicesContainer) :
 			base("MCUScopeLayout", "MCUScope")
 		{
 
 			Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(
 				"MjQ2MzU2NkAzMjMwMmUzMzJlMzBOaGhMVVJBelp0Y1c1eXdoNHRTcHI4bGVOdmdxQWNXZkZxeklweENobmdjPQ==");
 
+			_devicesContainer = devicesContainer;
 
-			if (canService != null)
-			{
-				_canService = canService;
-				_canService.CanMessageReceivedEvent += CanMessageReceivedEventHandler;
-				_canService.MessageReceivedEvent += MessageReceivedEventHandler; ;
-				MCUDevice = ReadFromMCUJson(@"param_defaults.json");
-			}
-			else
-			{
-				ComPort._canbusControl.GetCanDriver().CanService.CanMessageReceivedEvent += CanMessageReceivedEventHandler;
-				ComPort._canbusControl.GetCanDriver().CanService.MessageReceivedEvent += MessageReceivedEventHandler;
-				DeviceFullData deviceFullData = ComPort._canbusControl.DevicesContainer.TypeToDevicesFullData[DeviceTypesEnum.MCU];
-				MCUDevice = deviceFullData.Device;
-			}
+
+			//if (canService != null)
+			//{
+			//	_canService = canService;
+			//	_canService.CanMessageReceivedEvent += CanMessageReceivedEventHandler;
+			//	_canService.MessageReceivedEvent += MessageReceivedEventHandler; ;
+			//	MCUDevice = ReadFromMCUJson(@"param_defaults.json");
+			//}
+			//else
+			//{
+			//	ComPort._canbusControl.GetCanDriver().CanService.CanMessageReceivedEvent += CanMessageReceivedEventHandler;
+			//	ComPort._canbusControl.GetCanDriver().CanService.MessageReceivedEvent += MessageReceivedEventHandler;
+			//	DeviceFullData deviceFullData = ComPort._canbusControl.DevicesContainer.TypeToDevicesFullData[DeviceTypesEnum.MCU];
+			//	MCUDevice = deviceFullData.Device;
+			//}
+
+			DeviceFullData deviceFullData = devicesContainer.TypeToDevicesFullData[DeviceTypesEnum.MCU];
+			MCUDevice = deviceFullData.Device;
 
 			_chartIndex = 0;
 			_seriesIndex = 0;
@@ -214,7 +221,7 @@ namespace MCUScope.ViewModels
 			byte[] buffer = new byte[8];
 			MCU_Communicator.ConvertToData(_paramPhasesFrequency, 0, ref idBuf, ref buffer, false);
 			if (_canService == null)
-				ComPort._canbusControl.GetCanDriver().CanService.Send(buffer, 0xAB, false);
+				((MCU_Communicator)deviceFullData.DeviceCommunicator).CanService.Send(buffer, 0xAB, false);
 			else
 				_canService.Send(buffer, 0xAB, false);
 
@@ -225,7 +232,7 @@ namespace MCUScope.ViewModels
 				Cmd = "recbufsize"
 			};
 
-			ComPort._canbusControl.SendAndResponse(param, null, Callback);
+			((MCU_Communicator)deviceFullData.DeviceCommunicator).GetParamValue(param, Callback);
 		}
 
 		
@@ -739,9 +746,10 @@ namespace MCUScope.ViewModels
 				_canService.Send(data);
 			else
 			{
-				ComPort._canbusControl.GetCanDriver().CanService.Send(
-					data, 
-					ComPort._canbusControl.mailboxId, 
+				DeviceFullData deviceFullData = _devicesContainer.TypeToDevicesFullData[DeviceTypesEnum.MCU];
+				((MCU_Communicator)deviceFullData.DeviceCommunicator).CanService.Send(
+					data,
+					((MCU_Communicator)deviceFullData.DeviceCommunicator).CanService.FromFilterID, 
 					false);
 			}
 		}
